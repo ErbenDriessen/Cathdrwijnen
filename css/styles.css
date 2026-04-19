@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,30..100&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    forced-color-adjust: none !important;
+}
+
+:root, html, body {
+    color-scheme: only light !important;
+}
+
+html, body {
+    background: #F2E3C2;
+    color: #0A0704;
+    font-family: 'Inter', system-ui, sans-serif;
+    forced-color-adjust: none;
+    color-scheme: light !important;
+}
+
+/* Firefox respects color-scheme: only light less strictly than Chromium
+   browsers — when the OS is in dark mode (or "Always override page colors"
+   is enabled) text can flip to white. Force the palette back. */
+@media (prefers-color-scheme: dark) {
+    html, body, .page {
+        background: #F2E3C2 !important;
+        color: #0A0704 !important;
+    }
+}
+
