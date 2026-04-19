@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cathdrwijnen — Wijnproeverijen thuis of met vrienden</title>
+    <meta name="color-scheme" content="only light">
+    <script>
+        // Force light color-scheme at runtime — prevents Firefox auto dark mode
+        try {
+            document.documentElement.style.colorScheme = 'only light';
+            document.documentElement.setAttribute('data-color-scheme', 'light');
+        } catch (e) {}
+    </script>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            forced-color-adjust: none !important;
+        }
+
+        :root, html, body {
+            color-scheme: only light !important;
+        }
+
+        html, body {
+            background: #F2E3C2;
+            font-family: 'Inter', system-ui, sans-serif;
+            forced-color-adjust: none;
+            color-scheme: light !important;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,30..100&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+        .s-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-variation-settings: 'opsz' 144, 'SOFT' 100;
+            letter-spacing: -0.02em;
+        }
+
+        .s-serif {
+            font-family: 'Instrument Serif', Georgia, serif;
+        }
+
+        .s-mono {
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .s-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .wine-stain {
+            position: absolute;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            opacity: 0.4;
+        }
+
+        .img-ph {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-ph::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                currentColor,
+                currentColor 14px,
+                rgba(0,0,0,0.05) 14px,
+                rgba(0,0,0,0.05) 15px
+            );
+        }
+
+        .img-ph-label {
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            font-size: 10px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            opacity: 0.45;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(var(--rotate)); }
+            50% { transform: translateY(-12px) rotate(var(--rotate)); }
+        }
+
+        .float-sticker {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Hover effects */
+        button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        nav span {
+            transition: all 0.2s ease;
+        }
+
+        nav span:hover {
+            background: #F7DAD4 !important;
+            color: #0A0704 !important;
+        }
+
+        .polaroid {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05) !important;
+            z-index: 100 !important;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .package-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .package-card:hover {
+            transform: rotate(0deg) translateY(-12px) scale(1.02) !important;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .how-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .how-card:hover {
+            transform: rotate(0deg) translateY(-8px) !important;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 1440px; margin: 0 auto; color: #0A0704; position: relative; overflow: hidden; background: #F2E3C2;">
+        
+        <!-- Paper texture background -->
+        <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px); pointer-events: none; z-index: 0;"></div>
+
+        <!-- Wine stains scattered across the page -->
+        <svg width="280" height="280" viewBox="0 0 200 200" class="wine-stain" style="top: 140px; left: -60px; transform: rotate(-15deg);">
+            <filter id="r1"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r1)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/><circle cx="100" cy="100" r="60" fill="#7A1A2E" opacity="0.08"/></g>
+        </svg>
+        
+        <svg width="360" height="360" viewBox="0 0 200 200" class="wine-stain" style="top: 820px; right: -80px; transform: rotate(20deg);">
+            <filter id="s1"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
+            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s1)"/>
+        </svg>
+
+        <svg width="220" height="220" viewBox="0 0 200 200" class="wine-stain" style="top: 1680px; left: 60px; transform: rotate(45deg);">
+            <filter id="sp1"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
+            <g filter="url(#sp1)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="30" cy="80" r="8" opacity="0.4"/><circle cx="170" cy="120" r="12" opacity="0.45"/></g>
+        </svg>
+
+        <svg width="180" height="180" viewBox="0 0 200 200" class="wine-stain" style="top: 2480px; right: 120px; transform: rotate(-8deg);">
+            <filter id="r2"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r2)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
+        </svg>
+
+        <svg width="320" height="320" viewBox="0 0 200 200" class="wine-stain" style="top: 3400px; left: -40px; transform: rotate(60deg);">
+            <filter id="s2"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
+            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s2)"/>
+        </svg>
+
+        <svg width="240" height="240" viewBox="0 0 200 200" class="wine-stain" style="top: 4300px; right: 80px; transform: rotate(-25deg);">
+            <filter id="sp2"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
+            <g filter="url(#sp2)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="150" cy="40" r="6" opacity="0.35"/></g>
+        </svg>
+
+        <svg width="200" height="200" viewBox="0 0 200 200" class="wine-stain" style="top: 5200px; left: 200px; transform: rotate(10deg);">
+            <filter id="r3"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r3)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
+        </svg>
+
+        <!-- NAV -->
+        <header style="padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 5;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <svg viewBox="0 0 200 200" width="42" height="42" aria-label="cathdrwijnen">
+                    <defs>
+                        <radialGradient id="wc" cx="50%" cy="45%" r="55%">
+                            <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.9"/>
+                            <stop offset="60%" stop-color="#7A1A2E" stop-opacity="0.55"/>
+                            <stop offset="100%" stop-color="#7A1A2E" stop-opacity="0"/>
+                        </radialGradient>
+                        <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+                    </defs>
+                    <ellipse cx="100" cy="100" rx="78" ry="72" fill="url(#wc)" filter="url(#rough)"/>
+                    <ellipse cx="95" cy="95" rx="62" ry="58" fill="#7A1A2E" opacity="0.18" filter="url(#rough)"/>
+                    <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="#0A0704" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="s-display" style="font-size: 26px; font-weight: 500;">cathdrwijnen</span>
+            </div>
+            <nav style="display: flex; gap: 4px; padding: 6px; background: #0A0704; border-radius: 999px;">
+                <span style="padding: 10px 18px; background: #F7DAD4; color: #0A0704; border-radius: 999px; font-size: 13px; cursor: pointer;">pakketten</span>
+                <span style="padding: 10px 18px; background: transparent; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer;">hoe het werkt</span>
+                <span style="padding: 10px 18px; background: transparent; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer;">over</span>
+                <span style="padding: 10px 18px; background: transparent; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer;">events</span>
+                <span style="padding: 10px 18px; background: transparent; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer;">faq</span>
+            </nav>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <span class="s-mono">NL</span>
+                <div style="padding: 10px 16px; background: #7A1A2E; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer;">🍷 mandje (0)</div>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section style="padding: 40px 48px 120px; position: relative; z-index: 2;">
+            <!-- Stickers -->
+            <div class="float-sticker" style="position: absolute; top: 80px; right: 80px; z-index: 3; --rotate: 12deg;">
+                <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 13px; padding: 10px 18px;">✦ nieuw — zuid italië</div>
+            </div>
+            <div class="float-sticker" style="position: absolute; top: 520px; left: 40px; z-index: 3; --rotate: -8deg; animation-delay: 1.5s;">
+                <div class="s-tag" style="background: #0A0704; color: #F2E3C2; padding: 10px 18px; font-size: 12px;">gratis verzending vanaf €80</div>
+            </div>
+
+            <!-- Watercolor blob -->
+            <svg width="720" height="720" viewBox="0 0 400 400" style="position: absolute; top: -100px; left: 30%; opacity: 0.9; z-index: 0;" aria-hidden="true">
+                <defs>
+                    <radialGradient id="wcblob" cx="50%" cy="50%" r="55%">
+                        <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.14"/>
+                        <stop offset="55%" stop-color="#7A1A2E" stop-opacity="0.077"/>
+                        <stop offset="100%" stop-color="#7A1A2E" stop-opacity="0"/>
+                    </radialGradient>
+                    <filter id="fwcb"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter>
+                </defs>
+                <ellipse cx="200" cy="200" rx="170" ry="150" fill="url(#wcblob)" filter="url(#fwcb)"/>
+                <ellipse cx="185" cy="190" rx="130" ry="110" fill="#7A1A2E" opacity="0.039" filter="url(#fwcb)"/>
+            </svg>
+
+            <div style="position: relative; z-index: 2; text-align: center; padding-top: 40px;">
+                <div class="s-serif" style="font-size: 28px; font-style: italic; color: #7A1A2E;">welkom bij</div>
+                <h1 class="s-display" style="font-size: 200px; line-height: 0.85; margin: 8px 0 0; font-weight: 600; color: #0A0704; font-variation-settings: 'opsz' 144, 'SOFT' 40, 'wght' 600;">
+                    proef<span style="font-style: italic; font-family: 'Instrument Serif', Georgia, serif; color: #7A1A2E; font-weight: 400;">erij</span>
+                </h1>
+                <div class="s-display" style="font-size: 72px; line-height: 0.9; margin-top: -12px; font-style: italic; font-weight: 400; color: #0A0704;">
+                    <span style="color: #B88536;">thuis</span> of met vrienden.
+                </div>
+                <div style="max-width: 560px; margin: 32px auto 0; font-size: 17px; line-height: 1.6; color: #0A0704;">
+                    Kies een pakket van 5, 6 of 8 flessen. Cathelijne stelt elke doos persoonlijk samen
+                    — met proefkaarten, aromawiel, recepten en een optionele borrelplank.
+                </div>
+                <div style="display: flex; gap: 14px; justify-content: center; margin-top: 36px;">
+                    <button style="padding: 18px 32px; background: #0A0704; color: #F2E3C2; border: none; border-radius: 999px; font-size: 15px; cursor: pointer;">→ bekijk pakketten</button>
+                    <button style="padding: 18px 28px; background: #F7DAD4; color: #0A0704; border: none; border-radius: 999px; font-size: 15px; cursor: pointer;">boek een event</button>
+                </div>
+            </div>
+
+            <!-- Overlapping polaroids -->
+            <div style="margin-top: 80px; position: relative; height: 440px; max-width: 1200px; margin: 80px auto 0;">
+                <div class="polaroid" style="position: absolute; left: 20px; top: 40px; width: 280px; transform: rotate(-6deg); background: white; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 280px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ flessen op tafel ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">proefavond #42</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 300px; top: 0; width: 340px; transform: rotate(3deg); background: white; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); z-index: 2;">
+                    <div class="img-ph" style="width: 100%; height: 340px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ cathelijne schenkt wijn ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">de kurk gaat eruit</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 660px; top: 60px; width: 260px; transform: rotate(-4deg); background: white; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 260px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ borrelplank detail ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">borrelplank erbij</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 940px; top: 30px; width: 240px; transform: rotate(7deg); background: white; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 240px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ proefformulier ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">noteer wat je proeft</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div style="padding: 20px 0; background: #0A0704; color: #F2E3C2; white-space: nowrap; overflow: hidden; border-top: 1px solid #0A0704; border-bottom: 1px solid #0A0704;">
+            <div class="s-display" style="font-size: 52px; display: inline-flex; gap: 36px; font-style: italic; font-weight: 300; animation: scroll 30s linear infinite;">
+                <span>proef</span><span style="color: #B88536;">✦</span>
+                <span>noteer</span><span style="color: #B88536;">✦</span>
+                <span>proost</span><span style="color: #B88536;">✦</span>
+                <span>proef</span><span style="color: #B88536;">✦</span>
+                <span>noteer</span><span style="color: #B88536;">✦</span>
+                <span>proost</span><span style="color: #B88536;">✦</span>
+                <span>proef</span><span style="color: #B88536;">✦</span>
+                <span>noteer</span><span style="color: #B88536;">✦</span>
+                <span>proost</span><span style="color: #B88536;">✦</span>
+            </div>
+        </div>
+
+        <style>
+            @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        </style>
+
+        <!-- WAT ZIT ER IN -->
+        <section style="padding: 120px 48px; position: relative; z-index: 2;">
+            <div style="text-align: center; margin-bottom: 72px;">
+                <div class="s-mono" style="color: #7A1A2E;">— 01 — in de doos —</div>
+                <h2 class="s-display" style="font-size: 108px; line-height: 0.9; margin: 12px 0 0; font-weight: 400;">
+                    je krijgt<br/>
+                    <span style="font-style: italic; color: #7A1A2E;">best veel</span>.
+                </h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; max-width: 1240px; margin: 0 auto;">
+                <div class="feature-card" style="grid-column: span 5; background: #7A1A2E; color: #F2E3C2; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">★ het hart</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">5, 6 of 8 flessen</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">persoonlijk samengesteld</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 4; background: #F7DAD4; color: #0A0704; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">nº 02</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">proef­formulieren</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">noteer wat je ruikt + proeft</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 3; background: #B88536; color: #0A0704; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">nº 03</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">aromawiel</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">vind de woorden</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 3; background: #7A8A52; color: #F2E3C2; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">nº 04</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">herkomst­kaarten</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">streek & maker</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 5; background: #FBE8D4; color: #0A0704; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">★ favoriet</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">recepten­boekje</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een bijpassend hapje per wijn</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 4; background: #0A0704; color: #F2E3C2; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="s-mono" style="opacity: 0.8;">nº 06</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">borrelplank (optie)</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">lokaal, + kaas & charcuterie</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAKKETTEN -->
+        <section style="padding: 120px 48px; background: #7A1A2E; color: #F2E3C2; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 40px; right: 60px; transform: rotate(-12deg);">
+                <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 12px;">★ meest gekozen: de salon</div>
+            </div>
+
+            <div style="max-width: 1240px; margin: 0 auto;">
+                <div style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 64px;">
+                    <div>
+                        <div class="s-mono" style="color: #B88536; margin-bottom: 14px;">— 02 — de pakketten —</div>
+                        <h2 class="s-display" style="font-size: 108px; line-height: 0.9; margin: 0; font-weight: 400;">
+                            kies je<br/>
+                            <span style="font-style: italic; color: #B88536;">vibe</span>.
+                        </h2>
+                    </div>
+                    <div style="max-width: 320px; font-size: 15px; color: #F2E3C2cc; line-height: 1.6;">
+                        Elke maand stelt Cathelijne een nieuw thema samen. Je kunt eenmalig bestellen
+                        of elke maand opnieuw verrast worden.
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+                    <!-- Pakket 1 -->
+                    <div class="package-card" style="background: rgba(255,255,255,0.09); color: #F2E3C2; padding: 24px; border-radius: 24px; transform: rotate(-2deg); border: 1px solid rgba(255,255,255,0.18);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div class="s-mono" style="color: #B88536;">nº 01</div>
+                            <div class="s-tag" style="background: #F2E3C2; color: #0A0704; font-size: 10px;">starter</div>
+                        </div>
+                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #1a1012;">
+                            <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ de kennismaking ]</span>
+                        </div>
+                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400;">de kennismaking</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een korte reis — perfect voor twee.</div>
+                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€79</div>
+                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">5 flessen</div>
+                            </div>
+                            <button style="padding: 12px 18px; background: #F2E3C2; color: #0A0704; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
+                        </div>
+                    </div>
+
+                    <!-- Pakket 2 (Featured) -->
+                    <div class="package-card" style="background: #F2E3C2; color: #0A0704; padding: 24px; border-radius: 24px; transform: rotate(1deg);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div class="s-mono" style="color: #7A1A2E;">nº 02</div>
+                            <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 10px;">★ populair</div>
+                        </div>
+                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #6B1523;">
+                            <span class="img-ph-label">[ de salon ]</span>
+                        </div>
+                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400; font-style: italic;">de salon</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">voor de avond met vrienden.</div>
+                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€95</div>
+                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">6 flessen</div>
+                            </div>
+                            <button style="padding: 12px 18px; background: #7A1A2E; color: #F2E3C2; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
+                        </div>
+                    </div>
+
+                    <!-- Pakket 3 -->
+                    <div class="package-card" style="background: rgba(255,255,255,0.09); color: #F2E3C2; padding: 24px; border-radius: 24px; transform: rotate(2deg); border: 1px solid rgba(255,255,255,0.18);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div class="s-mono" style="color: #B88536;">nº 03</div>
+                            <div class="s-tag" style="background: #F2E3C2; color: #0A0704; font-size: 10px;">large</div>
+                        </div>
+                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #1a1012;">
+                            <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ het diner ]</span>
+                        </div>
+                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400;">het diner</div>
+                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een lang tafelverhaal + borrelplank.</div>
+                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€129</div>
+                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">8 flessen</div>
+                            </div>
+                            <button style="padding: 12px 18px; background: #F2E3C2; color: #0A0704; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOE HET WERKT -->
+        <section style="padding: 120px 48px; position: relative; z-index: 2;">
+            <div style="text-align: center; margin-bottom: 72px;">
+                <div class="s-mono" style="color: #7A1A2E;">— 03 — hoe werkt het —</div>
+                <h2 class="s-display" style="font-size: 104px; line-height: 0.9; margin: 12px 0 0; font-weight: 400;">
+                    drie klikken,<br/>één <span style="font-style: italic; color: #7A1A2E;">avondvulling</span>.
+                </h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1240px; margin: 0 auto;">
+                <div class="how-card" style="padding: 28px; background: #F7DAD4; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(-1.2deg);">
+                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">01</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">kies</div>
+                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">5, 6 of 8 flessen en een thema dat jou aanspreekt.</div>
+                    </div>
+                </div>
+
+                <div class="how-card" style="padding: 28px; background: #FBE8D4; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(1.2deg);">
+                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">02</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">ontvang</div>
+                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">in 48u bij je thuis. met de hand ingepakt.</div>
+                    </div>
+                </div>
+
+                <div class="how-card" style="padding: 28px; background: #B88536; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(-1.2deg);">
+                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">03</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">ontkurk</div>
+                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">volg de handleiding. of ga je eigen gang.</div>
+                    </div>
+                </div>
+
+                <div class="how-card" style="padding: 28px; background: #7A8A52; color: #F2E3C2; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(1.2deg);">
+                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">04</div>
+                    <div>
+                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">noteer</div>
+                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">jouw proefkaarten bewaar je als een wijnjournaal.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OVER -->
+        <section style="padding: 120px 48px; background: #F7DAD4; color: #0A0704; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
+            <div style="position: relative;">
+                <div style="transform: rotate(-3deg); background: white; padding: 16px; padding-bottom: 56px; box-shadow: 0 30px 60px rgba(0,0,0,0.15);">
+                    <div class="img-ph" style="width: 100%; height: 520px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ cathelijne portret ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 28px; font-style: italic; margin-top: 14px; text-align: center;">Cathelijne, 2026</div>
+                </div>
+                <div style="position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; border-radius: 50%; background: #B88536; color: #0A0704; display: flex; align-items: center; justify-content: center; transform: rotate(12deg); text-align: center;">
+                    <div class="s-serif" style="font-size: 20px; line-height: 1.1; font-style: italic;">hoi!<br/>ik ben cath.</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="s-mono" style="color: #7A1A2E; margin-bottom: 14px;">— 04 — over mij —</div>
+                <h2 class="s-display" style="font-size: 80px; line-height: 0.9; margin: 0; font-weight: 400;">
+                    wijn hoort<br/>
+                    <span style="font-style: italic;">gezellig</span> te zijn.
+                </h2>
+                <div style="margin-top: 24px; font-size: 17px; line-height: 1.7; max-width: 480px;">
+                    Niet stoffig, niet intimiderend. Ik selecteer wijnen die ik zelf met mijn vrienden
+                    zou openen — kleine makers, mooie verhalen, genoeg diepgang om écht iets te leren.
+                </div>
+                <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
+                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">240+</div>
+                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">pakketten</div>
+                    </div>
+                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
+                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">38</div>
+                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">events</div>
+                    </div>
+                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
+                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">9 jr.</div>
+                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">ervaring</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="padding: 160px 48px; background: #0A0704; color: #F2E3C2; text-align: center; position: relative; overflow: hidden;">
+            <div style="max-width: 760px; margin: 0 auto; position: relative; z-index: 2;">
+                <div class="s-serif" style="font-size: 36px; font-style: italic; color: #B88536;">psst…</div>
+                <h2 class="s-display" style="font-size: 160px; line-height: 0.85; margin: 8px 0 0; font-weight: 400; font-style: italic;">proost!</h2>
+                <div style="margin-top: 32px; font-size: 17px; line-height: 1.6; color: #F2E3C2cc;">
+                    Vragen? WhatsApp me gerust. Ik help je graag met het kiezen van een pakket.
+                </div>
+                <button style="margin-top: 36px; padding: 20px 36px; background: #B88536; color: #0A0704; border: none; border-radius: 999px; font-size: 17px; cursor: pointer; font-weight: 500;">💬 WhatsApp Cathelijne</button>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer style="padding: 64px 48px; background: #0A0704; color: #F2E3C2;">
+            <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <svg viewBox="0 0 200 200" width="36" height="36">
+                            <ellipse cx="100" cy="100" rx="78" ry="72" fill="rgba(247,218,212,0.2)"/>
+                            <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="s-display" style="font-size: 22px;">cathdrwijnen</span>
+                    </div>
+                    <div style="opacity: 0.7; font-size: 14px; line-height: 1.6; max-width: 320px;">
+                        Wijnproeverijen thuis of met vrienden. Persoonlijk samengesteld door Cathelijne.
+                    </div>
+                </div>
+
+                <div>
+                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Menu</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Pakketten</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Hoe het werkt</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Over</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Events</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">FAQ</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Contact</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Email</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">WhatsApp</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Instagram</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Info</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Privacy</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Voorwaarden</a>
+                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Verzending</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 64px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <span class="s-mono" style="opacity: 0.5;">@cathdrwijnen · © 2026</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
