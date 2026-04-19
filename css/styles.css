@@ -29,3 +29,48 @@ html, body {
     }
 }
 
+.s-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    letter-spacing: -0.02em;
+}
+
+.s-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.s-mono {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.s-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* ============================================================
+   Page shell — edge to edge, no width cap.
+   Inner content containers already carry max-width: 1240px
+   where readability matters.
+   ============================================================ */
+.page {
+    width: 100%;
+    margin: 0 auto;
+    color: #0A0704;
+    position: relative;
+    overflow-x: clip;
+    background: #F2E3C2;
+}
+
+img, svg, video {
+    max-width: 100%;
+    height: auto;
+}
+
