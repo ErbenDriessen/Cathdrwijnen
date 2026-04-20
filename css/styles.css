@@ -55,6 +55,30 @@ html, body {
     text-transform: uppercase;
 }
 
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(var(--rotate)); }
+    50% { transform: translateY(-12px) rotate(var(--rotate)); }
+}
+
+.float-sticker {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Hover effects */
+button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
 /* Navigation links in the pill */
 .site-nav__link {
     padding: 10px 18px;
