@@ -55,6 +55,34 @@ html, body {
     text-transform: uppercase;
 }
 
+/* Navigation links in the pill */
+.site-nav__link {
+    padding: 10px 18px;
+    background: transparent;
+    color: #F2E3C2;
+    border-radius: 999px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+    background: #F7DAD4;
+    color: #0A0704;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Offset anchor scroll so target sections don't land under the header */
+section[id] {
+    scroll-margin-top: 40px;
+}
+
 /* ============================================================
    Page shell — edge to edge, no width cap.
    Inner content containers already carry max-width: 1240px

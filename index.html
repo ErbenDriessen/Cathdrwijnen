@@ -10,6 +10,39 @@
 <body>
     <div class="page">
 
+        <!-- NAV -->
+        <header class="site-header" style="padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 5;">
+            <a href="#top" class="site-header__brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+                <svg viewBox="0 0 200 200" width="42" height="42" aria-label="cathdrwijnen">
+                    <defs>
+                        <radialGradient id="wc" cx="50%" cy="45%" r="55%">
+                            <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.9"/>
+                            <stop offset="60%" stop-color="#7A1A2E" stop-opacity="0.55"/>
+                            <stop offset="100%" stop-color="#7A1A2E" stop-opacity="0"/>
+                        </radialGradient>
+                        <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+                    </defs>
+                    <ellipse cx="100" cy="100" rx="78" ry="72" fill="url(#wc)" filter="url(#rough)"/>
+                    <ellipse cx="95" cy="95" rx="62" ry="58" fill="#7A1A2E" opacity="0.18" filter="url(#rough)"/>
+                    <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="#0A0704" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="s-display" style="font-size: 26px; font-weight: 500;">cathdrwijnen</span>
+            </a>
+            <nav class="site-nav" id="siteNav" aria-label="hoofd navigatie" data-open="false" style="display: flex; gap: 4px; padding: 6px; background: #0A0704; border-radius: 999px;">
+                <a class="site-nav__link" href="#packages">pakketten</a>
+                <a class="site-nav__link" href="#how">hoe het werkt</a>
+                <a class="site-nav__link" href="#about">over</a>
+                <a class="site-nav__link" href="#contact">aan huis</a>
+            </nav>
+            <div class="site-header__actions" style="display: flex; gap: 12px; align-items: center;">
+                <span class="s-mono">NL</span>
+                <a href="#packages" class="cart-pill" style="padding: 10px 16px; background: #7A1A2E; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer; text-decoration: none;">🍷 mandje (0)</a>
+                <button class="nav-toggle" type="button" aria-label="menu openen" aria-expanded="false" aria-controls="siteNav">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </header>
+
     </div>
 </body>
 </html>
