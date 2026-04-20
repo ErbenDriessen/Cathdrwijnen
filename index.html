@@ -10,6 +10,45 @@
 <body>
     <div class="page">
 
+        <!-- Paper texture background -->
+        <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px); pointer-events: none; z-index: 0;"></div>
+
+        <!-- Wine stains scattered across the page -->
+        <svg width="280" height="280" viewBox="0 0 200 200" class="wine-stain" style="top: 140px; left: -60px; transform: rotate(-15deg);">
+            <filter id="r1"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r1)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/><circle cx="100" cy="100" r="60" fill="#7A1A2E" opacity="0.08"/></g>
+        </svg>
+
+        <svg width="360" height="360" viewBox="0 0 200 200" class="wine-stain" style="top: 820px; right: -80px; transform: rotate(20deg);">
+            <filter id="s1"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
+            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s1)"/>
+        </svg>
+
+        <svg width="220" height="220" viewBox="0 0 200 200" class="wine-stain" style="top: 1680px; left: 60px; transform: rotate(45deg);">
+            <filter id="sp1"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
+            <g filter="url(#sp1)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="30" cy="80" r="8" opacity="0.4"/><circle cx="170" cy="120" r="12" opacity="0.45"/></g>
+        </svg>
+
+        <svg width="180" height="180" viewBox="0 0 200 200" class="wine-stain" style="top: 2480px; right: 120px; transform: rotate(-8deg);">
+            <filter id="r2"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r2)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
+        </svg>
+
+        <svg width="320" height="320" viewBox="0 0 200 200" class="wine-stain" style="top: 3400px; left: -40px; transform: rotate(60deg);">
+            <filter id="s2"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
+            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s2)"/>
+        </svg>
+
+        <svg width="240" height="240" viewBox="0 0 200 200" class="wine-stain" style="top: 4300px; right: 80px; transform: rotate(-25deg);">
+            <filter id="sp2"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
+            <g filter="url(#sp2)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="150" cy="40" r="6" opacity="0.35"/></g>
+        </svg>
+
+        <svg width="200" height="200" viewBox="0 0 200 200" class="wine-stain" style="top: 5200px; left: 200px; transform: rotate(10deg);">
+            <filter id="r3"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+            <g filter="url(#r3)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
+        </svg>
+
         <!-- NAV -->
         <header class="site-header" style="padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 5;">
             <a href="#top" class="site-header__brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
@@ -85,6 +124,36 @@
                 </div>
             </div>
 
+            <!-- Overlapping polaroids -->
+            <div class="polaroid-row" style="margin-top: 80px; position: relative; height: 440px; max-width: 1200px; margin: 80px auto 0;">
+                <div class="polaroid" style="position: absolute; left: 20px; top: 40px; width: 280px; transform: rotate(-6deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 280px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ flessen op tafel ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">proefavond #42</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 300px; top: 0; width: 340px; transform: rotate(3deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); z-index: 2;">
+                    <div class="img-ph" style="width: 100%; height: 340px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ cathelijne schenkt wijn ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">de kurk gaat eruit</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 660px; top: 60px; width: 260px; transform: rotate(-4deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 260px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ borrelplank detail ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">borrelplank erbij</div>
+                </div>
+
+                <div class="polaroid" style="position: absolute; left: 940px; top: 30px; width: 240px; transform: rotate(7deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
+                    <div class="img-ph" style="width: 100%; height: 240px; color: #6B1523;">
+                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ proefformulier ]</span>
+                    </div>
+                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">noteer wat je proeft</div>
+                </div>
+            </div>
         </section>
 
     </div>
