@@ -101,6 +101,22 @@ html, body {
     animation: float 6s ease-in-out infinite;
 }
 
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Marquee: replace flex gap with per-item padding so the track is
+   strictly periodic (item-width + 36px, repeated). With flex gap,
+   N items have N-1 gaps and a -50% translate lands half a gap off,
+   causing a visible 18px jump on each loop. */
+.marquee__track {
+    gap: 0 !important;
+}
+.marquee__track > span {
+    padding-right: 36px;
+}
+
 /* Hover effects */
 button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
