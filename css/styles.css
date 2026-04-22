@@ -179,6 +179,14 @@ section[id] {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
 }
 
+.how-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.how-card:hover {
+    transform: rotate(0deg) translateY(-8px) !important;
+}
+
 .feature-card {
     transition: all 0.3s ease;
 }
