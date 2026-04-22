@@ -196,6 +196,34 @@ section[id] {
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
+.stat-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Portrait polaroid — cap size everywhere so it never dwarfs
+   the page on wide screens, and stays a reasonable size on
+   smaller ones (where the about section is 1-col and the
+   polaroid could otherwise fill the whole width). */
+.about__polaroid {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+}
+@media (max-width: 1024px) {
+    .about__polaroid {
+        max-width: 380px;
+    }
+}
+@media (max-width: 768px) {
+    .about__polaroid {
+        max-width: 300px;
+    }
+}
+
 /* ============================================================
    Page shell — edge to edge, no width cap.
    Inner content containers already carry max-width: 1240px
