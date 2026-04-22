@@ -204,6 +204,82 @@ section[id] {
     transform: translateY(-4px) scale(1.02);
 }
 
+.contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-form__field > label {
+    color: #7A1A2E;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    width: 100%;
+    padding: 14px 16px;
+    background: #F2E3C2;
+    border: 1px solid rgba(10, 7, 4, 0.12);
+    border-radius: 12px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    color: #0A0704;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(10, 7, 4, 0.38);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    outline: none;
+    border-color: #7A1A2E;
+    background: #FBE8D4;
+    box-shadow: 0 0 0 3px rgba(122, 26, 46, 0.15);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 110px;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Date inputs look native-uglier; match font at least */
+.contact-form input[type="date"] {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #0A0704;
+}
+
+.contact-form__submit {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.contact-form__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(122, 26, 46, 0.3);
+}
+
+.contact-form__submit:active {
+    transform: translateY(0);
+}
+
+.contact__alt-btn {
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.contact__alt-btn:hover {
+    transform: translateY(-2px);
+}
+
 /* Portrait polaroid — cap size everywhere so it never dwarfs
    the page on wide screens, and stays a reasonable size on
    smaller ones (where the about section is 1-col and the

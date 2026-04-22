@@ -413,6 +413,84 @@
             </div>
         </section>
 
+        <!-- CONTACT / BOEK AAN HUIS -->
+        <section id="contact" class="contact" style="padding: 120px 48px; background: #F2E3C2; color: #0A0704; position: relative; z-index: 2;">
+            <div class="contact__inner" style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;">
+                <!-- Left: intro + alternatives -->
+                <div class="contact__intro">
+                    <div class="s-mono" style="color: #7A1A2E; margin-bottom: 14px;">— 05 — aan huis —</div>
+                    <h2 class="s-display section-title" style="font-size: 96px; line-height: 0.9; margin: 0; font-weight: 400;">
+                        cath komt<br/>
+                        <span style="font-style: italic; color: #7A1A2E;">langs</span>.
+                    </h2>
+                    <div style="margin-top: 28px; font-size: 17px; line-height: 1.7; max-width: 460px;">
+                        Voor een avond waarbij Cathelijne bij jou thuis de wijnen persoonlijk voorschenkt — met verhalen, proefkaarten en een bijpassende borrelplank. Vertel wat je in gedachten hebt, binnen twee dagen krijg je een persoonlijke reactie.
+                    </div>
+
+                    <!-- Badges -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px;">
+                        <div class="s-tag" style="background: #0A0704; color: #F2E3C2; font-size: 11px;">vanaf 4 personen</div>
+                        <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 11px;">± 2,5 uur</div>
+                        <div class="s-tag" style="background: #F7DAD4; color: #0A0704; font-size: 11px;">heel NL</div>
+                    </div>
+
+                    <!-- Alternatives -->
+                    <div style="margin-top: 44px;">
+                        <div class="s-mono" style="opacity: 0.6; margin-bottom: 12px;">liever even een DM?</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <a href="https://www.instagram.com/cathdrwijnen/" target="_blank" rel="noopener" class="contact__alt-btn" style="padding: 12px 18px; background: #0A0704; color: #F2E3C2; border-radius: 999px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📷 @cathdrwijnen op instagram</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form -->
+                <form class="contact-form" method="POST" style="background: #FBE8D4; padding: 36px; border-radius: 24px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 20px 50px rgba(122, 26, 46, 0.08); transform: rotate(-0.4deg);">
+                    <div class="contact-form__field">
+                        <label class="s-mono" for="cf-naam">naam</label>
+                        <input type="text" id="cf-naam" name="naam" required placeholder="je naam">
+                    </div>
+
+                    <div class="contact-form__row">
+                        <div class="contact-form__field">
+                            <label class="s-mono" for="cf-email">email</label>
+                            <input type="email" id="cf-email" name="email" required placeholder="jij@voorbeeld.nl">
+                        </div>
+                        <div class="contact-form__field">
+                            <label class="s-mono" for="cf-tel">telefoon <span style="opacity:0.5;">(optioneel)</span></label>
+                            <input type="tel" id="cf-tel" name="telefoon" placeholder="06 …">
+                        </div>
+                    </div>
+
+                    <div class="contact-form__row">
+                        <div class="contact-form__field">
+                            <label class="s-mono" for="cf-gasten">aantal gasten</label>
+                            <input type="number" id="cf-gasten" name="gasten" min="4" max="40" placeholder="bv. 8">
+                        </div>
+                        <div class="contact-form__field">
+                            <label class="s-mono" for="cf-datum">gewenste datum</label>
+                            <input type="date" id="cf-datum" name="datum">
+                        </div>
+                    </div>
+
+                    <div class="contact-form__field">
+                        <label class="s-mono" for="cf-locatie">locatie / stad</label>
+                        <input type="text" id="cf-locatie" name="locatie" required placeholder="Amsterdam, Utrecht, …">
+                    </div>
+
+                    <div class="contact-form__field">
+                        <label class="s-mono" for="cf-bericht">bericht</label>
+                        <textarea id="cf-bericht" name="bericht" rows="4" placeholder="thema, gelegenheid, allergieën, wensen… alles wat Cath mag weten."></textarea>
+                    </div>
+
+                    <button type="submit" class="contact-form__submit" style="margin-top: 6px; padding: 18px 28px; background: #7A1A2E; color: #F2E3C2; border: none; border-radius: 999px; font-size: 15px; cursor: pointer; font-weight: 500;">→ verstuur aanvraag</button>
+
+                    <div class="s-mono" style="opacity: 0.45; font-size: 10px; line-height: 1.5;">
+                        Geen spam. Cath reageert binnen twee werkdagen persoonlijk.
+                    </div>
+                </form>
+            </div>
+        </section>
+
     </div>
 </body>
 </html>
