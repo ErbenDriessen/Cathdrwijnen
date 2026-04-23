@@ -444,7 +444,15 @@
                 </div>
 
                 <!-- Right: form -->
-                <form class="contact-form" method="POST" style="background: #FBE8D4; padding: 36px; border-radius: 24px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 20px 50px rgba(122, 26, 46, 0.08); transform: rotate(-0.4deg);">
+                <form class="contact-form" action="https://formspree.io/f/mqewnzak" method="POST" style="background: #FBE8D4; padding: 36px; border-radius: 24px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 20px 50px rgba(122, 26, 46, 0.08); transform: rotate(-0.4deg);">
+                    <!-- Honeypot — real users won't see/fill this -->
+                    <div class="contact-form__honeypot" aria-hidden="true">
+                        <label>Laat leeg alsjeblieft <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+                    </div>
+
+                    <!-- Formspree subject + redirect (optional tuning) -->
+                    <input type="hidden" name="_subject" value="Nieuwe aanvraag proeverij aan huis — cathdrwijnen">
+
                     <div class="contact-form__field">
                         <label class="s-mono" for="cf-naam">naam</label>
                         <input type="text" id="cf-naam" name="naam" required placeholder="je naam">

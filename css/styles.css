@@ -204,6 +204,19 @@ section[id] {
     transform: translateY(-4px) scale(1.02);
 }
 
+/* ============================================================
+   Contact form
+   ============================================================ */
+.contact-form__honeypot {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
 .contact-form__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
