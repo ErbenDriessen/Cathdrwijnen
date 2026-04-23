@@ -150,6 +150,43 @@ button:active {
     outline: none;
 }
 
+/* Hamburger button (mobile only, shown via @media below) */
+.nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 110;
+    position: relative;
+}
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #0A0704;
+    transition: transform 0.3s ease, opacity 0.2s ease, background 0.2s ease;
+    transform-origin: center;
+}
+.nav-toggle[aria-expanded="true"] span {
+    background: #F2E3C2;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -338,3 +375,324 @@ img, svg, video {
     height: auto;
 }
 
+/* ============================================================
+   TABLET — 1024px and below
+   ============================================================ */
+@media (max-width: 1024px) {
+    .site-header {
+        padding: 16px 28px !important;
+        gap: 12px !important;
+    }
+
+    /* Hamburger visible, nav becomes a full-screen overlay */
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .site-nav {
+        position: fixed !important;
+        inset: 0 !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 20px !important;
+        padding: 48px 24px !important;
+        border-radius: 0 !important;
+        background: #0A0704 !important;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-12px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .site-nav[data-open="true"] {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .site-nav__link {
+        font-size: 28px !important;
+        padding: 12px 24px !important;
+        font-family: 'Fraunces', Georgia, serif;
+        font-variation-settings: 'opsz' 72, 'SOFT' 60, 'wght' 400;
+    }
+
+    .site-header__actions .s-mono {
+        display: none;
+    }
+
+    .cart-pill {
+        padding: 8px 14px !important;
+        font-size: 12px !important;
+    }
+
+    /* Prevent body scroll when mobile menu is open */
+    body.nav-open {
+        overflow: hidden;
+    }
+
+    .hero {
+        padding: 32px 28px 80px !important;
+    }
+
+    .hero__title {
+        font-size: 128px !important;
+    }
+
+    .hero__subtitle {
+        font-size: 54px !important;
+    }
+
+    .section-title {
+        font-size: 72px !important;
+    }
+
+    .cta__title {
+        font-size: 120px !important;
+    }
+
+    /* Polaroids: horizontal scroll carousel instead of wrapping */
+    .polaroid-row {
+        height: auto !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        gap: 24px !important;
+        margin: 56px -28px 0 !important;
+        max-width: none !important;
+        padding: 16px 28px 24px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(122, 26, 46, 0.35) transparent;
+    }
+    .polaroid-row .polaroid {
+        position: static !important;
+        flex: 0 0 auto !important;
+        width: 260px !important;
+        scroll-snap-align: center;
+    }
+
+    /* Features 12-col → 2-col */
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .features-grid > .feature-card {
+        grid-column: span 1 !important;
+        height: auto !important;
+        min-height: 220px !important;
+    }
+
+    /* Packages 3 → 2 */
+    .packages-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .packages__header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 20px !important;
+    }
+
+    /* How-it-works 4 → 2 */
+    .how-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* About 2 → 1 */
+    .about {
+        grid-template-columns: 1fr !important;
+        padding: 96px 28px !important;
+        gap: 48px !important;
+    }
+
+    .features, .packages, .how, .cta, .contact {
+        padding-left: 28px !important;
+        padding-right: 28px !important;
+    }
+
+    .contact__inner {
+        grid-template-columns: 1fr !important;
+        gap: 56px !important;
+    }
+
+    .site-footer {
+        padding: 56px 28px !important;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 40px !important;
+    }
+
+    .marquee__track {
+        font-size: 40px !important;
+    }
+}
+
+/* ============================================================
+   MOBILE — 768px and below
+   ============================================================ */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 14px 18px !important;
+    }
+
+    .site-header__actions .s-mono {
+        display: none;
+    }
+
+    .hero {
+        padding: 24px 18px 64px !important;
+    }
+
+    .hero__kicker {
+        font-size: 22px !important;
+    }
+
+    .hero__title {
+        font-size: 84px !important;
+    }
+
+    .hero__subtitle {
+        font-size: 36px !important;
+    }
+
+    .hero__content button {
+        padding: 16px 22px !important;
+        font-size: 14px !important;
+    }
+
+    /* Hero floating stickers out of the way on phones */
+    .float-sticker {
+        display: none !important;
+    }
+
+    .section-title {
+        font-size: 52px !important;
+    }
+
+    .cta__title {
+        font-size: 80px !important;
+    }
+
+    /* Card grids become horizontal scroll carousels on mobile.
+       Keeps section heights consistent across screen sizes and
+       prevents the "endless scroll" feeling of stacked cards. */
+    .features-grid,
+    .packages-grid,
+    .how-grid,
+    .polaroid-row {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        grid-template-columns: none !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px !important;
+        padding: 8px 18px 20px !important;
+        margin-left: -18px !important;
+        margin-right: -18px !important;
+        max-width: none !important;
+        height: auto !important;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(122, 26, 46, 0.35) transparent;
+    }
+
+    .features-grid > .feature-card,
+    .packages-grid > .package-card,
+    .how-grid > .how-card {
+        flex: 0 0 auto !important;
+        width: 78vw !important;
+        max-width: 320px !important;
+        min-width: 240px !important;
+        grid-column: auto !important;
+        height: auto !important;
+        min-height: 240px !important;
+        scroll-snap-align: start;
+        transform: none !important;
+    }
+
+    .polaroid-row {
+        margin: 48px -18px 0 !important;
+        padding: 16px 18px 20px !important;
+    }
+    .polaroid-row .polaroid {
+        width: 72vw !important;
+        max-width: 280px !important;
+    }
+
+    /* Subtle webkit scrollbar so users see it's scrollable */
+    .features-grid::-webkit-scrollbar,
+    .packages-grid::-webkit-scrollbar,
+    .how-grid::-webkit-scrollbar,
+    .polaroid-row::-webkit-scrollbar {
+        height: 4px;
+    }
+    .features-grid::-webkit-scrollbar-thumb,
+    .packages-grid::-webkit-scrollbar-thumb,
+    .how-grid::-webkit-scrollbar-thumb,
+    .polaroid-row::-webkit-scrollbar-thumb {
+        background: rgba(122, 26, 46, 0.35);
+        border-radius: 999px;
+    }
+    .features-grid::-webkit-scrollbar-track,
+    .packages-grid::-webkit-scrollbar-track,
+    .how-grid::-webkit-scrollbar-track,
+    .polaroid-row::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Small stat cards stay 3-col (they're compact numbers) */
+    .about__stats {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    /* Footer text stays stacked — no carousel for link lists */
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .features, .packages, .how, .cta, .contact {
+        padding-top: 80px !important;
+        padding-bottom: 80px !important;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+
+    /* Contact form stacks on mobile */
+    .contact-form {
+        padding: 24px !important;
+        transform: none !important;
+    }
+    .contact-form__row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .about {
+        padding: 80px 18px !important;
+    }
+
+    .site-footer {
+        padding: 48px 18px !important;
+    }
+
+    .marquee__track {
+        font-size: 30px !important;
+        gap: 0 !important;
+    }
+    .marquee__track > span {
+        padding-right: 22px;
+    }
+
+    /* Shrink wine stains further so they don't dominate small screens */
+    .wine-stain {
+        max-width: 55vw;
+        opacity: 0.25 !important;
+    }
+}
