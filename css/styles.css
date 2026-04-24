@@ -62,6 +62,23 @@ html, body {
     opacity: 0.6;
 }
 
+/* Hide native scrollbars on carousel containers — dots handle position feedback */
+.features-grid,
+.packages-grid,
+.how-grid,
+.polaroid-row {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.features-grid::-webkit-scrollbar,
+.packages-grid::-webkit-scrollbar,
+.how-grid::-webkit-scrollbar,
+.polaroid-row::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
 .img-ph {
     position: relative;
     overflow: hidden;
@@ -467,14 +484,13 @@ img, svg, video {
         overflow-y: visible !important;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(122, 26, 46, 0.35) transparent;
     }
     .polaroid-row .polaroid {
         position: static !important;
         flex: 0 0 auto !important;
         width: 260px !important;
         scroll-snap-align: center;
+        scroll-snap-stop: always;
     }
 
     /* Features 12-col → 2-col */
@@ -599,8 +615,7 @@ img, svg, video {
         margin-right: -18px !important;
         max-width: none !important;
         height: auto !important;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(122, 26, 46, 0.35) transparent;
+        scroll-padding-left: 18px;
     }
 
     .features-grid > .feature-card,
@@ -614,6 +629,7 @@ img, svg, video {
         height: auto !important;
         min-height: 240px !important;
         scroll-snap-align: start;
+        scroll-snap-stop: always;
         transform: none !important;
     }
 
@@ -624,27 +640,6 @@ img, svg, video {
     .polaroid-row .polaroid {
         width: 72vw !important;
         max-width: 280px !important;
-    }
-
-    /* Subtle webkit scrollbar so users see it's scrollable */
-    .features-grid::-webkit-scrollbar,
-    .packages-grid::-webkit-scrollbar,
-    .how-grid::-webkit-scrollbar,
-    .polaroid-row::-webkit-scrollbar {
-        height: 4px;
-    }
-    .features-grid::-webkit-scrollbar-thumb,
-    .packages-grid::-webkit-scrollbar-thumb,
-    .how-grid::-webkit-scrollbar-thumb,
-    .polaroid-row::-webkit-scrollbar-thumb {
-        background: rgba(122, 26, 46, 0.35);
-        border-radius: 999px;
-    }
-    .features-grid::-webkit-scrollbar-track,
-    .packages-grid::-webkit-scrollbar-track,
-    .how-grid::-webkit-scrollbar-track,
-    .polaroid-row::-webkit-scrollbar-track {
-        background: transparent;
     }
 
     /* Small stat cards stay 3-col (they're compact numbers) */
@@ -694,5 +689,68 @@ img, svg, video {
     .wine-stain {
         max-width: 55vw;
         opacity: 0.4 !important;
+    }
+}
+
+/* ============================================================
+   CAROUSEL DOTS — Instagram-style indicators for mobile scroll
+   carousels. Populated by JS; visibility gated by media queries
+   that match each container's carousel breakpoint.
+   ============================================================ */
+.carousel-dots {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 4px 0;
+}
+
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(10, 7, 4, 0.2);
+    cursor: pointer;
+    position: relative;
+    transition: width 0.25s ease, background-color 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Enlarged hit-target without expanding the visual footprint */
+.carousel-dot::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+}
+
+.carousel-dot.is-active {
+    width: 22px;
+    background: #7A1A2E;
+}
+
+/* Wine-red section needs light dots to stay visible */
+.packages .carousel-dot {
+    background: rgba(242, 227, 194, 0.28);
+}
+.packages .carousel-dot.is-active {
+    background: #F2E3C2;
+}
+
+/* Polaroid carousel starts at tablet */
+@media (max-width: 1024px) {
+    .polaroid-row + .carousel-dots {
+        display: flex;
+    }
+}
+
+/* Other grids only become carousels at mobile */
+@media (max-width: 768px) {
+    .features-grid + .carousel-dots,
+    .packages-grid + .carousel-dots,
+    .how-grid + .carousel-dots {
+        display: flex;
     }
 }
