@@ -3,569 +3,593 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cathdrwijnen — Wijnproeverijen thuis of met vrienden</title>
+    <title>cathdrwijnen — design voorstellen</title>
     <meta name="color-scheme" content="only light">
-    <!-- Tell Dark Reader / similar extensions NOT to recolor this page -->
     <meta name="darkreader-lock">
     <meta name="theme-color" content="#F2E3C2">
     <meta name="supported-color-schemes" content="light">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            forced-color-adjust: none !important;
+        }
+
+        :root, html, body { color-scheme: only light !important; }
+
+        html, body {
+            background: #F5ECD8;
+            color: #0A0704;
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100%;
+        }
+
+        .display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-variation-settings: 'opsz' 144, 'SOFT' 40, 'wght' 600;
+            letter-spacing: -0.02em;
+        }
+
+        .serif {
+            font-family: 'Instrument Serif', Georgia, serif;
+        }
+
+        .mono {
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        /* Paper texture */
+        .paper-texture {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px);
+        }
+
+        .wine-stain {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 64px 40px 96px;
+        }
+
+        /* Header */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            justify-content: center;
+            margin-bottom: 56px;
+        }
+
+        .brand__mark {
+            width: 44px;
+            height: 44px;
+        }
+
+        .brand__name {
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        /* Intro */
+        .intro {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .intro__kicker {
+            font-style: italic;
+            color: #7A1A2E;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .intro__title {
+            font-size: clamp(56px, 9vw, 112px);
+            line-height: 0.9;
+            margin-bottom: 28px;
+        }
+
+        .intro__title em {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            color: #7A1A2E;
+            font-weight: 400;
+        }
+
+        .intro__text {
+            max-width: 620px;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.65;
+            color: #3a2a1f;
+        }
+
+        .intro__text + .intro__text {
+            margin-top: 14px;
+        }
+
+        /* Grid of design cards */
+        .designs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .card {
+            position: relative;
+            background: #FBF6E8;
+            border: 1px solid rgba(10, 7, 4, 0.12);
+            border-radius: 4px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow: 0 1px 0 rgba(10, 7, 4, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px -20px rgba(10, 7, 4, 0.25);
+            border-color: rgba(10, 7, 4, 0.22);
+        }
+
+        .card__preview {
+            aspect-ratio: 4 / 3;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(10, 7, 4, 0.1);
+        }
+
+        .card__body {
+            padding: 22px 24px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .card__meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #7a6a55;
+        }
+
+        .card__name {
+            font-size: 38px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        .card__desc {
+            font-size: 14.5px;
+            line-height: 1.55;
+            color: #3a2a1f;
+        }
+
+        .card__cta {
+            margin-top: auto;
+            padding-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .cta-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card:hover .cta-arrow span:last-child {
+            transform: translateX(4px);
+        }
+        .cta-arrow span:last-child { transition: transform 0.25s ease; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 10.5px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .badge--desktop {
+            background: rgba(10, 7, 4, 0.06);
+            color: #5c4a39;
+        }
+
+        .badge--mobile {
+            background: rgba(122, 26, 46, 0.09);
+            color: #7A1A2E;
+        }
+
+        /* Favorite / Salon highlight */
+        .card--favorite {
+            border-color: rgba(122, 26, 46, 0.35);
+            background: #FFF7E3;
+            box-shadow: 0 2px 0 rgba(122, 26, 46, 0.08);
+        }
+
+        .card--favorite:hover {
+            border-color: rgba(122, 26, 46, 0.55);
+            box-shadow: 0 22px 44px -20px rgba(122, 26, 46, 0.3);
+        }
+
+        .favorite-sticker {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 3;
+            background: #0A0704;
+            color: #F2E3C2;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 15px;
+            transform: rotate(6deg);
+            box-shadow: 0 8px 24px -12px rgba(10, 7, 4, 0.5);
+        }
+
+        .favorite-sticker::before {
+            content: '✦';
+            color: #B88536;
+            margin-right: 6px;
+        }
+
+        /* Preview styles per design */
+        .preview-salon {
+            background: #F2E3C2;
+            position: relative;
+        }
+        .preview-salon .headline {
+            position: absolute;
+            left: 20px;
+            top: 22px;
+            right: 20px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-variation-settings: 'opsz' 144, 'wght' 600;
+            font-size: 46px;
+            line-height: 0.85;
+            color: #0A0704;
+        }
+        .preview-salon .headline em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: #7A1A2E;
+            font-weight: 400;
+            font-size: 0.85em;
+        }
+        .preview-salon .sub {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: #7A1A2E;
+            font-size: 17px;
+        }
+        .preview-salon .dot {
+            position: absolute;
+            bottom: 24px;
+            right: 20px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #B88536;
+        }
+        .preview-salon .stain {
+            position: absolute;
+            right: -30px;
+            top: 40%;
+            width: 120px;
+            height: 120px;
+        }
+
+        .preview-carafe {
+            background: radial-gradient(ellipse at 65% 45%, rgba(107, 18, 35, 0.45), transparent 60%), #120609;
+            position: relative;
+        }
+        .preview-carafe .headline {
+            position: absolute;
+            left: 20px;
+            top: 22px;
+            right: 20px;
+            font-family: 'Instrument Serif', serif;
+            font-size: 42px;
+            line-height: 0.95;
+            color: #F3E8D3;
+            font-weight: 400;
+        }
+        .preview-carafe .headline em {
+            font-style: italic;
+            color: #D9A95F;
+        }
+        .preview-carafe .eyebrow {
+            position: absolute;
+            left: 20px;
+            top: 14px;
+            font-family: ui-monospace, Menlo, monospace;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #B8884A;
+        }
+        .preview-carafe .sub {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            font-family: ui-monospace, Menlo, monospace;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(243, 232, 211, 0.6);
+        }
+        .preview-carafe .pill {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            padding: 6px 10px;
+            border: 1px solid #B8884A;
+            color: #B8884A;
+            border-radius: 999px;
+            font-family: ui-monospace, Menlo, monospace;
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .preview-journal {
+            background: #FDFBF7;
+            position: relative;
+        }
+        .preview-journal .headline {
+            position: absolute;
+            left: 20px;
+            top: 24px;
+            right: 20px;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 44px;
+            line-height: 0.95;
+            color: #1c1a16;
+        }
+        .preview-journal .headline em {
+            font-style: italic;
+        }
+        .preview-journal .eyebrow {
+            position: absolute;
+            left: 20px;
+            top: 14px;
+            font-family: ui-monospace, Menlo, monospace;
+            font-size: 9px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #7a6a55;
+        }
+        .preview-journal .script {
+            position: absolute;
+            right: 20px;
+            bottom: 18px;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #7A1A2E;
+            transform: rotate(-4deg);
+        }
+        .preview-journal .rule {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            bottom: 42px;
+            height: 1px;
+            background: rgba(28, 26, 22, 0.2);
+        }
+        .preview-journal .meta {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            font-family: ui-monospace, Menlo, monospace;
+            font-size: 9px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #7a6a55;
+        }
+
+        /* Footer note */
+        .footer-note {
+            margin-top: 72px;
+            text-align: center;
+            color: #7a6a55;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .designs {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+            .page {
+                padding: 44px 22px 72px;
+            }
+            .brand { margin-bottom: 40px; }
+            .intro { margin-bottom: 48px; }
+            .intro__title { font-size: 52px; }
+            .card__name { font-size: 32px; }
+            .card--favorite { order: -1; }
+            .favorite-sticker { font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .intro__kicker { font-size: 20px; }
+            .intro__title { font-size: 44px; }
+            .card__preview { aspect-ratio: 16 / 11; }
+        }
+    </style>
 </head>
 <body>
+    <div class="paper-texture"></div>
+
+    <!-- Wine stains -->
+    <svg width="260" height="260" viewBox="0 0 200 200" class="wine-stain" style="top: 80px; left: -80px; transform: rotate(-15deg);">
+        <filter id="ws1"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+        <g filter="url(#ws1)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.35"/></g>
+    </svg>
+    <svg width="320" height="320" viewBox="0 0 200 200" class="wine-stain" style="top: 680px; right: -100px; transform: rotate(20deg);">
+        <filter id="ws2"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
+        <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.22" filter="url(#ws2)"/>
+    </svg>
+
     <div class="page">
 
-        <!-- Paper texture background -->
-        <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 4px); pointer-events: none; z-index: 0;"></div>
-
-        <!-- Wine stains scattered across the page -->
-        <svg width="280" height="280" viewBox="0 0 200 200" class="wine-stain" style="top: 140px; left: -60px; transform: rotate(-15deg);">
-            <filter id="r1"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
-            <g filter="url(#r1)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/><circle cx="100" cy="100" r="60" fill="#7A1A2E" opacity="0.08"/></g>
-        </svg>
-
-        <svg width="360" height="360" viewBox="0 0 200 200" class="wine-stain" style="top: 820px; right: -80px; transform: rotate(20deg);">
-            <filter id="s1"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
-            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s1)"/>
-        </svg>
-
-        <svg width="220" height="220" viewBox="0 0 200 200" class="wine-stain" style="top: 1680px; left: 60px; transform: rotate(45deg);">
-            <filter id="sp1"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
-            <g filter="url(#sp1)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="30" cy="80" r="8" opacity="0.4"/><circle cx="170" cy="120" r="12" opacity="0.45"/></g>
-        </svg>
-
-        <svg width="180" height="180" viewBox="0 0 200 200" class="wine-stain" style="top: 2480px; right: 120px; transform: rotate(-8deg);">
-            <filter id="r2"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
-            <g filter="url(#r2)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
-        </svg>
-
-        <svg width="320" height="320" viewBox="0 0 200 200" class="wine-stain" style="top: 3400px; left: -40px; transform: rotate(60deg);">
-            <filter id="s2"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="22"/><feGaussianBlur stdDeviation="3"/></filter>
-            <ellipse cx="100" cy="100" rx="80" ry="62" fill="#7A1A2E" opacity="0.35" filter="url(#s2)"/>
-        </svg>
-
-        <svg width="240" height="240" viewBox="0 0 200 200" class="wine-stain" style="top: 4300px; right: 80px; transform: rotate(-25deg);">
-            <filter id="sp2"><feTurbulence baseFrequency="0.04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/></filter>
-            <g filter="url(#sp2)" fill="#7A1A2E"><ellipse cx="100" cy="100" rx="70" ry="55" opacity="0.5"/><circle cx="150" cy="40" r="6" opacity="0.35"/></g>
-        </svg>
-
-        <svg width="200" height="200" viewBox="0 0 200 200" class="wine-stain" style="top: 5200px; left: 200px; transform: rotate(10deg);">
-            <filter id="r3"><feTurbulence baseFrequency="0.02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
-            <g filter="url(#r3)"><circle cx="100" cy="100" r="72" fill="none" stroke="#7A1A2E" stroke-width="14" opacity="0.55"/></g>
-        </svg>
-
-        <!-- NAV -->
-        <header class="site-header" style="padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 5;">
-            <a href="#top" class="site-header__brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
-                <svg viewBox="0 0 200 200" width="42" height="42" aria-label="cathdrwijnen">
-                    <defs>
-                        <radialGradient id="wc" cx="50%" cy="45%" r="55%">
-                            <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.9"/>
-                            <stop offset="60%" stop-color="#7A1A2E" stop-opacity="0.55"/>
-                            <stop offset="100%" stop-color="#7A1A2E" stop-opacity="0"/>
-                        </radialGradient>
-                        <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
-                    </defs>
-                    <ellipse cx="100" cy="100" rx="78" ry="72" fill="url(#wc)" filter="url(#rough)"/>
-                    <ellipse cx="95" cy="95" rx="62" ry="58" fill="#7A1A2E" opacity="0.18" filter="url(#rough)"/>
-                    <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="#0A0704" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="s-display" style="font-size: 26px; font-weight: 500;">cathdrwijnen</span>
-            </a>
-            <nav class="site-nav" id="siteNav" aria-label="hoofd navigatie" data-open="false" style="display: flex; gap: 4px; padding: 6px; background: #0A0704; border-radius: 999px;">
-                <a class="site-nav__link" href="#packages">pakketten</a>
-                <a class="site-nav__link" href="#how">hoe het werkt</a>
-                <a class="site-nav__link" href="#about">over</a>
-                <a class="site-nav__link" href="#contact">aan huis</a>
-            </nav>
-            <div class="site-header__actions" style="display: flex; gap: 12px; align-items: center;">
-                <span class="s-mono">NL</span>
-                <a href="#packages" class="cart-pill" style="padding: 10px 16px; background: #7A1A2E; color: #F2E3C2; border-radius: 999px; font-size: 13px; cursor: pointer; text-decoration: none;">🍷 mandje (0)</a>
-                <button class="nav-toggle" type="button" aria-label="menu openen" aria-expanded="false" aria-controls="siteNav">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- HERO -->
-        <section class="hero" style="padding: 40px 48px 120px; position: relative; z-index: 2;">
-            <!-- Stickers -->
-            <div class="float-sticker" style="position: absolute; top: 80px; right: 80px; z-index: 3; --rotate: 12deg;">
-                <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 13px; padding: 10px 18px;">✦ nieuw — zuid italië</div>
-            </div>
-            <div class="float-sticker" style="position: absolute; top: 520px; left: 40px; z-index: 3; --rotate: -8deg; animation-delay: 1.5s;">
-                <div class="s-tag" style="background: #0A0704; color: #F2E3C2; padding: 10px 18px; font-size: 12px;">gratis verzending vanaf €80</div>
-            </div>
-
-            <!-- Watercolor blob -->
-            <svg width="720" height="720" viewBox="0 0 400 400" style="position: absolute; top: -100px; left: 30%; opacity: 0.9; z-index: 0;" aria-hidden="true">
+        <!-- Brand -->
+        <div class="brand">
+            <svg class="brand__mark" viewBox="0 0 200 200" aria-label="cathdrwijnen">
                 <defs>
-                    <radialGradient id="wcblob" cx="50%" cy="50%" r="55%">
-                        <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.14"/>
-                        <stop offset="55%" stop-color="#7A1A2E" stop-opacity="0.077"/>
+                    <radialGradient id="lg" cx="50%" cy="45%" r="55%">
+                        <stop offset="0%" stop-color="#7A1A2E" stop-opacity="0.9"/>
+                        <stop offset="60%" stop-color="#7A1A2E" stop-opacity="0.55"/>
                         <stop offset="100%" stop-color="#7A1A2E" stop-opacity="0"/>
                     </radialGradient>
-                    <filter id="fwcb"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter>
+                    <filter id="lgr"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
                 </defs>
-                <ellipse cx="200" cy="200" rx="170" ry="150" fill="url(#wcblob)" filter="url(#fwcb)"/>
-                <ellipse cx="185" cy="190" rx="130" ry="110" fill="#7A1A2E" opacity="0.039" filter="url(#fwcb)"/>
+                <ellipse cx="100" cy="100" rx="78" ry="72" fill="url(#lg)" filter="url(#lgr)"/>
+                <ellipse cx="95" cy="95" rx="62" ry="58" fill="#7A1A2E" opacity="0.18" filter="url(#lgr)"/>
+                <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="#0A0704" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-
-            <div class="hero__content" style="position: relative; z-index: 2; text-align: center; padding-top: 40px;">
-                <div class="s-serif hero__kicker" style="font-size: 28px; font-style: italic; color: #7A1A2E;">cathdrwijnen presenteert</div>
-                <h1 class="s-display hero__title" style="font-size: 200px; line-height: 0.85; margin: 8px 0 0; font-weight: 600; color: #0A0704; font-variation-settings: 'opsz' 144, 'SOFT' 40, 'wght' 600;">
-                    proev<span style="font-size: 0.85em; font-style: italic; font-family: 'Instrument Serif', Georgia, serif; color: #7A1A2E; font-weight: 400;">erij</span>
-                </h1>
-                <div class="s-display hero__subtitle" style="font-size: 72px; line-height: 0.9; margin-top: -12px; font-style: italic; font-weight: 400; color: #0A0704;">
-                    bij jou aan <span style="color: #B88536;">huis</span>.
-                </div>
-                <div style="max-width: 560px; margin: 32px auto 0; font-size: 17px; line-height: 1.6; color: #0A0704;">
-                    Kies een pakket van 5, 6 of 8 flessen. Cathelijne stelt elke doos persoonlijk samen
-                    — met proefkaarten, aromawiel, recepten en een optionele borrelplank.
-                </div>
-                <div style="display: flex; gap: 14px; justify-content: center; margin-top: 36px;">
-                    <button style="padding: 18px 32px; background: #0A0704; color: #F2E3C2; border: none; border-radius: 999px; font-size: 15px; cursor: pointer;">→ bekijk pakketten</button>
-                    <button style="padding: 18px 28px; background: #F7DAD4; color: #0A0704; border: none; border-radius: 999px; font-size: 15px; cursor: pointer;">boek een event</button>
-                </div>
-            </div>
-
-            <!-- Overlapping polaroids -->
-            <div class="polaroid-row" style="margin-top: 80px; position: relative; height: 440px; max-width: 1200px; margin: 80px auto 0;">
-                <div class="polaroid" style="position: absolute; left: 20px; top: 40px; width: 280px; transform: rotate(-6deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
-                    <div class="img-ph" style="width: 100%; height: 280px; color: #6B1523;">
-                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ flessen op tafel ]</span>
-                    </div>
-                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">proefavond #42</div>
-                </div>
-
-                <div class="polaroid" style="position: absolute; left: 300px; top: 0; width: 340px; transform: rotate(3deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); z-index: 2;">
-                    <div class="img-ph" style="width: 100%; height: 340px; color: #6B1523;">
-                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ cathelijne schenkt wijn ]</span>
-                    </div>
-                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">de kurk gaat eruit</div>
-                </div>
-
-                <div class="polaroid" style="position: absolute; left: 660px; top: 60px; width: 260px; transform: rotate(-4deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
-                    <div class="img-ph" style="width: 100%; height: 260px; color: #6B1523;">
-                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ borrelplank detail ]</span>
-                    </div>
-                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">borrelplank erbij</div>
-                </div>
-
-                <div class="polaroid" style="position: absolute; left: 940px; top: 30px; width: 240px; transform: rotate(7deg); background: #181a1b; color: #F2E3C2; padding: 14px; padding-bottom: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
-                    <div class="img-ph" style="width: 100%; height: 240px; color: #6B1523;">
-                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ proefformulier ]</span>
-                    </div>
-                    <div class="s-serif" style="font-size: 20px; font-style: italic; margin-top: 12px; text-align: center;">noteer wat je proeft</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MARQUEE -->
-        <div class="marquee" style="padding: 20px 0; background: #0A0704; color: #F2E3C2; white-space: nowrap; overflow: hidden; border-top: 1px solid #0A0704; border-bottom: 1px solid #0A0704;">
-            <div class="s-display marquee__track" style="font-size: 52px; display: inline-flex; gap: 36px; font-style: italic; font-weight: 300; animation: scroll 60s linear infinite;">
-                <!-- First half -->
-                <span>proef</span><span style="color: #B88536;">✦</span>
-                <span>noteer</span><span style="color: #B88536;">✦</span>
-                <span>proost</span><span style="color: #B88536;">✦</span>
-                <span>proef</span><span style="color: #B88536;">✦</span>
-                <span>noteer</span><span style="color: #B88536;">✦</span>
-                <span>proost</span><span style="color: #B88536;">✦</span>
-                <span>proef</span><span style="color: #B88536;">✦</span>
-                <span>noteer</span><span style="color: #B88536;">✦</span>
-                <span>proost</span><span style="color: #B88536;">✦</span>
-                <!-- Second half — identical, so -50% animation reset is seamless -->
-                <span aria-hidden="true">proef</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">noteer</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">proost</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">proef</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">noteer</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">proost</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">proef</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">noteer</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-                <span aria-hidden="true">proost</span><span aria-hidden="true" style="color: #B88536;">✦</span>
-            </div>
+            <span class="display brand__name">cathdrwijnen</span>
         </div>
 
-        <!-- WAT ZIT ER IN -->
-        <section class="features" style="padding: 120px 48px; position: relative; z-index: 2;">
-            <div style="text-align: center; margin-bottom: 72px;">
-                <div class="s-mono" style="color: #7A1A2E;">— 01 — in de doos —</div>
-                <h2 class="s-display section-title" style="font-size: 108px; line-height: 0.9; margin: 12px 0 0; font-weight: 400;">
-                    je krijgt<br/>
-                    <span style="font-style: italic; color: #7A1A2E;">best veel</span>.
-                </h2>
-            </div>
-
-            <div class="features-grid" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; max-width: 1240px; margin: 0 auto;">
-                <div class="feature-card" style="grid-column: span 5; background: #7A1A2E; color: #F2E3C2; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">★ het hart</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">5, 6 of 8 flessen</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">persoonlijk samengesteld</div>
-                    </div>
-                </div>
-
-                <div class="feature-card" style="grid-column: span 4; background: #45160d; color: #F2E3C2; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">nº 02</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">proef­formulieren</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">noteer wat je ruikt + proeft</div>
-                    </div>
-                </div>
-
-                <div class="feature-card" style="grid-column: span 3; background: #B88536; color: #0A0704; padding: 28px; height: 280px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">nº 03</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">aromawiel</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">vind de woorden</div>
-                    </div>
-                </div>
-
-                <div class="feature-card" style="grid-column: span 3; background: #7A8A52; color: #F2E3C2; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">nº 04</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">herkomst­kaarten</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">streek & maker</div>
-                    </div>
-                </div>
-
-                <div class="feature-card" style="grid-column: span 5; background: #FBE8D4; color: #0A0704; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">★ favoriet</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">recepten­boekje</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een bijpassend hapje per wijn</div>
-                    </div>
-                </div>
-
-                <div class="feature-card" style="grid-column: span 4; background: #0A0704; color: #F2E3C2; padding: 28px; height: 240px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div class="s-mono" style="opacity: 0.8;">nº 06</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-weight: 400;">borrelplank (optie)</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">lokaal, + kaas & charcuterie</div>
-                    </div>
-                </div>
-            </div>
+        <!-- Intro -->
+        <section class="intro">
+            <div class="serif intro__kicker">drie richtingen</div>
+            <h1 class="display intro__title">kies een <em>sfeer</em>.</h1>
+            <p class="intro__text">
+                Drie verschillende ontwerprichtingen voor je website — elk met een eigen toon.
+                Klik op één van de drie om door de volledige pagina te scrollen.
+            </p>
+            <p class="intro__text">
+                Meer context staat in het bericht erbij.
+            </p>
         </section>
 
-        <!-- PAKKETTEN -->
-        <section id="packages" class="packages" style="padding: 120px 48px; background: #7A1A2E; color: #F2E3C2; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 40px; right: 60px; transform: rotate(-12deg);">
-                <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 12px;">★ meest gekozen: de salon</div>
-            </div>
+        <!-- Design cards -->
+        <section class="designs">
 
-            <div style="max-width: 1240px; margin: 0 auto;">
-                <div class="packages__header" style="display: flex; align-items: end; justify-content: space-between; margin-bottom: 64px;">
-                    <div>
-                        <div class="s-mono" style="color: #B88536; margin-bottom: 14px;">— 02 — de pakketten —</div>
-                        <h2 class="s-display section-title" style="font-size: 108px; line-height: 0.9; margin: 0; font-weight: 400;">
-                            kies je<br/>
-                            <span style="font-style: italic; color: #B88536;">vibe</span>.
-                        </h2>
+            <!-- SALON (favorite) -->
+            <a href="salon.html" class="card card--favorite">
+                <div class="favorite-sticker">mijn favoriet</div>
+                <div class="card__preview preview-salon">
+                    <svg class="stain" viewBox="0 0 200 200" aria-hidden="true">
+                        <filter id="ps1"><feTurbulence baseFrequency="0.03" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter>
+                        <g filter="url(#ps1)"><circle cx="100" cy="100" r="70" fill="#7A1A2E" opacity="0.18"/></g>
+                    </svg>
+                    <div class="headline">proev<em>erij</em></div>
+                    <div class="sub">bij jou aan huis.</div>
+                    <div class="dot"></div>
+                </div>
+                <div class="card__body">
+                    <div class="card__meta">
+                        <span class="mono">ontwerp 01</span>
+                        <span class="badge badge--mobile">werkt ook op mobiel</span>
                     </div>
-                    <div class="packages__intro" style="max-width: 320px; font-size: 15px; color: #F2E3C2cc; line-height: 1.6;">
-                        Elke maand stelt Cathelijne een nieuw thema samen. Je kunt eenmalig bestellen
-                        of elke maand opnieuw verrast worden.
+                    <div class="display card__name">Salon</div>
+                    <p class="card__desc">
+                        Warm, speels en persoonlijk — met polaroids, wijnvlekken en handgeschreven details.
+                        Dit is de richting waar ik het verst mee ben gegaan omdat ik er plezier in had.
+                    </p>
+                    <div class="card__cta">
+                        <span class="cta-arrow"><span>bekijk salon</span><span>→</span></span>
                     </div>
                 </div>
+            </a>
 
-                <div class="packages-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
-                    <!-- Pakket 1 -->
-                    <div class="package-card" style="background: rgba(255,255,255,0.09); color: #F2E3C2; padding: 24px; border-radius: 24px; transform: rotate(-2deg); border: 1px solid rgba(255,255,255,0.18);">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
-                            <div class="s-mono" style="color: #B88536;">nº 01</div>
-                            <div class="s-tag" style="background: #F2E3C2; color: #0A0704; font-size: 10px;">starter</div>
-                        </div>
-                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #1a1012;">
-                            <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ de kennismaking ]</span>
-                        </div>
-                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400;">de kennismaking</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een korte reis — perfect voor twee.</div>
-                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€79</div>
-                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">5 flessen</div>
-                            </div>
-                            <button style="padding: 12px 18px; background: #F2E3C2; color: #0A0704; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
-                        </div>
+            <!-- CARAFE -->
+            <a href="carafe.html" class="card">
+                <div class="card__preview preview-carafe">
+                    <div class="eyebrow">— voorjaars­collectie —</div>
+                    <div class="headline">Proeven<br/>bij <em>kaarslicht</em>.</div>
+                    <div class="sub">est. 2021 · amsterdam</div>
+                    <div class="pill">carafe · 0</div>
+                </div>
+                <div class="card__body">
+                    <div class="card__meta">
+                        <span class="mono">ontwerp 02</span>
+                        <span class="badge badge--desktop">alleen desktop</span>
                     </div>
-
-                    <!-- Pakket 2 (Featured) -->
-                    <div class="package-card" style="background: #F2E3C2; color: #0A0704; padding: 24px; border-radius: 24px; transform: rotate(1deg);">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
-                            <div class="s-mono" style="color: #7A1A2E;">nº 02</div>
-                            <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 10px;">★ populair</div>
-                        </div>
-                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #6B1523;">
-                            <span class="img-ph-label">[ de salon ]</span>
-                        </div>
-                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400; font-style: italic;">de salon</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">voor de avond met vrienden.</div>
-                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€95</div>
-                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">6 flessen</div>
-                            </div>
-                            <button style="padding: 12px 18px; background: #7A1A2E; color: #F2E3C2; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
-                        </div>
-                    </div>
-
-                    <!-- Pakket 3 -->
-                    <div class="package-card" style="background: rgba(255,255,255,0.09); color: #F2E3C2; padding: 24px; border-radius: 24px; transform: rotate(2deg); border: 1px solid rgba(255,255,255,0.18);">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
-                            <div class="s-mono" style="color: #B88536;">nº 03</div>
-                            <div class="s-tag" style="background: #F2E3C2; color: #0A0704; font-size: 10px;">large</div>
-                        </div>
-                        <div class="img-ph" style="width: 100%; height: 200px; border-radius: 12px; color: #1a1012;">
-                            <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ het diner ]</span>
-                        </div>
-                        <div class="s-display" style="font-size: 46px; line-height: 1; margin-top: 16px; font-weight: 400;">het diner</div>
-                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.85;">een lang tafelverhaal + borrelplank.</div>
-                        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div class="s-display" style="font-size: 44px; line-height: 1; font-weight: 400;">€129</div>
-                                <div class="s-mono" style="opacity: 0.7; margin-top: 4px;">8 flessen</div>
-                            </div>
-                            <button style="padding: 12px 18px; background: #F2E3C2; color: #0A0704; border: none; border-radius: 999px; font-size: 13px; cursor: pointer;">+ mandje</button>
-                        </div>
+                    <div class="display card__name">Carafe</div>
+                    <p class="card__desc">
+                        Donker, filmisch en gecureerd — kaarslicht, goud en burgundy. Een meer
+                        editoriale richting met een rustige, avondlijke uitstraling.
+                    </p>
+                    <div class="card__cta">
+                        <span class="cta-arrow"><span>bekijk carafe</span><span>→</span></span>
                     </div>
                 </div>
-            </div>
+            </a>
+
+            <!-- JOURNAL -->
+            <a href="journal.html" class="card">
+                <div class="card__preview preview-journal">
+                    <div class="eyebrow">— het dagboek —</div>
+                    <div class="headline">Een fles, een <em>verhaal</em>.</div>
+                    <div class="rule"></div>
+                    <div class="meta">no. 01 · voorjaar</div>
+                    <div class="script">proost!</div>
+                </div>
+                <div class="card__body">
+                    <div class="card__meta">
+                        <span class="mono">ontwerp 03</span>
+                        <span class="badge badge--desktop">alleen desktop</span>
+                    </div>
+                    <div class="display card__name">Journal</div>
+                    <p class="card__desc">
+                        Rustig en redactioneel — alsof je door een tijdschrift bladert. Veel ruimte,
+                        serif-letters en een rustige leesrichting.
+                    </p>
+                    <div class="card__cta">
+                        <span class="cta-arrow"><span>bekijk journal</span><span>→</span></span>
+                    </div>
+                </div>
+            </a>
+
         </section>
 
-        <!-- HOE HET WERKT -->
-        <section id="how" class="how" style="padding: 120px 48px; position: relative; z-index: 2;">
-            <div style="text-align: center; margin-bottom: 72px;">
-                <div class="s-mono" style="color: #7A1A2E;">— 03 — hoe werkt het —</div>
-                <h2 class="s-display section-title" style="font-size: 104px; line-height: 0.9; margin: 12px 0 0; font-weight: 400;">
-                    drie klikken,<br/>één <span style="font-style: italic; color: #7A1A2E;">avondvulling</span>.
-                </h2>
-            </div>
+        <p class="footer-note">
+            — Tip: Carafe en Journal zijn vaste desktop-ontwerpen, dus bekijk ze op laptop of pc. Salon werkt ook op je telefoon.
+        </p>
 
-            <div class="how-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1240px; margin: 0 auto;">
-                <div class="how-card" style="padding: 28px; background: #F7DAD4; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(-1.2deg);">
-                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">01</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">kies</div>
-                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">5, 6 of 8 flessen en een thema dat jou aanspreekt.</div>
-                    </div>
-                </div>
-
-                <div class="how-card" style="padding: 28px; background: #FBE8D4; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(1.2deg);">
-                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">02</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">ontvang</div>
-                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">in 48u bij je thuis. met de hand ingepakt.</div>
-                    </div>
-                </div>
-
-                <div class="how-card" style="padding: 28px; background: #B88536; color: #0A0704; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(-1.2deg);">
-                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">03</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">ontkurk</div>
-                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">volg de handleiding. of ga je eigen gang.</div>
-                    </div>
-                </div>
-
-                <div class="how-card" style="padding: 28px; background: #7A8A52; color: #F2E3C2; border-radius: 24px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; transform: rotate(1.2deg);">
-                    <div class="s-display" style="font-size: 96px; line-height: 0.8; font-weight: 400; opacity: 0.3;">04</div>
-                    <div>
-                        <div class="s-display" style="font-size: 40px; line-height: 1; font-style: italic; font-weight: 400;">noteer</div>
-                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.85; line-height: 1.5;">jouw proefkaarten bewaar je als een wijnjournaal.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- OVER -->
-        <section id="about" class="about" style="padding: 120px 48px; background: #F7DAD4; color: #0A0704; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
-            <div class="about__polaroid" style="position: relative;">
-                <div style="transform: rotate(-3deg); background: #181a1b; color: #F2E3C2; padding: 16px; padding-bottom: 56px; box-shadow: 0 30px 60px rgba(0,0,0,0.15);">
-                    <div class="img-ph" style="width: 100%; aspect-ratio: 4 / 5; color: #6B1523;">
-                        <span class="img-ph-label" style="color: rgba(255,255,255,0.5);">[ cathelijne portret ]</span>
-                    </div>
-                    <div class="s-serif" style="font-size: 28px; font-style: italic; margin-top: 14px; text-align: center;">Cathelijne, 2026</div>
-                </div>
-                <div style="position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; border-radius: 50%; background: #B88536; color: #0A0704; display: flex; align-items: center; justify-content: center; transform: rotate(12deg); text-align: center;">
-                    <div class="s-serif" style="font-size: 20px; line-height: 1.1; font-style: italic;">hoi!<br/>ik ben cath.</div>
-                </div>
-            </div>
-
-            <div>
-                <div class="s-mono" style="color: #7A1A2E; margin-bottom: 14px;">— 04 — over mij —</div>
-                <h2 class="s-display section-title" style="font-size: 80px; line-height: 0.9; margin: 0; font-weight: 400;">
-                    wijn hoort<br/>
-                    <span style="font-style: italic;">gezellig</span> te zijn.
-                </h2>
-                <div style="margin-top: 24px; font-size: 17px; line-height: 1.7; max-width: 480px;">
-                    Niet stoffig, niet intimiderend. Ik selecteer wijnen die ik zelf met mijn vrienden
-                    zou openen — kleine makers, mooie verhalen, genoeg diepgang om écht iets te leren.
-                </div>
-                <div class="about__stats" style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
-                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">240+</div>
-                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">pakketten</div>
-                    </div>
-                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
-                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">38</div>
-                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">events</div>
-                    </div>
-                    <div class="stat-card" style="background: #F2E3C2; padding: 20px 18px; border-radius: 16px;">
-                        <div class="s-display" style="font-size: 44px; line-height: 1; color: #7A1A2E; font-weight: 400;">9 jr.</div>
-                        <div class="s-mono" style="margin-top: 6px; color: #0A0704;">ervaring</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT / BOEK AAN HUIS -->
-        <section id="contact" class="contact" style="padding: 120px 48px; background: #F2E3C2; color: #0A0704; position: relative; z-index: 2;">
-            <div class="contact__inner" style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;">
-                <!-- Left: intro + alternatives -->
-                <div class="contact__intro">
-                    <div class="s-mono" style="color: #7A1A2E; margin-bottom: 14px;">— 05 — aan huis —</div>
-                    <h2 class="s-display section-title" style="font-size: 96px; line-height: 0.9; margin: 0; font-weight: 400;">
-                        cath komt<br/>
-                        <span style="font-style: italic; color: #7A1A2E;">langs</span>.
-                    </h2>
-                    <div style="margin-top: 28px; font-size: 17px; line-height: 1.7; max-width: 460px;">
-                        Voor een avond waarbij Cathelijne bij jou thuis de wijnen persoonlijk voorschenkt — met verhalen, proefkaarten en een bijpassende borrelplank. Vertel wat je in gedachten hebt, binnen twee dagen krijg je een persoonlijke reactie.
-                    </div>
-
-                    <!-- Badges -->
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px;">
-                        <div class="s-tag" style="background: #0A0704; color: #F2E3C2; font-size: 11px;">vanaf 4 personen</div>
-                        <div class="s-tag" style="background: #B88536; color: #0A0704; font-size: 11px;">± 2,5 uur</div>
-                        <div class="s-tag" style="background: #F7DAD4; color: #0A0704; font-size: 11px;">heel NL</div>
-                    </div>
-
-                    <!-- Alternatives -->
-                    <div style="margin-top: 44px;">
-                        <div class="s-mono" style="opacity: 0.6; margin-bottom: 12px;">liever even een DM?</div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                            <a href="https://www.instagram.com/cathdrwijnen/" target="_blank" rel="noopener" class="contact__alt-btn" style="padding: 12px 18px; background: #0A0704; color: #F2E3C2; border-radius: 999px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📷 @cathdrwijnen op instagram</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right: form -->
-                <form class="contact-form" action="https://formspree.io/f/mqewnzak" method="POST" style="background: #FBE8D4; padding: 36px; border-radius: 24px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 20px 50px rgba(122, 26, 46, 0.08); transform: rotate(-0.4deg);">
-                    <!-- Honeypot — real users won't see/fill this -->
-                    <div class="contact-form__honeypot" aria-hidden="true">
-                        <label>Laat leeg alsjeblieft <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
-                    </div>
-
-                    <!-- Formspree subject + redirect (optional tuning) -->
-                    <input type="hidden" name="_subject" value="Nieuwe aanvraag proeverij aan huis — cathdrwijnen">
-
-                    <div class="contact-form__field">
-                        <label class="s-mono" for="cf-naam">naam</label>
-                        <input type="text" id="cf-naam" name="naam" required placeholder="je naam">
-                    </div>
-
-                    <div class="contact-form__row">
-                        <div class="contact-form__field">
-                            <label class="s-mono" for="cf-email">email</label>
-                            <input type="email" id="cf-email" name="email" required placeholder="jij@voorbeeld.nl">
-                        </div>
-                        <div class="contact-form__field">
-                            <label class="s-mono" for="cf-tel">telefoon <span style="opacity:0.5;">(optioneel)</span></label>
-                            <input type="tel" id="cf-tel" name="telefoon" placeholder="06 …">
-                        </div>
-                    </div>
-
-                    <div class="contact-form__row">
-                        <div class="contact-form__field">
-                            <label class="s-mono" for="cf-gasten">aantal gasten</label>
-                            <input type="number" id="cf-gasten" name="gasten" min="4" max="40" placeholder="bv. 8">
-                        </div>
-                        <div class="contact-form__field">
-                            <label class="s-mono" for="cf-datum">gewenste datum</label>
-                            <input type="date" id="cf-datum" name="datum">
-                        </div>
-                    </div>
-
-                    <div class="contact-form__field">
-                        <label class="s-mono" for="cf-locatie">locatie / stad</label>
-                        <input type="text" id="cf-locatie" name="locatie" required placeholder="Amsterdam, Utrecht, …">
-                    </div>
-
-                    <div class="contact-form__field">
-                        <label class="s-mono" for="cf-bericht">bericht</label>
-                        <textarea id="cf-bericht" name="bericht" rows="4" placeholder="thema, gelegenheid, allergieën, wensen… alles wat Cath mag weten."></textarea>
-                    </div>
-
-                    <button type="submit" class="contact-form__submit" style="margin-top: 6px; padding: 18px 28px; background: #7A1A2E; color: #F2E3C2; border: none; border-radius: 999px; font-size: 15px; cursor: pointer; font-weight: 500;">→ verstuur aanvraag</button>
-
-                    <div class="s-mono" style="opacity: 0.45; font-size: 10px; line-height: 1.5;">
-                        Geen spam. Cath reageert binnen twee werkdagen persoonlijk.
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta" style="padding: 160px 48px; background: #0A0704; color: #F2E3C2; text-align: center; position: relative; overflow: hidden;">
-            <div style="max-width: 760px; margin: 0 auto; position: relative; z-index: 2;">
-                <div class="s-serif" style="font-size: 36px; font-style: italic; color: #B88536;">psst…</div>
-                <h2 class="s-display cta__title" style="font-size: 160px; line-height: 0.85; margin: 8px 0 0; font-weight: 400; font-style: italic;">proost!</h2>
-                <div style="margin-top: 32px; font-size: 17px; line-height: 1.6; color: #F2E3C2cc;">
-                    Vragen? WhatsApp me gerust. Ik help je graag met het kiezen van een pakket.
-                </div>
-                <button style="margin-top: 36px; padding: 20px 36px; background: #B88536; color: #0A0704; border: none; border-radius: 999px; font-size: 17px; cursor: pointer; font-weight: 500;">💬 WhatsApp Cathelijne</button>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="site-footer" style="padding: 64px 48px; background: #0A0704; color: #F2E3C2;">
-            <div class="footer-grid" style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px;">
-                <div>
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                        <svg viewBox="0 0 200 200" width="36" height="36">
-                            <ellipse cx="100" cy="100" rx="78" ry="72" fill="rgba(247,218,212,0.2)"/>
-                            <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-                        </svg>
-                        <span class="s-display" style="font-size: 22px;">cathdrwijnen</span>
-                    </div>
-                    <div style="opacity: 0.7; font-size: 14px; line-height: 1.6; max-width: 320px;">
-                        Wijnproeverijen thuis of met vrienden. Persoonlijk samengesteld door Cathelijne.
-                    </div>
-                </div>
-
-                <div>
-                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Menu</div>
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Pakketten</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Hoe het werkt</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Over</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Events</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">FAQ</a>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Contact</div>
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Email</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">WhatsApp</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Instagram</a>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="s-mono" style="margin-bottom: 16px; opacity: 0.6;">Info</div>
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Privacy</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Voorwaarden</a>
-                        <a href="#" style="color: #F2E3C2; text-decoration: none; opacity: 0.8;">Verzending</a>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 64px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <span class="s-mono" style="opacity: 0.5;">@cathdrwijnen · © 2026</span>
-            </div>
-        </footer>
     </div>
+
 </body>
 </html>

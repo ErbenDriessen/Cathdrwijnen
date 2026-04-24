@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cathdrwijnen — Wijnproeverijen bij kaarslicht</title>
+    <meta name="color-scheme" content="dark light">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; forced-color-adjust: none !important; }
+        html, body { background: #120609; font-family: 'Inter', system-ui, sans-serif; color: #F3E8D3; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Italiana&family=Inter:wght@300;400;500&display=swap');
+        .c-display { font-family: 'Italiana', 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 0.01em; }
+        .c-serif { font-family: 'Cormorant Garamond', serif; }
+        .c-mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 0.22em; text-transform: uppercase; font-size: 10px; }
+        .img-ph { position: relative; overflow: hidden; }
+        .img-ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, currentColor, currentColor 14px, rgba(0,0,0,0.3) 14px, rgba(0,0,0,0.3) 15px); }
+        .img-ph-label { position: absolute; bottom: 10px; left: 12px; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.5; }
+        button { transition: all 0.3s ease; }
+        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        .package-card { transition: all 0.3s ease; }
+        .package-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body>
+    <div style="width: 1440px; margin: 0 auto; background: #120609; color: #F3E8D3; position: relative; overflow: hidden;">
+        
+        <!-- NAV -->
+        <header style="padding: 24px 56px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(243, 232, 211, 0.07); position: relative; z-index: 5;">
+            <div class="c-mono" style="color: #B8884A;">est. 2021 · amsterdam</div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <svg viewBox="0 0 200 200" width="38" height="38">
+                    <ellipse cx="100" cy="100" rx="78" ry="72" fill="rgba(107, 18, 35, 0.3)"/>
+                    <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="#F3E8D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="c-display" style="font-size: 26px;">cathdrwijnen</span>
+            </div>
+            <div style="display: flex; gap: 28px; align-items: center;">
+                <span class="c-mono" style="color: rgba(243, 232, 211, 0.8); cursor: pointer;">pakketten</span>
+                <span class="c-mono" style="color: rgba(243, 232, 211, 0.8); cursor: pointer;">wijze</span>
+                <span class="c-mono" style="color: rgba(243, 232, 211, 0.8); cursor: pointer;">cathelijne</span>
+                <span class="c-mono" style="color: rgba(243, 232, 211, 0.8); cursor: pointer;">events</span>
+                <div style="padding: 8px 14px; border: 1px solid #B8884A; color: #B8884A; border-radius: 999px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;">carafe · 0</div>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section style="position: relative; height: 820px; overflow: hidden;">
+            <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 40%, rgba(107, 18, 35, 0.33), transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(42, 8, 16, 0.67), transparent 70%);"></div>
+            <svg width="900" height="900" viewBox="0 0 400 400" style="position: absolute; left: 58%; top: 50%; transform: translate(-50%, -50%); opacity: 0.55;">
+                <defs>
+                    <radialGradient id="wcb-c" cx="50%" cy="50%" r="55%">
+                        <stop offset="0%" stop-color="#6B1223" stop-opacity="0.6"/>
+                        <stop offset="55%" stop-color="#6B1223" stop-opacity="0.33"/>
+                        <stop offset="100%" stop-color="#6B1223" stop-opacity="0"/>
+                    </radialGradient>
+                    <filter id="f-wcb-c"><feTurbulence baseFrequency="1.1" numOctaves="2" seed="12"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter>
+                </defs>
+                <ellipse cx="200" cy="200" rx="170" ry="150" fill="url(#wcb-c)" filter="url(#f-wcb-c)"/>
+            </svg>
+            <div style="position: absolute; inset: 0; opacity: 0.1; pointer-events: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27200%27 height=%27200%27><filter id=%27n%27><feTurbulence baseFrequency=%270.9%27/></filter><rect width=%27200%27 height=%27200%27 filter=%27url(%23n)%27/></svg>');"></div>
+
+            <div style="position: relative; z-index: 2; padding: 120px 80px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; height: 100%;">
+                <div>
+                    <div class="c-mono" style="color: #B8884A; margin-bottom: 28px;">— voorjaars­collectie 2026 —</div>
+                    <h1 class="c-display" style="font-size: 160px; line-height: 0.92; margin: 0; font-weight: 400;">
+                        Proeven<br/>
+                        bij <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #D9A95F;">kaarslicht</span>.
+                    </h1>
+                    <div style="margin-top: 40px; max-width: 460px; font-size: 17px; line-height: 1.7; color: rgba(243, 232, 211, 0.8); font-weight: 300;">
+                        Een wijnproeverij thuis, gecureerd door Cathelijne. Vijf, zes of acht flessen —
+                        elk met een verhaal, een plek op de kaart, een gerecht dat erbij past.
+                    </div>
+                    <div style="display: flex; gap: 20px; margin-top: 48px; align-items: center;">
+                        <button style="padding: 18px 32px; background: #B8884A; color: #120609; border: none; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: ui-monospace, Menlo, monospace;">Bekijk de collectie →</button>
+                        <span class="c-mono" style="color: rgba(243, 232, 211, 0.6); cursor: pointer;">boek een private event</span>
+                    </div>
+                </div>
+                <div style="position: relative;">
+                    <div class="img-ph" style="width: 100%; height: 620px; border-radius: 2px; color: #1a1012;">
+                        <span class="img-ph-label" style="color: rgba(243, 232, 211, 0.5);">[ fles in kaarslicht ]</span>
+                    </div>
+                    <div style="position: absolute; top: 24px; left: 24px; right: 24px; display: flex; justify-content: space-between;">
+                        <div class="c-mono" style="color: #B8884A;">i.</div>
+                        <div class="c-mono" style="color: #B8884A;">nº 06</div>
+                    </div>
+                    <div style="position: absolute; bottom: 24px; left: 24px; right: 24px;">
+                        <div class="c-serif" style="font-size: 20px; font-style: italic; color: #F3E8D3;">
+                            "Een rustige avond, een goede fles,<br/>iemand om hem mee te delen."
+                        </div>
+                        <div class="c-mono" style="color: #B8884A; margin-top: 12px;">— Cathelijne</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div class="c-mono" style="color: #B8884A;">scroll</div>
+                <div style="width: 1px; height: 36px; background: linear-gradient(to bottom, #B8884A, transparent);"></div>
+            </div>
+        </section>
+
+        <!-- LA BOÎTE -->
+        <section style="padding: 120px 80px; border-top: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 280px 1fr; gap: 80px;">
+            <div>
+                <div class="c-mono" style="color: #B8884A; margin-bottom: 12px;">i.</div>
+                <div class="c-display" style="font-size: 52px; line-height: 0.9; font-style: italic;">la boîte</div>
+                <div class="c-mono" style="color: #8A7A68; margin-top: 12px;">de doos</div>
+            </div>
+            <div>
+                <h2 class="c-display" style="font-size: 96px; line-height: 0.95; margin: 0; font-weight: 400; max-width: 900px;">
+                    Wat er wordt <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #B8884A;">bezorgd</span>, is eigenlijk een avond.
+                </h2>
+                <div style="margin-top: 28px; max-width: 620px; font-size: 16px; line-height: 1.8; color: rgba(243, 232, 211, 0.8);">
+                    Geen anonieme webshop-doos. Elke kist is met de hand ingepakt, voorzien van een
+                    kaart van de streek, geschreven proefnotities en een recept dat Cathelijne
+                    persoonlijk voor de combinatie heeft gekozen.
+                </div>
+            </div>
+        </section>
+
+        <!-- Contents list -->
+        <section style="padding: 40px 80px 120px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 80px;">
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">01</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">5, 6 of 8 flessen</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">persoonlijk samengesteld rond thema of streek</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">02</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">proefformulieren</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">structuur voor je indrukken — bewaar ze als wijnjournaal</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">03</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">smaak-aroma wiel</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">van zwarte bes tot leer, tabak tot bloesem</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">04</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">herkomst-kaarten</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">wie maakt deze wijn, op welke grond, met welke filosofie</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">05</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">receptenboekje</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">een bijpassend hapje of gerecht per fles</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">06</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">handleiding proeven</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">de sommelier-stappen — zonder poespas</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">07</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">borrelplank (optie)</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">lokale kazen, charcuterie, tapenade</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+                <div style="padding: 32px 0; border-bottom: 1px solid rgba(243, 232, 211, 0.07); display: grid; grid-template-columns: 60px 1fr auto; gap: 32px; align-items: baseline;">
+                    <div class="c-mono" style="color: #B8884A;">08</div>
+                    <div>
+                        <div class="c-display" style="font-size: 32px; line-height: 1.1;">video-introducties</div>
+                        <div style="margin-top: 6px; color: rgba(243, 232, 211, 0.5); font-size: 15px; line-height: 1.5;">Cathelijne over elke wijn, in een kort filmpje</div>
+                    </div>
+                    <div style="color: #B8884A; font-size: 18px;">—</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAKKETTEN -->
+        <section style="padding: 140px 80px; background: #1C0B10; position: relative; overflow: hidden;">
+            <svg width="600" height="600" viewBox="0 0 400 400" style="position: absolute; top: 30%; left: -10%; opacity: 0.4;">
+                <ellipse cx="200" cy="200" rx="170" ry="150" fill="url(#wcb-c)" filter="url(#f-wcb-c)"/>
+            </svg>
+            <div style="position: relative; z-index: 2;">
+                <div style="display: grid; grid-template-columns: 280px 1fr; gap: 80px; margin-bottom: 80px;">
+                    <div>
+                        <div class="c-mono" style="color: #B8884A; margin-bottom: 12px;">ii.</div>
+                        <div class="c-display" style="font-size: 52px; line-height: 0.9; font-style: italic;">la carte</div>
+                        <div class="c-mono" style="color: #8A7A68; margin-top: 12px;">de kaart</div>
+                    </div>
+                    <div>
+                        <h2 class="c-display" style="font-size: 96px; line-height: 0.95; margin: 0; font-weight: 400;">
+                            Drie <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #B8884A;">arrangementen</span>.
+                        </h2>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px;">
+                    <!-- Package 1 -->
+                    <div class="package-card" style="padding: 48px 36px; background: transparent; border: 1px solid rgba(243, 232, 211, 0.09); display: flex; flex-direction: column; gap: 24px; min-height: 620px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="c-display" style="font-size: 48px; color: #B8884A; font-style: italic;">V</span>
+                        </div>
+                        <div>
+                            <div class="c-display" style="font-size: 48px; line-height: 1; font-style: italic; font-weight: 400;">La Rencontre</div>
+                            <div class="c-mono" style="color: #8A7A68; margin-top: 8px;">De Kennismaking · 5 flessen</div>
+                        </div>
+                        <div style="font-size: 15px; color: rgba(243, 232, 211, 0.8); line-height: 1.7; font-weight: 300;">Een korte smaakreis langs vijf druiven. Perfect voor twee.</div>
+                        <div style="border-top: 1px solid rgba(243, 232, 211, 0.13); padding-top: 20px; display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Rood · Wit · Rosé</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Drie landen</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Tot 90 min</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: auto;">
+                            <div class="c-display" style="font-size: 56px; line-height: 1; color: #F3E8D3;">€79</div>
+                            <button style="margin-top: 16px; width: 100%; padding: 16px 20px; background: transparent; color: #B8884A; border: 1px solid #B8884A; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-family: ui-monospace, Menlo, monospace; cursor: pointer;">Reserveer deze kist →</button>
+                        </div>
+                    </div>
+
+                    <!-- Package 2 (Featured) -->
+                    <div class="package-card" style="padding: 48px 36px; background: #6B1223; border: 1px solid #B8884A; display: flex; flex-direction: column; gap: 24px; min-height: 620px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="c-display" style="font-size: 48px; color: #B8884A; font-style: italic;">VI</span>
+                            <span class="c-mono" style="color: #D9A95F;">— geselecteerd —</span>
+                        </div>
+                        <div>
+                            <div class="c-display" style="font-size: 48px; line-height: 1; font-style: italic; font-weight: 400;">Le Salon</div>
+                            <div class="c-mono" style="color: #8A7A68; margin-top: 8px;">De Salon · 6 flessen</div>
+                        </div>
+                        <div style="font-size: 15px; color: rgba(243, 232, 211, 0.8); line-height: 1.7; font-weight: 300;">Een avond met vrienden. Ruim genoeg om te delen en te vergelijken.</div>
+                        <div style="border-top: 1px solid rgba(243, 232, 211, 0.13); padding-top: 20px; display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Verschillende streken</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Blind-proef optie</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Tot 2,5 uur</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: auto;">
+                            <div class="c-display" style="font-size: 56px; line-height: 1; color: #F3E8D3;">€95</div>
+                            <button style="margin-top: 16px; width: 100%; padding: 16px 20px; background: #F3E8D3; color: #6B1223; border: none; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-family: ui-monospace, Menlo, monospace; cursor: pointer;">Reserveer deze kist →</button>
+                        </div>
+                    </div>
+
+                    <!-- Package 3 -->
+                    <div class="package-card" style="padding: 48px 36px; background: transparent; border: 1px solid rgba(243, 232, 211, 0.09); display: flex; flex-direction: column; gap: 24px; min-height: 620px;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="c-display" style="font-size: 48px; color: #B8884A; font-style: italic;">VIII</span>
+                        </div>
+                        <div>
+                            <div class="c-display" style="font-size: 48px; line-height: 1; font-style: italic; font-weight: 400;">Le Dîner</div>
+                            <div class="c-mono" style="color: #8A7A68; margin-top: 8px;">Het Diner · 8 flessen</div>
+                        </div>
+                        <div style="font-size: 15px; color: rgba(243, 232, 211, 0.8); line-height: 1.7; font-weight: 300;">Een langer tafelverhaal — ideaal gecombineerd met de borrelplank.</div>
+                        <div style="border-top: 1px solid rgba(243, 232, 211, 0.13); padding-top: 20px; display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Volledig diner</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Food pairing</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: rgba(243, 232, 211, 0.6);">
+                                <span>Hele avond</span><span class="c-mono" style="color: #B8884A;">—</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: auto;">
+                            <div class="c-display" style="font-size: 56px; line-height: 1; color: #F3E8D3;">€129</div>
+                            <button style="margin-top: 16px; width: 100%; padding: 16px 20px; background: transparent; color: #B8884A; border: 1px solid #B8884A; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-family: ui-monospace, Menlo, monospace; cursor: pointer;">Reserveer deze kist →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOE HET WERKT -->
+        <section style="padding: 140px 80px;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <div class="c-mono" style="color: #B8884A;">iii. · la méthode</div>
+                <h2 class="c-display" style="font-size: 96px; line-height: 0.95; margin: 16px 0 0; font-weight: 400;">
+                    Vier <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #B8884A;">bewegingen</span>.
+                </h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(243, 232, 211, 0.13); border-bottom: 1px solid rgba(243, 232, 211, 0.13);">
+                <div style="padding: 48px 28px; border-right: 1px solid rgba(243, 232, 211, 0.13);">
+                    <div class="c-display" style="font-size: 144px; line-height: 0.8; color: rgba(184, 136, 74, 0.19); font-weight: 400; font-style: italic;">1</div>
+                    <div class="c-display" style="font-size: 34px; font-style: italic; margin-top: -20px;">kiezen</div>
+                    <div style="margin-top: 14px; color: rgba(243, 232, 211, 0.6); line-height: 1.6; font-size: 14px;">Vijf, zes of acht flessen. Thema of verrassing.</div>
+                </div>
+
+                <div style="padding: 48px 28px; border-right: 1px solid rgba(243, 232, 211, 0.13);">
+                    <div class="c-display" style="font-size: 144px; line-height: 0.8; color: rgba(184, 136, 74, 0.19); font-weight: 400; font-style: italic;">2</div>
+                    <div class="c-display" style="font-size: 34px; font-style: italic; margin-top: -20px;">ontvangen</div>
+                    <div style="margin-top: 14px; color: rgba(243, 232, 211, 0.6); line-height: 1.6; font-size: 14px;">48 uur later bij je thuis, met de hand ingepakt.</div>
+                </div>
+
+                <div style="padding: 48px 28px; border-right: 1px solid rgba(243, 232, 211, 0.13);">
+                    <div class="c-display" style="font-size: 144px; line-height: 0.8; color: rgba(184, 136, 74, 0.19); font-weight: 400; font-style: italic;">3</div>
+                    <div class="c-display" style="font-size: 34px; font-style: italic; margin-top: -20px;">ontkurken</div>
+                    <div style="margin-top: 14px; color: rgba(243, 232, 211, 0.6); line-height: 1.6; font-size: 14px;">Volg de handleiding — of ga je eigen gang.</div>
+                </div>
+
+                <div style="padding: 48px 28px;">
+                    <div class="c-display" style="font-size: 144px; line-height: 0.8; color: rgba(184, 136, 74, 0.19); font-weight: 400; font-style: italic;">4</div>
+                    <div class="c-display" style="font-size: 34px; font-style: italic; margin-top: -20px;">onthouden</div>
+                    <div style="margin-top: 14px; color: rgba(243, 232, 211, 0.6); line-height: 1.6; font-size: 14px;">Bewaar je proefkaarten als een eigen wijnjournaal.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OVER CATHELIJNE -->
+        <section style="padding: 140px 80px; background: #1C0B10; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+            <div>
+                <div class="img-ph" style="width: 100%; height: 680px; border-radius: 2px; color: #1a1012;">
+                    <span class="img-ph-label" style="color: rgba(243, 232, 211, 0.5);">[ cathelijne · zwart-wit portret ]</span>
+                </div>
+            </div>
+            <div>
+                <div class="c-mono" style="color: #B8884A; margin-bottom: 14px;">iv. · elle</div>
+                <h2 class="c-display" style="font-size: 80px; line-height: 1; margin: 0; font-weight: 400;">
+                    Wijn is een <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #B8884A;">ontmoeting</span>.
+                </h2>
+                <div style="margin-top: 28px; font-size: 17px; line-height: 1.7; color: rgba(243, 232, 211, 0.8); max-width: 520px; font-weight: 300;">
+                    Tussen jou en de maker. Tussen het druivenras en de bodem. Tussen vrienden aan tafel.
+                    Cathelijne selecteert wijnen die een verhaal hebben — en mensen samenbrengen.
+                </div>
+                <div style="margin-top: 40px; padding: 24px 0; border-top: 1px solid rgba(243, 232, 211, 0.13); border-bottom: 1px solid rgba(243, 232, 211, 0.13); display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                    <div>
+                        <div class="c-display" style="font-size: 48px; line-height: 1; color: #B8884A;">240+</div>
+                        <div class="c-mono" style="margin-top: 8px; color: #8A7A68;">pakketten</div>
+                    </div>
+                    <div>
+                        <div class="c-display" style="font-size: 48px; line-height: 1; color: #B8884A;">38</div>
+                        <div class="c-mono" style="margin-top: 8px; color: #8A7A68;">events</div>
+                    </div>
+                    <div>
+                        <div class="c-display" style="font-size: 48px; line-height: 1; color: #B8884A;">9 jr.</div>
+                        <div class="c-mono" style="margin-top: 8px; color: #8A7A68;">ervaring</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="padding: 140px 80px; text-align: center;">
+            <div class="c-mono" style="color: #B8884A; margin-bottom: 24px;">v. · réserver</div>
+            <h2 class="c-display" style="font-size: 120px; line-height: 0.95; margin: 0; font-weight: 400;">
+                Begin je <span style="font-style: italic; font-family: 'Cormorant Garamond'; font-weight: 300; color: #B8884A;">avond</span>.
+            </h2>
+            <button style="margin-top: 48px; padding: 20px 40px; background: #B8884A; color: #120609; border: none; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: ui-monospace, Menlo, monospace;">Bekijk de collectie →</button>
+        </section>
+
+        <!-- FOOTER -->
+        <footer style="padding: 80px 80px 48px; background: #0A0403; color: #F3E8D3; border-top: 1px solid rgba(243, 232, 211, 0.07);">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <svg viewBox="0 0 200 200" width="32" height="32">
+                            <ellipse cx="100" cy="100" rx="78" ry="72" fill="rgba(107, 18, 35, 0.3)"/>
+                            <path d="M 138 28 C 70 28 30 72 30 114 C 30 158 74 180 112 176 C 96 174 74 156 76 134 C 78 116 92 104 108 104 C 118 104 126 112 124 124 C 122 136 112 142 104 140 L 112 148 L 120 158" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                        </svg>
+                        <div class="c-display" style="font-size: 22px;">cathdrwijnen</div>
+                    </div>
+                    <div style="color: rgba(243, 232, 211, 0.7); font-size: 14px; line-height: 1.6; max-width: 300px; font-weight: 300;">
+                        Gecureerde wijnproeverijen voor thuis. Met verhaal, context en een avond die je bijblijft.
+                    </div>
+                </div>
+
+                <div>
+                    <div class="c-mono" style="margin-bottom: 16px; opacity: 0.5;">Menu</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Pakketten</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Wijze</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Cathelijne</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Events</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="c-mono" style="margin-bottom: 16px; opacity: 0.5;">Contact</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Email</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">WhatsApp</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Instagram</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="c-mono" style="margin-bottom: 16px; opacity: 0.5;">Info</div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Privacy</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Voorwaarden</a>
+                        <a href="#" style="color: #F3E8D3; text-decoration: none; opacity: 0.7;">Verzending</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding-top: 32px; border-top: 1px solid rgba(243, 232, 211, 0.07);">
+                <span class="c-mono" style="opacity: 0.4;">@cathdrwijnen · © 2026</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

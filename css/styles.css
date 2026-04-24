@@ -59,7 +59,7 @@ html, body {
     position: absolute;
     pointer-events: none;
     mix-blend-mode: multiply;
-    opacity: 0.4;
+    opacity: 0.6;
 }
 
 .img-ph {
@@ -693,6 +693,6 @@ img, svg, video {
     /* Shrink wine stains further so they don't dominate small screens */
     .wine-stain {
         max-width: 55vw;
-        opacity: 0.25 !important;
+        opacity: 0.4 !important;
     }
 }
