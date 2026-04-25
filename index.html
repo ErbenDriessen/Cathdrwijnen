@@ -26,6 +26,7 @@
             color: #0A0704;
             font-family: 'Inter', system-ui, sans-serif;
             min-height: 100%;
+            overflow-x: hidden;
         }
 
         .display {
@@ -433,7 +434,11 @@
             font-size: 13px;
         }
 
-        /* Responsive */
+        /* ============================================================
+           Responsive
+           ============================================================ */
+
+        /* Tablet / very large phone */
         @media (max-width: 900px) {
             .designs {
                 grid-template-columns: 1fr;
@@ -444,16 +449,134 @@
             }
             .brand { margin-bottom: 40px; }
             .intro { margin-bottom: 48px; }
-            .intro__title { font-size: 52px; }
-            .card__name { font-size: 32px; }
+            .intro__title { font-size: 56px; }
+            .card__name { font-size: 34px; }
             .card--favorite { order: -1; }
             .favorite-sticker { font-size: 14px; }
+
+            /* Previews are now full-width, scale headlines down */
+            .preview-salon .headline { font-size: 58px; }
+            .preview-carafe .headline { font-size: 52px; }
+            .preview-journal .headline { font-size: 52px; }
         }
 
-        @media (max-width: 480px) {
-            .intro__kicker { font-size: 20px; }
-            .intro__title { font-size: 44px; }
-            .card__preview { aspect-ratio: 16 / 11; }
+        /* Phone */
+        @media (max-width: 600px) {
+            .page {
+                padding: 36px 18px 64px;
+            }
+            .brand {
+                gap: 12px;
+                margin-bottom: 32px;
+            }
+            .brand__mark {
+                width: 40px;
+                height: 40px;
+            }
+            .brand__name {
+                font-size: 24px;
+            }
+            .intro {
+                margin-bottom: 40px;
+            }
+            .intro__kicker {
+                font-size: 20px;
+            }
+            .intro__title {
+                font-size: 46px;
+            }
+            .intro__text {
+                font-size: 15.5px;
+            }
+            .card__preview {
+                aspect-ratio: 16 / 10;
+            }
+            .card__body {
+                padding: 20px 20px 24px;
+                gap: 8px;
+            }
+            .card__name {
+                font-size: 30px;
+            }
+            .card__desc {
+                font-size: 14px;
+            }
+
+            .preview-salon .headline { font-size: 46px; }
+            .preview-carafe .headline { font-size: 40px; }
+            .preview-journal .headline { font-size: 42px; }
+
+            .preview-salon .sub { font-size: 15px; }
+            .preview-carafe .pill { font-size: 7px; }
+
+            .favorite-sticker {
+                font-size: 13px;
+                padding: 7px 12px;
+                top: 12px;
+                right: 12px;
+            }
+
+            .footer-note {
+                margin-top: 56px;
+                font-size: 12.5px;
+                padding: 0 8px;
+            }
+
+            /* Shrink wine stains so they don't dominate small screens */
+            .wine-stain {
+                max-width: 55vw;
+                height: auto;
+            }
+        }
+
+        /* Small phone (iPhone SE and similar) */
+        @media (max-width: 400px) {
+            .page {
+                padding: 32px 16px 56px;
+            }
+            .intro__kicker {
+                font-size: 18px;
+            }
+            .intro__title {
+                font-size: 40px;
+            }
+            .card__name {
+                font-size: 26px;
+            }
+            .card__desc {
+                font-size: 13.5px;
+            }
+
+            .preview-salon .headline,
+            .preview-carafe .headline,
+            .preview-journal .headline {
+                top: 16px;
+                left: 16px;
+                right: 16px;
+            }
+            .preview-salon .headline { font-size: 38px; }
+            .preview-carafe .headline { font-size: 34px; }
+            .preview-journal .headline { font-size: 34px; }
+
+            .preview-salon .sub,
+            .preview-carafe .sub,
+            .preview-carafe .pill,
+            .preview-carafe .eyebrow,
+            .preview-journal .script,
+            .preview-journal .meta,
+            .preview-journal .eyebrow {
+                left: 14px;
+                right: 14px;
+            }
+            .preview-salon .dot {
+                right: 14px;
+                bottom: 18px;
+            }
+
+            .favorite-sticker {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
         }
     </style>
 </head>
