@@ -3,3 +3,9 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules/
+
+# Webshop: geheimen en bestellingen nooit in git
+api/config.php
+data/*
+!data/.htaccess
+!data/index.html

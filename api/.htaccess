@@ -1,0 +1,11 @@
+# Instellingen en uitleg zijn niet via de website op te vragen. Ook als PHP
+# ooit niet draait, wordt config.php (met de Mollie-sleutel) zo nooit als tekst getoond.
+<FilesMatch "^(config.*\.php|LEESMIJ\.md)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
