@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="nl" class="winkel-pagina">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Afrekenen · cathdrwijnen</title>
+    <meta name="description" content="Rond je bestelling bij cathdrwijnen af: kies bezorgen of ophalen, vul je gegevens in en betaal veilig.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F2E3C2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..700&display=swap">
+    <link rel="stylesheet" href="css/salon-v2.css">
+    <link rel="stylesheet" href="css/winkel.css">
+    <script src="js/leeftijd.js" defer></script>
+    <script src="js/winkel.js" defer></script>
+    <script src="js/afrekenen.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Naar de inhoud</a>
+
+    <header class="site-header site-header--winkel">
+        <a class="brand" href="salon-v2.html" aria-label="cathdrwijnen, naar de homepagina">
+            <img class="brand__logo" src="assets/v2/logo-160.webp" width="52" height="52" alt="">
+            <span class="brand__name">cathdrwijnen</span>
+        </a>
+        <a class="btn btn--ghost btn--small site-header__terug" href="salon-v2.html#pakketten">Terug naar de winkel</a>
+    </header>
+
+    <main id="main" class="winkel-main kassa">
+        <h1 class="winkel-titel">Afrekenen</h1>
+        <!-- Waar Cath bezorgt en hoe je betaalt moet aan het begin van het bestellen staan (art. 6:230v lid 4 BW).
+             TIJDELIJK: het gebied en de plaats tussen [ ] vult Cath in, hier én in pakketten.json (levering). -->
+        <div class="winkel-intro" data-kassa-intro>
+            <p>Controleer je bestelling, vul je gegevens in en betaal met iDEAL | Wero of creditcard.</p>
+            <p>Cath bezorgt alleen in [gebied volgt]. Woon je verder weg, dan kun je je pakket ophalen in [plaats volgt].</p>
+        </div>
+
+        <noscript>
+            <div class="winkel-melding winkel-melding--fout">
+                <h2>Zet JavaScript aan om af te rekenen</h2>
+                <p>Je mandje en het betalen werken alleen als JavaScript aanstaat in je browser. Lukt dat niet? Neem dan <a href="salon-v2.html#contact">contact op met Cath</a>.</p>
+            </div>
+        </noscript>
+
+        <!-- De states hieronder worden door js/afrekenen.js getoond of verborgen -->
+        <div class="winkel-melding" data-kassa-laden hidden>
+            <p>Je mandje wordt geladen…</p>
+        </div>
+
+        <div class="winkel-melding winkel-melding--fout" data-kassa-storing tabindex="-1" hidden>
+            <h2>Er ging iets mis</h2>
+            <p>De pakketten konden niet worden geladen. Ververs de pagina, of probeer het later nog eens.</p>
+            <a class="btn btn--ghost" href="afrekenen.html">Pagina opnieuw laden</a>
+        </div>
+
+        <div class="winkel-melding" data-kassa-leeg tabindex="-1" hidden>
+            <h2>Je mandje is leeg</h2>
+            <p>Kies eerst een of meer pakketten. Daarna kun je hier afrekenen.</p>
+            <a class="btn btn--wine" href="salon-v2.html#pakketten">Naar de pakketten</a>
+        </div>
+
+        <form class="kassa__form" id="kassaForm" action="api/bestelling.php" method="post" novalidate hidden>
+            <div class="kassa__honeypot" aria-hidden="true">
+                <label>Laat dit veld leeg <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <!-- 1 Je bestelling -->
+            <section class="kassa-blok" aria-labelledby="stap1">
+                <h2 class="kassa-blok__titel" id="stap1" tabindex="-1"><span class="kassa-blok__nr" aria-hidden="true">1</span>Je bestelling</h2>
+                <ul class="regels" role="list" id="k-items" data-regels></ul>
+                <p class="regels__meer">Nog iets toevoegen? <a href="salon-v2.html#pakketten">Terug naar de pakketten</a></p>
+            </section>
+
+            <!-- 2 Bezorgen of ophalen (teksten en prijzen komen uit pakketten.json) -->
+            <section class="kassa-blok" aria-labelledby="stap2">
+                <h2 class="kassa-blok__titel" id="stap2"><span class="kassa-blok__nr" aria-hidden="true">2</span>Bezorgen of ophalen</h2>
+                <fieldset class="keuzes" id="k-levering">
+                    <legend class="visually-hidden">Bezorgen of ophalen</legend>
+                    <label class="keuze">
+                        <input type="radio" name="levering" value="bezorgen" checked>
+                        <span class="keuze__body">
+                            <span class="keuze__kop">
+                                <span class="keuze__naam" data-levering-naam="bezorgen">Bezorgen</span>
+                                <span class="keuze__prijs" data-levering-prijs="bezorgen">€ 6,95</span>
+                            </span>
+                            <span class="keuze__uitleg" data-levering-uitleg="bezorgen">Cath bezorgt je pakket zelf in [gebied volgt]. Bij de deur vraagt ze om je ID.</span>
+                            <span class="keuze__extra" data-levering-extra="bezorgen">Gratis vanaf € 100,00</span>
+                        </span>
+                    </label>
+                    <label class="keuze">
+                        <input type="radio" name="levering" value="ophalen">
+                        <span class="keuze__body">
+                            <span class="keuze__kop">
+                                <span class="keuze__naam" data-levering-naam="ophalen">Ophalen</span>
+                                <span class="keuze__prijs" data-levering-prijs="ophalen">Gratis</span>
+                            </span>
+                            <span class="keuze__uitleg" data-levering-uitleg="ophalen">Je haalt je pakket op bij Cath in [plaats volgt]. Ze stuurt je het adres en spreekt een moment met je af. Bij het ophalen vraagt ze om je ID.</span>
+                        </span>
+                    </label>
+                </fieldset>
+                <!-- De levertermijn (art. 6:230m lid 1 sub g BW); js zet de tekst uit pakketten.json eroverheen -->
+                <p class="keuzes__termijn" data-levertermijn>Cath neemt binnen [aantal volgt] werkdagen contact met je op. Je hebt je pakket uiterlijk 30 dagen na je bestelling.</p>
+            </section>
+
+            <!-- 3 Je gegevens -->
+            <section class="kassa-blok" aria-labelledby="stap3">
+                <h2 class="kassa-blok__titel" id="stap3"><span class="kassa-blok__nr" aria-hidden="true">3</span>Je gegevens</h2>
+                <div class="kassa-blok__velden">
+                    <div class="field">
+                        <label class="field__label" for="k-naam">Naam</label>
+                        <input class="field__input" type="text" id="k-naam" name="naam" autocomplete="name" maxlength="100" required>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="k-email">E-mail</label>
+                        <input class="field__input" type="email" id="k-email" name="email" autocomplete="email" inputmode="email" maxlength="200" spellcheck="false" autocapitalize="off" required aria-describedby="k-email-hint">
+                        <p class="field__hint" id="k-email-hint">Hier sturen we de bevestiging van je bestelling naartoe.</p>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="k-telefoon">Telefoon <span class="field__opt">(optioneel)</span></label>
+                        <input class="field__input" type="tel" id="k-telefoon" name="telefoon" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="k-telefoon-hint">
+                        <p class="field__hint" id="k-telefoon-hint">Handig als Cath iets wil afspreken over het bezorgen of ophalen.</p>
+                    </div>
+
+                    <fieldset class="adres" id="k-adres" data-adres>
+                        <legend class="adres__titel">Bezorgadres</legend>
+                        <p class="field__hint adres__uitleg">Cath bezorgt alleen op dit adres, en alleen aan iemand van 18 jaar of ouder.</p>
+                        <!-- Gewone volgorde (er is geen postcode-opzoeker). Vult de browser bij Straat
+                             "Kerkstraat 12" in, dan zet js/afrekenen.js het huisnummer apart. -->
+                        <div class="adres__velden">
+                            <div class="field adres__straat">
+                                <label class="field__label" for="k-straat">Straat</label>
+                                <input class="field__input" type="text" id="k-straat" name="straat" autocomplete="address-line1" maxlength="100" required>
+                            </div>
+                            <div class="field adres__huisnummer">
+                                <label class="field__label" for="k-huisnummer">Huisnummer</label>
+                                <input class="field__input" type="text" id="k-huisnummer" name="huisnummer" maxlength="12" spellcheck="false" required>
+                            </div>
+                            <div class="field adres__postcode">
+                                <label class="field__label" for="k-postcode">Postcode</label>
+                                <input class="field__input field__input--postcode" type="text" id="k-postcode" name="postcode" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" maxlength="7" required>
+                            </div>
+                            <div class="field adres__plaats">
+                                <label class="field__label" for="k-plaats">Plaats</label>
+                                <input class="field__input" type="text" id="k-plaats" name="plaats" autocomplete="address-level2" maxlength="100" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </section>
+
+            <!-- 4 Opmerking -->
+            <section class="kassa-blok" aria-labelledby="stap4">
+                <h2 class="kassa-blok__titel" id="stap4"><span class="kassa-blok__nr" aria-hidden="true">4</span>Opmerking</h2>
+                <div class="kassa-blok__velden">
+                    <div class="field">
+                        <label class="field__label" for="k-opmerking">Wil je Cath nog iets laten weten? <span class="field__opt">(optioneel)</span></label>
+                        <textarea class="field__input" id="k-opmerking" name="opmerking" rows="4" maxlength="1000" aria-describedby="k-opmerking-hint"></textarea>
+                        <p class="field__hint" id="k-opmerking-hint">Bijvoorbeeld de tekst voor het kaartje bij een cadeau, of wanneer je meestal thuis bent. Hooguit 1000 tekens.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5 Controleren -->
+            <section class="kassa-blok" aria-labelledby="stap5">
+                <h2 class="kassa-blok__titel" id="stap5"><span class="kassa-blok__nr" aria-hidden="true">5</span>Controleren</h2>
+                <div class="kassa-checks">
+                    <label class="check check--age"><input type="checkbox" id="k-achttienPlus" name="achttienPlus" value="ja"> <span>Ik ben 18 jaar of ouder</span></label>
+                    <p class="kassa-id"><span class="kassa-id__teken" aria-hidden="true">ID</span> Bij bezorgen of ophalen vragen we om je ID.</p>
+                    <!-- Geen link in het label: een tik op de tekst zet het vinkje, en opent geen andere pagina.
+                         Wat je al hebt ingevuld blijft bewaard als je de voorwaarden leest en teruggaat. -->
+                    <label class="check"><input type="checkbox" id="k-voorwaarden" name="voorwaarden" value="ja"> <span>Ik ga akkoord met de algemene voorwaarden</span></label>
+                    <p class="field__hint kassa-checks__links">Lees de <a href="voorwaarden.html">algemene voorwaarden</a> en de <a href="privacy.html">privacyverklaring</a>.</p>
+                </div>
+            </section>
+
+            <!-- Overzicht: op de telefoon vlak boven de knop, op desktop rechts -->
+            <aside class="overzicht" aria-labelledby="overzichtTitel">
+                <h2 class="overzicht__titel" id="overzichtTitel">Overzicht</h2>
+                <ul class="overzicht__regels" role="list" data-overzicht-regels></ul>
+                <dl class="overzicht__bedragen">
+                    <div class="overzicht__rij"><dt>Subtotaal</dt><dd data-subtotaal>€ 0,00</dd></div>
+                    <div class="overzicht__rij"><dt data-levering-label>Bezorgen</dt><dd data-verzendkosten>€ 6,95</dd></div>
+                    <div class="overzicht__rij overzicht__rij--totaal"><dt>Totaal <span class="overzicht__btw">incl. btw</span></dt><dd data-totaal>€ 0,00</dd></div>
+                </dl>
+                <p class="overzicht__tip" data-gratis-tip hidden></p>
+                <!-- TIJDELIJK: hier komt ook de officiële Europese kennisgeving over de wettelijke garantie
+                     (afbeelding met QR-code, met een alt-tekst). Zie de controlelijst in api/LEESMIJ.md. -->
+                <p class="garantie overzicht__garantie">Je hebt altijd recht op een pakket dat in orde is: dat is de wettelijke garantie. Lees meer in de <a href="voorwaarden.html#garantie">algemene voorwaarden</a>.</p>
+            </aside>
+
+            <div class="kassa__betalen">
+                <p class="kassa__totaalregel" aria-hidden="true">Totaal <strong data-totaal>€ 0,00</strong> incl. btw</p>
+                <div class="kassa__fout" id="kassaFout" role="alert" tabindex="-1" hidden></div>
+                <button class="btn btn--wine kassa__knop" type="submit" data-submit>Bestellen en betalen</button>
+                <p class="kassa__veilig">Je betaalt veilig via iDEAL | Wero of creditcard bij Mollie.</p>
+            </div>
+        </form>
+
+        <!-- Voorleesregel voor wijzigingen in het mandje -->
+        <p class="visually-hidden" role="status" data-kassa-status></p>
+    </main>
+
+    <footer class="winkel-footer">
+        <div class="winkel-footer__binnen">
+            <p class="winkel-footer__nix"><span class="nix18">NIX18</span> Geen 18, geen alcohol.</p>
+            <nav class="winkel-footer__nav" aria-label="Voettekst">
+                <ul>
+                    <li><a href="voorwaarden.html">Algemene voorwaarden</a></li>
+                    <li><a href="privacy.html">Privacyverklaring</a></li>
+                    <li><a href="salon-v2.html#contact">Contact</a></li>
+                    <li><a href="ontbinden.html">Hier je bestelling ontbinden</a></li>
+                </ul>
+            </nav>
+            <!-- TIJDELIJK: de gegevens tussen [ ] levert Cath aan (dezelfde als 'bedrijf' in api/config.php).
+                 Een echt vestigingsadres, geen postbus. Telefoon als link: <a href="tel:+316...">06 ...</a> -->
+            <p class="winkel-footer__bedrijf">cathdrwijnen · [naam volgt] · [adres volgt] · tel. [nummer volgt] · <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a> · KvK [nummer volgt] · btw-id [nummer volgt]</p>
+        </div>
+    </footer>
+</body>
+</html>

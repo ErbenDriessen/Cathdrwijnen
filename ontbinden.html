@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl" class="winkel-pagina">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Je bestelling ontbinden · cathdrwijnen</title>
+    <meta name="description" content="Wil je je bestelling bij cathdrwijnen niet houden? Hier ontbind je die binnen 14 dagen, zonder reden.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F2E3C2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..700&display=swap">
+    <link rel="stylesheet" href="css/salon-v2.css">
+    <link rel="stylesheet" href="css/winkel.css">
+    <script src="js/ontbinden.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Naar de inhoud</a>
+
+    <header class="site-header site-header--winkel">
+        <a class="brand" href="salon-v2.html" aria-label="cathdrwijnen, naar de homepagina">
+            <img class="brand__logo" src="assets/v2/logo-160.webp" width="52" height="52" alt="">
+            <span class="brand__name">cathdrwijnen</span>
+        </a>
+        <a class="btn btn--ghost btn--small site-header__terug" href="salon-v2.html#pakketten">Terug naar de winkel</a>
+    </header>
+
+    <!-- De ontbindingsfunctie van art. 6:230oa BW: naam, bestelnummer en e-mail,
+         dan een tweede knop om te bevestigen. api/ontbinden.php mailt meteen een
+         ontvangstbevestiging. Deze pagina moet altijd bereikbaar blijven. -->
+    <main id="main" class="tekstpagina ontbinden">
+        <h1 class="winkel-titel">Je bestelling ontbinden</h1>
+        <p class="winkel-intro" data-ontbinden-intro>Je hebt 14 dagen bedenktijd, vanaf de dag dat je het pakket hebt gekregen. Wil je je bestelling niet houden? Vul dit formulier in. Je hoeft geen reden te geven.</p>
+
+        <noscript>
+            <div class="winkel-melding">
+                <h2>Ontbinden per e-mail</h2>
+                <p>Dit formulier werkt alleen als JavaScript aanstaat. Je kunt je bestelling ook ontbinden met een e-mail aan <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a>. Zet daarin je naam en je bestelnummer.</p>
+            </div>
+        </noscript>
+
+        <form class="ontbinden__kaart" id="ontbindForm" action="api/ontbinden.php" method="post" novalidate hidden>
+            <div class="kassa__honeypot" aria-hidden="true">
+                <label>Laat dit veld leeg <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <!-- Stap 1: invullen -->
+            <div class="ontbinden__stap" data-stap="invullen">
+                <div class="ontbinden__velden">
+                    <div class="field">
+                        <label class="field__label" for="o-naam">Naam</label>
+                        <input class="field__input" type="text" id="o-naam" name="naam" autocomplete="name" maxlength="100" required>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="o-bestelnummer">Bestelnummer</label>
+                        <input class="field__input" type="text" id="o-bestelnummer" name="bestelnummer" maxlength="60" autocomplete="off" autocapitalize="characters" spellcheck="false" required aria-describedby="o-bestelnummer-hint">
+                        <p class="field__hint" id="o-bestelnummer-hint">Staat in je bevestigingsmail, bijvoorbeeld CDW-20261004-ABC234.</p>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="o-email">E-mail</label>
+                        <input class="field__input" type="email" id="o-email" name="email" autocomplete="email" inputmode="email" maxlength="200" spellcheck="false" autocapitalize="off" required aria-describedby="o-email-hint">
+                        <p class="field__hint" id="o-email-hint">Hier sturen we de bevestiging naartoe.</p>
+                    </div>
+                </div>
+                <div class="kassa__fout ontbinden__fout" id="ontbindFout" role="alert" tabindex="-1" hidden></div>
+                <div class="ontbinden__knoppen">
+                    <button class="btn btn--wine" type="submit">Verder</button>
+                </div>
+            </div>
+
+            <!-- Stap 2: controleren en bevestigen -->
+            <div class="ontbinden__stap" data-stap="controleren" hidden>
+                <h2 class="ontbinden__titel" id="controleTitel" tabindex="-1">Klopt dit?</h2>
+                <dl class="ontbinden__gegevens">
+                    <dt>Naam</dt><dd data-toon="naam"></dd>
+                    <dt>Bestelnummer</dt><dd data-toon="bestelnummer"></dd>
+                    <dt>E-mail</dt><dd data-toon="email"></dd>
+                </dl>
+                <p class="ontbinden__uitleg">Met de knop hieronder ontbind je je bestelling. Je krijgt meteen een bevestiging per e-mail.</p>
+                <div class="kassa__fout ontbinden__fout" id="bevestigFout" role="alert" tabindex="-1" hidden></div>
+                <div class="ontbinden__knoppen">
+                    <button class="btn btn--wine" type="button" data-bevestig>Ontbinding bevestigen</button>
+                    <button class="btn btn--ghost" type="button" data-wijzig>Gegevens aanpassen</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="ontbinden__kaart" data-stap="klaar" hidden>
+            <h2 class="ontbinden__titel" tabindex="-1">Je ontbinding is ontvangen</h2>
+            <p>We hebben je ontbinding ontvangen op <span data-ontvangen></span>. <span data-gemaild>Je krijgt een bevestiging per e-mail.</span><span data-niet-gemaild hidden>Het lukte niet om je de bevestiging te mailen. Maak een schermafbeelding van deze pagina, of mail Cath op <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a>.</span></p>
+            <p>Cath neemt contact met je op over het teruggeven van het pakket. Je krijgt je geld binnen 14 dagen terug.</p>
+            <div class="ontbinden__knoppen">
+                <a class="btn btn--ghost" href="salon-v2.html">Terug naar de site</a>
+            </div>
+        </div>
+
+        <!-- Voorleesregel -->
+        <p class="visually-hidden" role="status" data-ontbinden-status></p>
+    </main>
+
+    <footer class="winkel-footer">
+        <div class="winkel-footer__binnen">
+            <p class="winkel-footer__nix"><span class="nix18">NIX18</span> Geen 18, geen alcohol.</p>
+            <nav class="winkel-footer__nav" aria-label="Voettekst">
+                <ul>
+                    <li><a href="voorwaarden.html">Algemene voorwaarden</a></li>
+                    <li><a href="privacy.html">Privacyverklaring</a></li>
+                    <li><a href="salon-v2.html#contact">Contact</a></li>
+                    <li><a href="ontbinden.html" aria-current="page">Hier je bestelling ontbinden</a></li>
+                </ul>
+            </nav>
+            <!-- TIJDELIJK: de gegevens tussen [ ] levert Cath aan (dezelfde als 'bedrijf' in api/config.php).
+                 Een echt vestigingsadres, geen postbus. Telefoon als link: <a href="tel:+316...">06 ...</a> -->
+            <p class="winkel-footer__bedrijf">cathdrwijnen · [naam volgt] · [adres volgt] · tel. [nummer volgt] · <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a> · KvK [nummer volgt] · btw-id [nummer volgt]</p>
+        </div>
+    </footer>
+</body>
+</html>

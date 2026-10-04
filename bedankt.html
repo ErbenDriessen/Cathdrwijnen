@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="nl" class="winkel-pagina">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Je bestelling · cathdrwijnen</title>
+    <meta name="description" content="De stand van je betaling bij cathdrwijnen.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F2E3C2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..700&display=swap">
+    <link rel="stylesheet" href="css/salon-v2.css">
+    <link rel="stylesheet" href="css/winkel.css">
+    <script src="js/winkel.js" defer></script>
+    <script src="js/bedankt.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Naar de inhoud</a>
+
+    <header class="site-header site-header--winkel">
+        <a class="brand" href="salon-v2.html" aria-label="cathdrwijnen, naar de homepagina">
+            <img class="brand__logo" src="assets/v2/logo-160.webp" width="52" height="52" alt="">
+            <span class="brand__name">cathdrwijnen</span>
+        </a>
+        <a class="btn btn--ghost btn--small site-header__terug" href="salon-v2.html#pakketten">Terug naar de winkel</a>
+    </header>
+
+    <main id="main" class="bedankt">
+        <div class="bedankt__kaart">
+            <!-- js/bedankt.js laat steeds één van deze states zien -->
+
+            <!-- Zonder JavaScript, of zolang de status nog wordt opgevraagd -->
+            <div class="bedankt__staat" data-staat="laden">
+                <span class="bedankt__laden" aria-hidden="true" data-js-laden hidden></span>
+                <h1 class="bedankt__titel" tabindex="-1">Even kijken of je betaling binnen is</h1>
+                <p>Dit duurt meestal maar een paar seconden.</p>
+                <noscript>
+                    <p>Zonder JavaScript kunnen we de stand van je betaling niet laten zien. Je krijgt een e-mail zodra de betaling binnen is.</p>
+                </noscript>
+            </div>
+
+            <div class="bedankt__staat" data-staat="betaald" hidden>
+                <h1 class="bedankt__titel" tabindex="-1">Bedankt, je bestelling is betaald</h1>
+                <p>Je bestelnummer: <span class="bedankt__ref" data-ref></span></p>
+                <h2 class="bedankt__sub">Wat er nu gebeurt</h2>
+                <ol class="bedankt__stappen" role="list">
+                    <li><p>Je krijgt een bevestiging per e-mail. Niets gekregen? Kijk dan ook even in je ongewenste mail.</p></li>
+                    <!-- De levertermijn; js zet de tekst uit pakketten.json eroverheen -->
+                    <li><p data-levertermijn>Cath neemt binnen [aantal volgt] werkdagen contact met je op. Je hebt je pakket uiterlijk 30 dagen na je bestelling.</p></li>
+                    <li><p>Ze spreekt een moment met je af voor het bezorgen of ophalen. Daarbij vraagt ze om je ID.</p></li>
+                </ol>
+                <!-- Waar de ontbindingsfunctie staat (art. 6:230m lid 1 sub h BW) -->
+                <p class="bedankt__klein">Wil je je bestelling toch niet houden? Je hebt 14 dagen bedenktijd. <a href="ontbinden.html" data-ontbinden-link>Hier je bestelling ontbinden</a></p>
+                <div class="bedankt__acties">
+                    <a class="btn btn--wine" href="salon-v2.html">Terug naar de site</a>
+                </div>
+            </div>
+
+            <div class="bedankt__staat" data-staat="wachten" hidden>
+                <span class="bedankt__laden" aria-hidden="true" data-wachten-kort></span>
+                <h1 class="bedankt__titel" tabindex="-1">We wachten nog op de bevestiging van je bank</h1>
+                <p data-wachten-kort>Dat duurt meestal maar even. Laat deze pagina nog open.</p>
+                <p data-wachten-lang hidden>Je krijgt een e-mail zodra de betaling binnen is. Je hoeft hier niet op te wachten.</p>
+                <p data-ref-regel hidden>Je bestelnummer: <span class="bedankt__ref" data-ref></span></p>
+                <div class="bedankt__extra" data-wachten-lang hidden>
+                    <p class="bedankt__klein">Heb je het betalen zelf afgebroken? Je mandje staat nog klaar, dus je kunt het opnieuw proberen.</p>
+                    <div class="bedankt__acties">
+                        <button class="btn btn--ghost" type="button" data-opnieuw-kijken>Opnieuw kijken</button>
+                        <a class="btn btn--ghost" href="afrekenen.html">Opnieuw afrekenen</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bedankt__staat" data-staat="mislukt" hidden>
+                <h1 class="bedankt__titel" tabindex="-1">De betaling is niet gelukt</h1>
+                <p data-reden></p>
+                <p>Er is niets betaald. Je mandje staat nog klaar, dus je kunt het gewoon opnieuw proberen.</p>
+                <p class="bedankt__klein" data-ref-regel hidden>Bestelnummer: <span class="bedankt__ref" data-ref></span></p>
+                <div class="bedankt__acties">
+                    <a class="btn btn--wine" href="afrekenen.html">Opnieuw afrekenen</a>
+                    <a class="btn btn--ghost" href="salon-v2.html#contact">Vraag stellen aan Cath</a>
+                </div>
+            </div>
+
+            <div class="bedankt__staat" data-staat="storing" hidden>
+                <h1 class="bedankt__titel" tabindex="-1">We konden je betaling nu niet nakijken</h1>
+                <p>Er ging iets mis bij het ophalen van de stand van je betaling. Je krijgt een e-mail zodra de betaling binnen is.</p>
+                <p class="bedankt__klein">Geen e-mail gekregen? Neem dan <a href="salon-v2.html#contact">contact op met Cath</a> en noem je bestelnummer: <span class="bedankt__ref" data-ref></span>.</p>
+                <div class="bedankt__acties">
+                    <button class="btn btn--wine" type="button" data-opnieuw-kijken>Opnieuw kijken</button>
+                </div>
+            </div>
+
+            <div class="bedankt__staat" data-staat="onbekend" hidden>
+                <h1 class="bedankt__titel" tabindex="-1">Geen bestelling gevonden</h1>
+                <p>Op deze pagina zie je na het afrekenen of je betaling gelukt is. Bij deze link konden we geen bestelling vinden.</p>
+                <p class="bedankt__klein">Net besteld en zie je dit toch? Kijk dan in je e-mail, of neem <a href="salon-v2.html#contact">contact op met Cath</a>.</p>
+                <div class="bedankt__acties">
+                    <a class="btn btn--wine" href="salon-v2.html#pakketten">Naar de pakketten</a>
+                    <a class="btn btn--ghost" href="afrekenen.html">Naar je mandje</a>
+                </div>
+            </div>
+
+            <!-- Voorleesregel: zegt hardop als de stand verandert -->
+            <p class="visually-hidden" role="status" data-status></p>
+        </div>
+    </main>
+
+    <footer class="winkel-footer">
+        <div class="winkel-footer__binnen">
+            <p class="winkel-footer__nix"><span class="nix18">NIX18</span> Geen 18, geen alcohol.</p>
+            <nav class="winkel-footer__nav" aria-label="Voettekst">
+                <ul>
+                    <li><a href="voorwaarden.html">Algemene voorwaarden</a></li>
+                    <li><a href="privacy.html">Privacyverklaring</a></li>
+                    <li><a href="salon-v2.html#contact">Contact</a></li>
+                    <li><a href="ontbinden.html">Hier je bestelling ontbinden</a></li>
+                </ul>
+            </nav>
+            <!-- TIJDELIJK: de gegevens tussen [ ] levert Cath aan (dezelfde als 'bedrijf' in api/config.php).
+                 Een echt vestigingsadres, geen postbus. Telefoon als link: <a href="tel:+316...">06 ...</a> -->
+            <p class="winkel-footer__bedrijf">cathdrwijnen · [naam volgt] · [adres volgt] · tel. [nummer volgt] · <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a> · KvK [nummer volgt] · btw-id [nummer volgt]</p>
+        </div>
+    </footer>
+</body>
+</html>

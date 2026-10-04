@@ -1,0 +1,49 @@
+{
+  "_uitleg": "De pakketten van de webshop. Prijzen in centen (4900 = EUR 49,00), inclusief btw. De site en de betaalserver lezen allebei dit bestand: een prijs aanpassen doe je alleen hier.",
+  "pakketten": [
+    {
+      "id": "cadeau",
+      "naam": "Het cadeau",
+      "flessen": 3,
+      "prijs": 4900,
+      "tekst": "Drie wijnen in een cadeaudoos, met een kaartje van jou erbij."
+    },
+    {
+      "id": "kennismaking",
+      "naam": "De kennismaking",
+      "flessen": 5,
+      "prijs": 7900,
+      "tekst": "Een eerste rondje langs vijf wijnen. Fijn voor een avond met z'n tweeën."
+    },
+    {
+      "id": "salon",
+      "naam": "De salon",
+      "flessen": 6,
+      "prijs": 9500,
+      "tekst": "Voor een avond met vrienden, met genoeg om over door te praten."
+    },
+    {
+      "id": "diner",
+      "naam": "Het diner",
+      "flessen": 8,
+      "prijs": 12900,
+      "tekst": "Een lange tafel, van aperitief tot dessertwijn."
+    }
+  ],
+  "levering": {
+    "bezorgen": {
+      "naam": "Bezorgen",
+      "uitleg": "Cath bezorgt je pakket zelf in [gebied volgt]. Bij de deur vraagt ze om je ID.",
+      "kosten": 695,
+      "gratisVanaf": 10000
+    },
+    "ophalen": {
+      "naam": "Ophalen",
+      "uitleg": "Je haalt je pakket op bij Cath in [plaats volgt]. Ze stuurt je het adres en spreekt een moment met je af. Bij het ophalen vraagt ze om je ID.",
+      "kosten": 0
+    }
+  },
+  "_levertermijn": "Komt op de afrekenpagina, de bedankpagina en in de bevestigingsmail. Zonder afgesproken termijn geldt uiterlijk 30 dagen. Zolang er nog iets tussen [ ] staat, weigert de winkel een live-sleutel.",
+  "levertermijn": "Cath neemt binnen [aantal volgt] werkdagen contact met je op. Je hebt je pakket uiterlijk 30 dagen na je bestelling.",
+  "maxPerPakket": 10
+}
