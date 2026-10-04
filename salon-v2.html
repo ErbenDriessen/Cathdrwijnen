@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>cathdrwijnen · Wijnproeverij bij jou aan huis</title>
+    <meta name="description" content="Wijnpakketten om zelf thuis te proeven, of een proeverij waarbij Cathelijne bij je langskomt. Persoonlijk samengesteld en direct online te bestellen.">
+    <!-- Prototype met voorlopige inhoud: niet indexeren tot de echte teksten en foto's erin staan -->
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://erbendriessen.github.io/Cathdrwijnen/salon-v2.html">
+    <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="cathdrwijnen">
+    <meta property="og:locale" content="nl_NL">
+    <meta property="og:title" content="cathdrwijnen · Wijnproeverij bij jou aan huis">
+    <meta property="og:description" content="Wijnpakketten om zelf te proeven, of Cathelijne die bij je komt schenken.">
+    <meta property="og:url" content="https://erbendriessen.github.io/Cathdrwijnen/salon-v2.html">
+    <meta property="og:image" content="https://erbendriessen.github.io/Cathdrwijnen/assets/v2/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F2E3C2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..700&display=swap">
+    <link rel="stylesheet" href="css/salon-v2.css">
+    <!-- Volgorde telt: winkel.js (het mandje) moet er zijn vóór salon-v2.js -->
+    <script src="js/leeftijd.js" defer></script>
+    <script src="js/winkel.js" defer></script>
+    <script src="js/salon-v2.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Naar de inhoud</a>
+
+    <!-- Wijnvlekken: één keer getekend, overal hergebruikt met <use> -->
+    <svg class="stain-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+        <defs>
+            <filter id="rough-ring" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="3"/>
+                <feDisplacementMap in="SourceGraphic" scale="16"/>
+            </filter>
+            <filter id="rough-splash" x="-30%" y="-30%" width="160%" height="160%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7"/>
+                <feDisplacementMap in="SourceGraphic" scale="26"/>
+                <feGaussianBlur stdDeviation="1.2"/>
+            </filter>
+            <symbol id="stain-ring" viewBox="0 0 200 200">
+                <g filter="url(#rough-ring)">
+                    <circle cx="100" cy="100" r="62" fill="currentColor" opacity="0.06"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="9" opacity="0.6"/>
+                    <circle cx="104" cy="97" r="70" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.45"/>
+                </g>
+            </symbol>
+            <symbol id="stain-ring-open" viewBox="0 0 200 200">
+                <g filter="url(#rough-ring)">
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="7" stroke-dasharray="300 36 70 34" opacity="0.55"/>
+                </g>
+            </symbol>
+            <symbol id="stain-splash" viewBox="0 0 200 200">
+                <g filter="url(#rough-splash)" fill="currentColor">
+                    <ellipse cx="100" cy="100" rx="58" ry="44" opacity="0.45"/>
+                    <circle cx="30" cy="70" r="7" opacity="0.4"/>
+                    <circle cx="168" cy="128" r="10" opacity="0.42"/>
+                    <circle cx="150" cy="40" r="4" opacity="0.35"/>
+                    <circle cx="52" cy="160" r="5" opacity="0.35"/>
+                </g>
+            </symbol>
+            <symbol id="stain-drops" viewBox="0 0 200 200">
+                <g filter="url(#rough-splash)" fill="currentColor">
+                    <circle cx="60" cy="80" r="12" opacity="0.45"/>
+                    <circle cx="96" cy="58" r="5" opacity="0.4"/>
+                    <circle cx="122" cy="112" r="8" opacity="0.4"/>
+                    <circle cx="152" cy="70" r="3.5" opacity="0.35"/>
+                    <circle cx="80" cy="142" r="4" opacity="0.35"/>
+                </g>
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- De 18+ vraag bij het eerste bezoek zet js/leeftijd.js zelf in de pagina
+         (dezelfde vraag als op de afrekenpagina). -->
+
+    <header class="site-header">
+        <a class="brand" href="#top" aria-label="cathdrwijnen, naar boven">
+            <img class="brand__logo" src="assets/v2/logo-160.webp" width="52" height="52" alt="">
+            <span class="brand__name">cathdrwijnen</span>
+        </a>
+        <nav class="site-nav" id="siteNav" aria-label="Hoofdmenu">
+            <ul class="site-nav__list">
+                <li><a href="#pakketten">Pakketten</a></li>
+                <li><a href="#aan-huis"><span class="nav-long">Proeverij aan huis</span><span class="nav-short">Aan huis</span></a></li>
+                <li><a href="#over">Over Cath</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- Mandjeknop: opent het mandje-paneel. js/salon-v2.js zet het aantal en het aria-label. -->
+        <button type="button" class="btn btn--wine site-header__cart" data-cart-open aria-haspopup="dialog" aria-controls="cartPanel" aria-label="Mandje, leeg">
+            <svg class="site-header__cart-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 10a5 5 0 0 1 10 0"/>
+                <path d="M3 10h18"/>
+                <path d="M4.6 10l1.5 8.3a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.7l1.5-8.3"/>
+                <path d="M9.5 13.5v3M14.5 13.5v3"/>
+            </svg>
+            <span>Mandje</span>
+            <span class="cart-badge" data-cart-count hidden>0</span>
+        </button>
+    </header>
+
+    <!-- Meldingen voor schermlezers, bijvoorbeeld "Het cadeau zit in je mandje" -->
+    <p class="visually-hidden" role="status" data-cart-status></p>
+
+    <!-- MANDJE-PANEEL. Wordt door js/salon-v2.js gevuld uit js/winkel.js en geopend
+         met de mandjeknop in de header. Rechts op de computer, van onderen op de telefoon. -->
+    <dialog class="cart" id="cartPanel" aria-modal="true" aria-labelledby="cartTitle">
+        <div class="cart__head">
+            <svg class="cart__stain" aria-hidden="true" focusable="false"><use href="#stain-ring"/></svg>
+            <div>
+                <h2 class="cart__title" id="cartTitle" tabindex="-1">Je mandje</h2>
+                <p class="cart__count" data-cart-summary></p>
+            </div>
+            <button type="button" class="cart__close" data-cart-close aria-label="Mandje sluiten">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+
+        <div class="cart__body">
+            <ul class="cart__lines" role="list" data-cart-lines></ul>
+
+            <div class="cart__empty" data-cart-empty hidden>
+                <svg class="cart__empty-ring" aria-hidden="true" focusable="false"><use href="#stain-ring-open"/></svg>
+                <p class="cart__empty-title">Je mandje is nog leeg</p>
+                <p>Kies een pakket om te beginnen. Je kunt het aantal daarna nog aanpassen.</p>
+                <a class="btn btn--wine" href="#pakketten">Bekijk de pakketten</a>
+            </div>
+
+            <div class="cart__empty" data-cart-error hidden>
+                <p class="cart__empty-title">Het mandje laadt niet</p>
+                <p>Controleer je internetverbinding en ververs de pagina. Lukt het dan nog niet? Stuur Cath een bericht via <a href="#contact">het formulier</a>.</p>
+            </div>
+        </div>
+
+        <div class="cart__foot" data-cart-foot hidden>
+            <dl class="cart__sum">
+                <dt>Subtotaal <span class="cart__btw">incl. btw</span></dt>
+                <dd data-cart-subtotal></dd>
+            </dl>
+            <p class="cart__shipping" data-cart-shipping>Verzendkosten zie je bij afrekenen.</p>
+            <div class="cart__actions">
+                <a class="btn btn--wine cart__checkout" href="afrekenen.html">Afrekenen</a>
+                <button type="button" class="btn btn--ghost" data-cart-close>Verder kijken</button>
+            </div>
+        </div>
+
+        <!-- Meldingen binnen het paneel (buiten een open paneel hoort een schermlezer niets) -->
+        <p class="visually-hidden" role="status" data-cart-status-panel></p>
+    </dialog>
+
+    <!-- Eén regel in het mandje; js/salon-v2.js kopieert dit en vult het in -->
+    <template id="cartLineTemplate">
+        <li class="cart-line">
+            <span class="cart-line__photo" aria-hidden="true"><span class="photo"></span></span>
+            <h3 class="cart-line__name" data-line-name></h3>
+            <p class="cart-line__total" data-line-total></p>
+            <p class="cart-line__meta" data-line-meta></p>
+            <div class="cart-line__actions">
+                <div class="stepper" role="group" data-line-group>
+                    <button type="button" class="stepper__btn" data-step="-1">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                    </button>
+                    <span class="stepper__count"><span class="visually-hidden">Aantal: </span><span data-line-count></span></span>
+                    <button type="button" class="stepper__btn" data-step="1">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg>
+                    </button>
+                </div>
+                <button type="button" class="cart-line__remove" data-remove>Weghalen<span class="visually-hidden" data-line-remove-name></span></button>
+            </div>
+            <p class="cart-line__max" data-line-max hidden></p>
+        </li>
+    </template>
+
+    <main id="main">
+        <!-- HERO -->
+        <section class="hero" id="top" aria-labelledby="heroTitle">
+            <img class="hero__stain" src="assets/v2/aquarel-720.webp" srcset="assets/v2/aquarel-600.webp 600w, assets/v2/aquarel-720.webp 720w, assets/v2/aquarel-900.webp 900w" sizes="min(760px, 108vw)" width="900" height="900" alt="" fetchpriority="high">
+            <svg class="stain stain--hero-ring" aria-hidden="true" focusable="false"><use href="#stain-ring"/></svg>
+            <svg class="stain stain--hero-drops" aria-hidden="true" focusable="false"><use href="#stain-drops"/></svg>
+            <h1 class="hero__title" id="heroTitle">
+                <span class="hero__word">proeverij</span>
+                <span class="hero__line">bij jou aan huis.</span>
+            </h1>
+            <p class="hero__lede">Wijnpakketten om zelf thuis te proeven, of een avond waarop Cathelijne bij je langskomt en schenkt. Allebei persoonlijk samengesteld.</p>
+            <div class="hero__actions">
+                <a class="btn btn--ink" href="#pakketten">Bekijk de pakketten</a>
+                <a class="btn btn--blush" href="#aan-huis">Proeverij aan huis</a>
+            </div>
+            <div class="hero__ways">
+                <a class="way way--box" href="#pakketten">
+                    <span class="way__name">Zelf proeven</span>
+                    <span class="way__text">Een doos met wijn, proefkaarten en een aromawiel.</span>
+                    <span class="way__link">Kies een pakket</span>
+                </a>
+                <a class="way way--home" href="#aan-huis">
+                    <span class="way__name">Proeverij aan huis</span>
+                    <span class="way__text">Cathelijne komt bij je langs, schenkt en vertelt over de makers.</span>
+                    <span class="way__link">Lees hoe dat gaat</span>
+                </a>
+            </div>
+
+            <!-- Foto's volgen van Cathelijne; de onderschriften zeggen welke -->
+            <ul class="polaroids" role="list" aria-label="Sfeerbeelden">
+                <li class="polaroid polaroid--a">
+                    <div class="photo" role="img" aria-label="Foto volgt: flessen op tafel"><span class="photo__todo">foto volgt</span></div>
+                    <p class="polaroid__caption">flessen op tafel</p>
+                </li>
+                <li class="polaroid polaroid--b">
+                    <div class="photo" role="img" aria-label="Foto volgt: Cathelijne schenkt in"><span class="photo__todo">foto volgt</span></div>
+                    <p class="polaroid__caption">de kurk gaat eruit</p>
+                </li>
+                <li class="polaroid polaroid--c">
+                    <div class="photo" role="img" aria-label="Foto volgt: borrelplank"><span class="photo__todo">foto volgt</span></div>
+                    <p class="polaroid__caption">borrelplank erbij</p>
+                </li>
+                <li class="polaroid polaroid--d">
+                    <div class="photo" role="img" aria-label="Foto volgt: proefkaart met aantekeningen"><span class="photo__todo">foto volgt</span></div>
+                    <p class="polaroid__caption">noteer wat je proeft</p>
+                </li>
+            </ul>
+        </section>
+
+        <div class="marquee">
+            <div class="marquee__track" aria-hidden="true">
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+                <span>proef</span><span class="marquee__star">✦</span><span>noteer</span><span class="marquee__star">✦</span><span>proost</span><span class="marquee__star">✦</span>
+            </div>
+            <button class="marquee__pause" type="button" aria-pressed="false" aria-label="Bewegende tekst pauzeren">
+                <span class="marquee__pause-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <!-- TWEE MANIEREN -->
+        <section class="ways" aria-labelledby="waysTitle">
+            <svg class="stain stain--ways-ring" aria-hidden="true" focusable="false"><use href="#stain-ring-open"/></svg>
+            <svg class="stain stain--ways-splash" aria-hidden="true" focusable="false"><use href="#stain-splash"/></svg>
+            <h2 class="ways__title" id="waysTitle">Twee manieren om te proeven</h2>
+            <div class="ways__grid">
+                <a class="way way--box" href="#pakketten">
+                    <h3 class="way__name">Zelf proeven</h3>
+                    <p class="way__text">Een doos met wijn, proefkaarten en een aromawiel. Je opent hem wanneer het jou uitkomt, met wie je maar wilt.</p>
+                    <span class="way__link">Kies een pakket</span>
+                </a>
+                <a class="way way--home" href="#aan-huis">
+                    <h3 class="way__name">Proeverij aan huis</h3>
+                    <p class="way__text">Een proeverij bij jou thuis. Cathelijne neemt de wijn mee, schenkt en vertelt over de makers.</p>
+                    <span class="way__link">Lees hoe dat gaat</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- PAKKETTEN -->
+        <!-- Prijzen, namen en inhoud zijn voorlopig: vervangen door de 4 echte pakketten van Cathelijne -->
+        <section class="packages" id="pakketten" aria-labelledby="packagesTitle">
+            <svg class="stain stain--packages-splash" aria-hidden="true" focusable="false"><use href="#stain-splash"/></svg>
+            <svg class="stain stain--packages-ring" aria-hidden="true" focusable="false"><use href="#stain-ring"/></svg>
+            <div class="wrap">
+                <div class="packages__head">
+                    <h2 class="section-title" id="packagesTitle">De pakketten</h2>
+                    <p class="packages__intro">Vier dozen, elk persoonlijk samengesteld door Cathelijne, met proefkaarten, een aromawiel en receptjes erbij. Leg je keuze in het mandje en betaal veilig online met iDEAL | Wero of creditcard. Daarna neemt Cath contact met je op over het bezorgen of ophalen.</p>
+                </div>
+
+                <!-- Het id in data-add en data-prijs-voor moet gelijk zijn aan het id in pakketten.json.
+                     De prijzen hieronder zijn een terugval: js/salon-v2.js zet de prijs uit pakketten.json eroverheen. -->
+                <ul class="package-list" role="list">
+                    <li class="package">
+                        <div class="photo photo--package" role="img" aria-label="Foto volgt: het cadeau"><span class="photo__todo">foto volgt</span></div>
+                        <h3 class="package__name">Het cadeau</h3>
+                        <p class="package__bottles">3 flessen</p>
+                        <p class="package__text">Drie wijnen in een cadeaudoos, met een kaartje van jou erbij.</p>
+                        <div class="package__foot">
+                            <p class="package__price"><span class="visually-hidden">Prijs: </span><span data-prijs-voor="cadeau">€&nbsp;49</span></p>
+                            <button type="button" class="btn btn--wine btn--small" data-add="cadeau"><span data-add-label>In mandje</span><span class="visually-hidden">: Het cadeau</span></button>
+                        </div>
+                    </li>
+                    <li class="package">
+                        <div class="photo photo--package" role="img" aria-label="Foto volgt: de kennismaking"><span class="photo__todo">foto volgt</span></div>
+                        <h3 class="package__name">De kennismaking</h3>
+                        <p class="package__bottles">5 flessen</p>
+                        <p class="package__text">Een eerste rondje langs vijf wijnen. Fijn voor een avond met z'n tweeën.</p>
+                        <div class="package__foot">
+                            <p class="package__price"><span class="visually-hidden">Prijs: </span><span data-prijs-voor="kennismaking">€&nbsp;79</span></p>
+                            <button type="button" class="btn btn--wine btn--small" data-add="kennismaking"><span data-add-label>In mandje</span><span class="visually-hidden">: De kennismaking</span></button>
+                        </div>
+                    </li>
+                    <li class="package">
+                        <div class="photo photo--package" role="img" aria-label="Foto volgt: de salon"><span class="photo__todo">foto volgt</span></div>
+                        <h3 class="package__name">De salon</h3>
+                        <p class="package__bottles">6 flessen</p>
+                        <p class="package__text">Voor een avond met vrienden, met genoeg om over door te praten.</p>
+                        <div class="package__foot">
+                            <p class="package__price"><span class="visually-hidden">Prijs: </span><span data-prijs-voor="salon">€&nbsp;95</span></p>
+                            <button type="button" class="btn btn--wine btn--small" data-add="salon"><span data-add-label>In mandje</span><span class="visually-hidden">: De salon</span></button>
+                        </div>
+                    </li>
+                    <li class="package">
+                        <div class="photo photo--package" role="img" aria-label="Foto volgt: het diner"><span class="photo__todo">foto volgt</span></div>
+                        <h3 class="package__name">Het diner</h3>
+                        <p class="package__bottles">8 flessen</p>
+                        <p class="package__text">Een lange tafel, van aperitief tot dessertwijn.</p>
+                        <div class="package__foot">
+                            <p class="package__price"><span class="visually-hidden">Prijs: </span><span data-prijs-voor="diner">€&nbsp;129</span></p>
+                            <button type="button" class="btn btn--wine btn--small" data-add="diner"><span data-add-label>In mandje</span><span class="visually-hidden">: Het diner</span></button>
+                        </div>
+                    </li>
+                </ul>
+                <noscript>
+                    <p class="packages__noscript">Het mandje werkt alleen als JavaScript aan staat in je browser. Lukt dat niet? Stuur Cath dan een bericht via het formulier onderaan de pagina.</p>
+                </noscript>
+
+                <div class="packages__more">
+                    <div class="included">
+                        <h3 class="included__title">In elk pakket</h3>
+                        <ul class="included__list" role="list">
+                            <li>Een proefkaart per wijn, om op te schrijven wat je ruikt en proeft</li>
+                            <li>Een aromawiel, voor als je de woorden zoekt</li>
+                            <li>Herkomstkaarten over de streek en de maker</li>
+                            <li>Een receptje per wijn voor een hapje dat erbij past</li>
+                        </ul>
+                    </div>
+                    <div class="packages__notes">
+                        <p><strong>Borrelplank erbij?</strong> Dat kan bij elk pakket. Zet het bij de opmerking als je afrekent, dan regelt Cath het met je.</p>
+                        <!-- De zin met de kosten wordt door js opnieuw gemaakt uit pakketten.json (levering) -->
+                        <p><strong>Bezorgen of ophalen</strong> kies je bij het afrekenen. <span data-levering-tekst>Bezorgen kost €&nbsp;6,95, vanaf €&nbsp;100 is het gratis. Ophalen is gratis.</span> Bij bezorgen of ophalen vraagt Cath om je ID.</p>
+                        <p>Alle prijzen zijn inclusief btw.</p>
+                        <!-- TIJDELIJK: hier komt de officiële Europese kennisgeving over de wettelijke
+                             garantie (afbeelding met QR-code, Uitvoeringsverordening (EU) 2025/1960), met een alt-tekst
+                             die zegt wat erop staat. Zie de controlelijst in api/LEESMIJ.md. -->
+                        <p>Je hebt altijd recht op een pakket dat in orde is: dat is de wettelijke garantie. Is er iets mis? Dan lost Cath het met je op.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROEVERIJ AAN HUIS -->
+        <section class="home-tasting" id="aan-huis" aria-labelledby="homeTitle">
+            <svg class="stain stain--home-ring" aria-hidden="true" focusable="false"><use href="#stain-ring"/></svg>
+            <svg class="stain stain--home-drops" aria-hidden="true" focusable="false"><use href="#stain-drops"/></svg>
+            <div class="wrap home-tasting__grid">
+                <div class="home-tasting__body">
+                    <h2 class="section-title" id="homeTitle">Proeverij aan huis</h2>
+                    <p class="home-tasting__lede">Jij nodigt vrienden, familie of collega's uit, Cathelijne neemt de wijn mee. Ze schenkt, vertelt over de makers en laat je proeven waar je op kunt letten. Elke proeverij stelt ze samen voor jouw gezelschap, dus geen avond is hetzelfde.</p>
+
+                    <dl class="facts">
+                        <div class="facts__item"><dt>Gezelschap</dt><dd>vanaf 4 personen, iedereen 18+</dd></div>
+                        <div class="facts__item"><dt>Duur</dt><dd>ongeveer 2,5 uur</dd></div>
+                        <div class="facts__item"><dt>Waar</dt><dd>bij jou thuis of op een plek naar keuze, reiskosten in overleg</dd></div>
+                        <div class="facts__item"><dt>Prijs</dt><dd>op maat, je krijgt vooraf een voorstel</dd></div>
+                    </dl>
+
+                    <h3 class="steps__title">Zo gaat het</h3>
+                    <ol class="steps" role="list">
+                        <li><span class="steps__n" aria-hidden="true">1</span><p>Je vertelt via het formulier wat je zoekt: de gelegenheid, het aantal gasten en een datum.</p></li>
+                        <li><span class="steps__n" aria-hidden="true">2</span><p>Cath stuurt je een voorstel met de wijnen en de prijs.</p></li>
+                        <li><span class="steps__n" aria-hidden="true">3</span><p>Op de avond zelf komt ze langs met alles wat nodig is, van glazen tot proefkaarten.</p></li>
+                        <li><span class="steps__n" aria-hidden="true">4</span><p>Jullie proeven samen. Cath schenkt alleen voor gasten van 18 jaar en ouder. De proefkaarten mag je houden.</p></li>
+                    </ol>
+
+                    <a class="btn btn--wine" href="#orderForm" data-form-type="proeverij">Proeverij aanvragen</a>
+                </div>
+                <figure class="polaroid polaroid--feature">
+                    <div class="photo" role="img" aria-label="Foto volgt: Cathelijne aan tafel bij een proeverij"><span class="photo__todo">foto volgt</span></div>
+                    <figcaption class="polaroid__caption">proeverij aan huis</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- OVER CATH -->
+        <section class="about" id="over" aria-labelledby="aboutTitle">
+            <svg class="stain stain--about-splash" aria-hidden="true" focusable="false"><use href="#stain-splash"/></svg>
+            <svg class="stain stain--about-ring" aria-hidden="true" focusable="false"><use href="#stain-ring-open"/></svg>
+            <div class="wrap about__grid">
+                <figure class="polaroid polaroid--portrait">
+                    <div class="photo" role="img" aria-label="Foto volgt: portret van Cathelijne"><span class="photo__todo">foto volgt</span></div>
+                    <figcaption class="polaroid__caption">Cathelijne</figcaption>
+                    <span class="about__sticker" aria-hidden="true">hoi! ik ben cath.</span>
+                </figure>
+                <div class="about__body">
+                    <h2 class="section-title" id="aboutTitle">Wijn hoort gezellig te zijn</h2>
+                    <p>Niet stoffig en niet intimiderend. Ik kies wijnen die ik zelf met vrienden zou opentrekken: van kleine makers, met een verhaal, en met genoeg diepgang om er echt iets van op te steken.</p>
+                    <p>Of je nu een doos bestelt of mij uitnodigt, je krijgt wijnen die ik zelf heb geproefd en die ik graag aan je laat zien.</p>
+                    <p class="about__sign">Cathelijne</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT: proeverij aanvragen of een vraag stellen (bestellen gaat via het mandje) -->
+        <section class="contact" id="contact" aria-labelledby="contactTitle">
+            <svg class="stain stain--contact-ring" aria-hidden="true" focusable="false"><use href="#stain-ring"/></svg>
+            <svg class="stain stain--contact-drops" aria-hidden="true" focusable="false"><use href="#stain-drops"/></svg>
+            <div class="wrap contact__grid">
+                <div class="contact__intro">
+                    <h2 class="section-title" id="contactTitle">Een proeverij of een vraag</h2>
+                    <p>Kies eerst waar je bericht over gaat. Cathelijne neemt zo snel mogelijk persoonlijk contact met je op.</p>
+                    <p>Een pakket bestellen doe je via het mandje bij <a href="#pakketten">de pakketten</a>.</p>
+                    <p class="contact__alt">Liever een DM? Stuur een bericht naar <a href="https://www.instagram.com/cathdrwijnen/" rel="noopener">@cathdrwijnen op Instagram</a>.</p>
+                </div>
+
+                <form class="order-form" id="orderForm" action="https://formspree.io/f/mqewnzak" method="POST">
+                    <input type="hidden" name="_subject" value="Nieuw bericht via cathdrwijnen" data-subject>
+                    <div class="order-form__honeypot" aria-hidden="true">
+                        <label>Laat dit veld leeg <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+                    </div>
+
+                    <fieldset class="choice">
+                        <legend class="field__label">Waar gaat het over?</legend>
+                        <div class="choice__options">
+                            <label class="choice__option"><input type="radio" name="onderwerp" value="proeverij" checked> Proeverij aan huis</label>
+                            <label class="choice__option"><input type="radio" name="onderwerp" value="vraag"> Iets anders</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="field-group" data-for="proeverij">
+                        <legend class="visually-hidden">Je proeverij</legend>
+                        <div class="field-row">
+                            <div class="field">
+                                <label class="field__label" for="f-gasten">Aantal gasten</label>
+                                <input class="field__input" type="number" id="f-gasten" name="gasten" min="4" inputmode="numeric">
+                            </div>
+                            <div class="field">
+                                <label class="field__label" for="f-datum">Gewenste datum</label>
+                                <input class="field__input" type="date" id="f-datum" name="datum">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field__label" for="f-plaats-p">Plaats</label>
+                            <input class="field__input" type="text" id="f-plaats-p" name="plaats">
+                        </div>
+                    </fieldset>
+
+                    <div class="field">
+                        <label class="field__label" for="f-naam">Naam</label>
+                        <input class="field__input" type="text" id="f-naam" name="naam" autocomplete="name" required>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label class="field__label" for="f-email">E-mail</label>
+                            <input class="field__input" type="email" id="f-email" name="email" autocomplete="email" required>
+                        </div>
+                        <div class="field">
+                            <label class="field__label" for="f-tel">Telefoon <span class="field__opt">(optioneel)</span></label>
+                            <input class="field__input" type="tel" id="f-tel" name="telefoon" autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="field__label" for="f-bericht">Bericht <span class="field__opt">(optioneel)</span></label>
+                        <textarea class="field__input" id="f-bericht" name="bericht" rows="4" aria-describedby="f-bericht-hint"></textarea>
+                        <p class="field__hint" id="f-bericht-hint" data-hint>Een gelegenheid, dieetwensen of andere wensen: alles wat Cath mag weten.</p>
+                    </div>
+
+                    <label class="check check--age" data-for="proeverij"><input type="checkbox" name="18plus" value="ja" required> <span data-age-label>Ik en mijn gasten zijn 18 jaar of ouder</span></label>
+
+                    <p class="order-form__error" id="formError" role="alert" hidden></p>
+                    <button class="btn btn--wine order-form__submit" type="submit" data-submit>Aanvraag versturen</button>
+                    <p class="order-form__privacy">Cath gebruikt je gegevens alleen om je aanvraag of vraag af te handelen. Lees meer in de <a href="privacy.html">privacyverklaring</a>.</p>
+                </form>
+
+                <div class="order-form__done" id="formDone" tabindex="-1" hidden>
+                    <h3>Verstuurd</h3>
+                    <p>Dank je wel. Cathelijne heeft je bericht ontvangen en neemt zo snel mogelijk contact met je op.</p>
+                    <button class="btn btn--ghost" type="button" data-form-reset>Nog een bericht sturen</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alleen op de telefoon: actieknop onder de duim, verschijnt na de hero.
+         Zit er iets in het mandje, dan staat hij er altijd en gaat hij naar afrekenen. -->
+    <a class="order-bar btn btn--wine" href="#pakketten" data-order-bar hidden>Bekijk de pakketten</a>
+
+    <footer class="site-footer">
+        <div class="wrap site-footer__grid">
+            <div class="site-footer__brand">
+                <span class="site-footer__logo"><img src="assets/v2/logo-160.webp" width="64" height="64" alt=""></span>
+                <p class="site-footer__name">cathdrwijnen</p>
+                <p class="site-footer__tag">Wijnproeverijen bij jou aan huis, en pakketten om zelf te proeven.</p>
+            </div>
+            <nav class="site-footer__nav" aria-label="Voettekst">
+                <ul>
+                    <li><a href="#pakketten">Pakketten</a></li>
+                    <li><a href="#aan-huis">Proeverij aan huis</a></li>
+                    <li><a href="#over">Over Cath</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="https://www.instagram.com/cathdrwijnen/" rel="noopener">Instagram</a></li>
+                    <li><a href="voorwaarden.html">Algemene voorwaarden</a></li>
+                    <li><a href="privacy.html">Privacyverklaring</a></li>
+                    <li><a href="ontbinden.html">Hier je bestelling ontbinden</a></li>
+                </ul>
+            </nav>
+            <div class="site-footer__nix">
+                <!-- Vervangen door het officiële NIX18-logo (via nix18.nl / STIVA) -->
+                <span class="nix18 nix18--large">NIX18</span>
+                <p>Geen 18, geen alcohol. Bij twijfel vragen we om je ID.</p>
+            </div>
+        </div>
+        <div class="wrap site-footer__bottom">
+            <!-- TIJDELIJK: de gegevens tussen [ ] levert Cath aan (dezelfde als 'bedrijf' in api/config.php).
+                 Een echt vestigingsadres, geen postbus. Telefoon als link: <a href="tel:+316...">06 ...</a> -->
+            <p class="site-footer__bedrijf">cathdrwijnen · [naam volgt] · [adres volgt] · tel. [nummer volgt] · <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a> · KvK [nummer volgt] · btw-id [nummer volgt]</p>
+            <p>© <span data-year>2026</span> cathdrwijnen</p>
+            <a class="site-footer__gallery" href="index.html">Terug naar alle ontwerpen</a>
+        </div>
+    </footer>
+</body>
+</html>
