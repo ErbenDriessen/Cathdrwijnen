@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2E3C2">
+<title>cathdrwijnen · Wijnproeverij bij jou aan huis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300..700&amp;display=swap">
+<script src="./image-slot.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:76px;background:#F2E3C2}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:#F2E3C2;color:#22110F;font-family:'Fraunces',Georgia,'Times New Roman',serif;font-optical-sizing:auto;font-size:17px;line-height:1.55;overflow-x:hidden;overflow-x:clip}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a,button,label{-webkit-tap-highlight-color:rgba(122,26,46,.15)}
+:focus-visible{outline:3px solid #7A1A2E;outline-offset:3px}
+[data-dark] :focus-visible{outline-color:#F2E3C2}
+</style>
+</helmet>
+
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+<defs>
+<filter id="rough-ring" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="3"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="16"></feDisplacementMap></filter>
+<symbol id="stain-ring" viewBox="0 0 200 200"><g filter="url(#rough-ring)"><circle cx="100" cy="100" r="62" fill="currentColor" opacity="0.06"></circle><circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="9" opacity="0.6"></circle><circle cx="104" cy="97" r="70" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.45"></circle></g></symbol>
+<symbol id="stain-ring-open" viewBox="0 0 200 200"><g filter="url(#rough-ring)"><circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="7" stroke-dasharray="300 36 70 34" opacity="0.55"></circle></g></symbol>
+</defs>
+</svg>
+
+<a href="#main" style="position:fixed;left:16px;top:-100px;z-index:200;padding:12px 18px;background:#22110F;color:#F2E3C2;border-radius:999px;text-decoration:none" style-focus="top:12px">Naar de inhoud</a>
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(242,227,194,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(34,17,15,.12)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:clamp(4px,2vw,24px);min-height:60px;padding:8px max(clamp(12px,4vw,40px),env(safe-area-inset-right)) 8px max(clamp(12px,4vw,40px),env(safe-area-inset-left))">
+    <a href="#top" aria-label="cathdrwijnen, naar boven" style="flex:none;display:flex;align-items:center;gap:10px;text-decoration:none">
+      <img src="assets/v2/logo-160.webp" width="40" height="40" alt="" style="width:40px;height:40px">
+      <sc-if value="{{ isWide }}" hint-placeholder-val="{{ false }}"><span style="font-size:24px;font-weight:500;letter-spacing:-0.02em;line-height:1">cathdrwijnen</span></sc-if>
+    </a>
+    <nav aria-label="Hoofdmenu" style="flex:1 1 auto;min-width:0;display:flex;justify-content:center">
+      <ul style="display:flex;gap:2px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="3">
+          <li><a href="{{ n.href }}" aria-current="{{ n.current }}" style="display:flex;align-items:center;min-height:44px;padding:0 clamp(7px,2.2vw,14px);border-radius:999px;font-size:clamp(14.5px,4vw,17px);line-height:1.1;white-space:nowrap;text-decoration:none;transition:background-color .2s,color .2s;background:{{ n.bg }};color:{{ n.fg }}">{{ n.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+    <button type="button" onClick="{{ openCart }}" aria-haspopup="dialog" aria-label="{{ cartAria }}" style="position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:48px;min-height:44px;padding:0 14px;border:0;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:16.5px;font-weight:500">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M7 10a5 5 0 0 1 10 0"></path><path d="M3 10h18"></path><path d="M4.6 10l1.5 8.3a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.7l1.5-8.3"></path><path d="M9.5 13.5v3M14.5 13.5v3"></path></svg>
+      <sc-if value="{{ isWide }}" hint-placeholder-val="{{ false }}"><span>Mandje</span></sc-if>
+      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:999px;background:#B88536;color:#22110F;box-shadow:0 0 0 2px #F2E3C2;font-size:12.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;transition:transform .2s cubic-bezier(.3,1.6,.5,1);transform:{{ badgeScale }}">{{ count }}</span></sc-if>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="top" aria-labelledby="heroTitle" style="position:relative">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(18px,4vw,64px) clamp(16px,5vw,48px) clamp(48px,8vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(22px,4vw,36px) clamp(32px,6vw,88px)">
+    <div style="position:relative;container-type:inline-size;align-self:end">
+      <img src="assets/v2/aquarel-720.webp" width="720" height="720" alt="" fetchpriority="high" style="position:absolute;left:min(30%,180px);top:-62px;width:min(78%,440px);max-width:none;opacity:.5;mix-blend-mode:multiply;transform:rotate(-10deg);pointer-events:none;z-index:0">
+      <h1 id="heroTitle" style="position:relative;z-index:1;font-weight:inherit">
+        <span style="display:block;font-size:clamp(60px,24cqi,150px);line-height:.84;font-weight:560;letter-spacing:-0.04em;font-variation-settings:'SOFT' 60">proeverij</span>
+        <span style="display:block;margin-top:.16em;font-size:clamp(28px,9.4cqi,60px);line-height:1;font-style:italic;font-weight:380;letter-spacing:-0.02em;color:#5E1323">bij jou aan huis.</span>
+      </h1>
+      <p style="position:relative;z-index:1;max-width:22em;margin-top:clamp(14px,4cqi,26px);font-size:clamp(17px,4.4cqi,21px);line-height:1.5;text-wrap:pretty">Wijn van kleine makers, persoonlijk gekozen door Cathelijne.</p>
+    </div>
+
+    <figure style="grid-row:span 2;align-self:center;justify-self:center;position:relative;width:100%;max-width:540px;padding:clamp(8px,1.6vw,14px) clamp(8px,1.6vw,14px) 0;background:#FDF8EC;box-shadow:0 18px 40px rgba(34,17,15,.14),0 2px 6px rgba(34,17,15,.08);transform:rotate(1.5deg)">
+      <div style="position:relative;aspect-ratio:3/2;color:#5E1323;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)">
+        <image-slot id="hero-foto" shape="rect" placeholder="Foto: Cath schenkt in" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+      </div>
+      <figcaption style="padding:10px 4px 12px;font-size:clamp(17px,1.6vw,20px);font-style:italic;line-height:1.2;text-align:center">de kurk gaat eruit</figcaption>
+      <span aria-hidden="true" style="position:absolute;top:-20px;right:-6px;width:clamp(86px,22vw,118px);height:clamp(86px,22vw,118px);display:grid;place-items:center;padding:10px;border-radius:50%;background:#B88536;color:#22110F;font-size:clamp(15px,4vw,19px);font-style:italic;line-height:1.05;text-align:center;transform:rotate(12deg);box-shadow:0 6px 16px rgba(34,17,15,.18)">hoi! ik ben cath.</span>
+    </figure>
+
+    <div style="align-self:start;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <a href="#pakketten" style="display:flex;flex-direction:column;gap:6px;padding:16px 16px 14px;border-radius:18px;background:#F7DAD4;color:#22110F;text-decoration:none">
+        <span style="font-size:clamp(22px,2.4vw,30px);line-height:1.05;font-style:italic;font-weight:450;letter-spacing:-0.02em">Zelf proeven</span>
+        <span style="font-size:clamp(15px,1.3vw,17px);line-height:1.4">Een doos wijn met proefkaarten.</span>
+        <span style="margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:clamp(15.5px,1.3vw,17px);font-weight:600">vanaf € 49<span aria-hidden="true">→</span></span>
+      </a>
+      <a href="#aan-huis" style="display:flex;flex-direction:column;gap:6px;padding:16px 16px 14px;border-radius:18px;background:#7A1A2E;color:#F2E3C2;text-decoration:none">
+        <span style="font-size:clamp(22px,2.4vw,30px);line-height:1.05;font-style:italic;font-weight:450;letter-spacing:-0.02em">Aan huis</span>
+        <span style="font-size:clamp(15px,1.3vw,17px);line-height:1.4">Cath komt bij je schenken.</span>
+        <span style="margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:clamp(15.5px,1.3vw,17px);font-weight:600">vanaf 4 gasten<span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="pakketten" data-dark="" aria-labelledby="pkTitle" style="position:relative;background:#7A1A2E;color:#F2E3C2;padding:clamp(56px,10vw,120px) 0;overflow:hidden;overflow:clip">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,5vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 48px">
+      <h2 id="pkTitle" style="font-size:clamp(40px,9vw,76px);line-height:.95;font-weight:480;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50;text-wrap:balance">De pakketten</h2>
+      <p style="max-width:24em;font-size:clamp(17px,1.6vw,19px);line-height:1.5;color:rgba(242,227,194,.9);text-wrap:pretty">Vier dozen, door Cathelijne samengesteld. Kies hoeveel flessen je wilt.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(28px,5vw,72px);margin-top:clamp(28px,5vw,56px);align-items:start">
+      <div style="position:relative;padding:4px 6px 0">
+        <svg aria-hidden="true" focusable="false" style="position:absolute;right:0;bottom:-44px;width:min(46%,210px);aspect-ratio:1;height:auto;color:#3E0A16;opacity:.6;transform:rotate(28deg);z-index:0;pointer-events:none"><use href="#stain-ring"></use></svg>
+        <div style="position:relative;z-index:1;padding:10px 10px 0;background:#FDF8EC;color:#22110F;box-shadow:0 22px 48px rgba(20,4,8,.32);transform:rotate(-1.5deg)">
+          <div style="position:relative;aspect-ratio:4/3;color:#5E1323;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)">
+            <sc-for list="{{ pk }}" as="p" hint-placeholder-count="1">
+              <div style="position:absolute;inset:0;transition:opacity .35s ease;opacity:{{ p.photoOpacity }};pointer-events:{{ p.photoPE }}">
+                <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.slotLabel }}" style="width:100%;height:100%"></image-slot>
+              </div>
+            </sc-for>
+          </div>
+          <p style="padding:10px 4px 12px;font-size:18px;font-style:italic;line-height:1.2;text-align:center">{{ selCaption }}</p>
+        </div>
+      </div>
+
+      <div>
+        <div role="radiogroup" aria-label="Kies een pakket" onKeyDown="{{ onPkKey }}" style="display:grid;gap:2px;padding:6px;border-radius:18px;background:#FDF8EC;color:#22110F;box-shadow:0 20px 44px rgba(20,4,8,.22)">
+          <sc-for list="{{ pk }}" as="p" hint-placeholder-count="4">
+            <button type="button" role="radio" id="{{ p.btnId }}" aria-checked="{{ p.checked }}" tabindex="{{ p.tab }}" onClick="{{ p.select }}" style="display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:66px;padding:10px 14px 10px 12px;border:0;border-radius:13px;text-align:left;color:#22110F;transition:background-color .2s;background:{{ p.rowBg }}">
+              <span aria-hidden="true" style="width:22px;height:22px;display:grid;place-items:center;border-radius:50%;border:2px solid {{ p.dotBorder }}"><span style="width:10px;height:10px;border-radius:50%;background:{{ p.dotFill }}"></span></span>
+              <span style="display:grid;gap:2px;min-width:0">
+                <span style="font-size:clamp(18px,1.6vw,20px);line-height:1.2;font-weight:500;letter-spacing:-0.01em">{{ p.naam }}</span>
+                <span style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:15px;line-height:1.3;font-style:italic;color:#7A1A2E">{{ p.flessenTekst }}<sc-if value="{{ p.isTop }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:999px;background:#B88536;color:#22110F;font-size:12.5px;font-style:normal;font-weight:600;letter-spacing:.02em">aanrader</span></sc-if></span>
+              </span>
+              <span style="font-size:clamp(20px,1.8vw,23px);font-weight:500;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.prijsTekst }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <p style="margin-top:18px;min-height:3em;font-size:clamp(17px,1.6vw,19px);line-height:1.5;font-style:italic;text-wrap:pretty">{{ selText }}</p>
+
+        <button type="button" onClick="{{ addSel }}" style="margin-top:14px;width:100%;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px;border:0;border-radius:999px;font-size:18px;font-weight:600;box-shadow:0 10px 24px rgba(20,4,8,.25);transition:background-color .2s,color .2s;background:{{ addBg }};color:{{ addFg }}">{{ addLabel }}<span style="position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">, {{ selName }}</span></button>
+
+        <sc-if value="{{ selInCart }}" hint-placeholder-val="{{ false }}">
+          <p style="margin-top:12px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 10px;font-size:16px;font-style:italic">{{ selInCartText }}<button type="button" onClick="{{ openCart }}" style="min-height:44px;padding:0 4px;border:0;background:none;color:#F2E3C2;font-style:normal;font-weight:600;text-decoration:underline;text-underline-offset:4px">Bekijk mandje</button></p>
+        </sc-if>
+        <p style="margin-top:12px;font-size:15px;line-height:1.5;text-align:center;color:rgba(242,227,194,.85);text-wrap:balance">Bezorgen € 6,95, gratis vanaf € 100. Ophalen is gratis.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:36px 72px;margin-top:clamp(56px,8vw,96px);padding-top:28px;border-top:1px solid rgba(242,227,194,.3)">
+      <div>
+        <h3 style="font-size:26px;line-height:1.1;font-weight:500;font-style:italic">In elk pakket</h3>
+        <ul style="margin-top:14px;display:grid;gap:8px">
+          <li style="display:grid;grid-template-columns:24px 1fr;gap:4px"><span aria-hidden="true" style="color:#B88536">✦</span>Een proefkaart per wijn, om op te schrijven wat je proeft</li>
+          <li style="display:grid;grid-template-columns:24px 1fr;gap:4px"><span aria-hidden="true" style="color:#B88536">✦</span>Een aromawiel, voor als je de woorden zoekt</li>
+          <li style="display:grid;grid-template-columns:24px 1fr;gap:4px"><span aria-hidden="true" style="color:#B88536">✦</span>Herkomstkaarten over de streek en de maker</li>
+          <li style="display:grid;grid-template-columns:24px 1fr;gap:4px"><span aria-hidden="true" style="color:#B88536">✦</span>Een receptje per wijn voor een hapje dat erbij past</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:26px;line-height:1.1;font-weight:500;font-style:italic">Goed om te weten</h3>
+        <div style="margin-top:8px;border-top:1px solid rgba(242,227,194,.25)">
+          <div style="border-bottom:1px solid rgba(242,227,194,.25)">
+            <button type="button" aria-expanded="{{ faq.a.open }}" aria-controls="faq-a" onClick="{{ faq.a.toggle }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border:0;background:none;color:#F2E3C2;text-align:left;font-size:18.5px;font-weight:500">Bezorgen of ophalen<span aria-hidden="true" style="position:relative;flex:none;width:16px;height:16px"><span style="position:absolute;left:0;top:7px;width:16px;height:2px;background:currentColor"></span><span style="position:absolute;left:7px;top:0;width:2px;height:16px;background:currentColor;transition:transform .25s;transform:{{ faq.a.rot }}"></span></span></button>
+            <sc-if value="{{ faq.a.isOpen }}" hint-placeholder-val="{{ false }}"><div id="faq-a" style="padding:0 0 18px;max-width:34em;color:rgba(242,227,194,.9)">Je kiest het bij het afrekenen. Bezorgen kost € 6,95, vanaf € 100 is het gratis. Ophalen bij Cath is altijd gratis. Bij de deur of bij het ophalen vraagt Cath om je ID.</div></sc-if>
+          </div>
+          <div style="border-bottom:1px solid rgba(242,227,194,.25)">
+            <button type="button" aria-expanded="{{ faq.b.open }}" aria-controls="faq-b" onClick="{{ faq.b.toggle }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border:0;background:none;color:#F2E3C2;text-align:left;font-size:18.5px;font-weight:500">Betalen<span aria-hidden="true" style="position:relative;flex:none;width:16px;height:16px"><span style="position:absolute;left:0;top:7px;width:16px;height:2px;background:currentColor"></span><span style="position:absolute;left:7px;top:0;width:2px;height:16px;background:currentColor;transition:transform .25s;transform:{{ faq.b.rot }}"></span></span></button>
+            <sc-if value="{{ faq.b.isOpen }}" hint-placeholder-val="{{ false }}"><div id="faq-b" style="padding:0 0 18px;max-width:34em;color:rgba(242,227,194,.9)">Veilig online met iDEAL | Wero of creditcard. Alle prijzen zijn inclusief btw. Na je bestelling neemt Cath contact met je op over het bezorgen of ophalen.</div></sc-if>
+          </div>
+          <div style="border-bottom:1px solid rgba(242,227,194,.25)">
+            <button type="button" aria-expanded="{{ faq.c.open }}" aria-controls="faq-c" onClick="{{ faq.c.toggle }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border:0;background:none;color:#F2E3C2;text-align:left;font-size:18.5px;font-weight:500">Borrelplank erbij?<span aria-hidden="true" style="position:relative;flex:none;width:16px;height:16px"><span style="position:absolute;left:0;top:7px;width:16px;height:2px;background:currentColor"></span><span style="position:absolute;left:7px;top:0;width:2px;height:16px;background:currentColor;transition:transform .25s;transform:{{ faq.c.rot }}"></span></span></button>
+            <sc-if value="{{ faq.c.isOpen }}" hint-placeholder-val="{{ false }}"><div id="faq-c" style="padding:0 0 18px;max-width:34em;color:rgba(242,227,194,.9)">Dat kan bij elk pakket. Zet het bij de opmerking als je afrekent, dan regelt Cath het met je.</div></sc-if>
+          </div>
+          <div style="border-bottom:1px solid rgba(242,227,194,.25)">
+            <button type="button" aria-expanded="{{ faq.d.open }}" aria-controls="faq-d" onClick="{{ faq.d.toggle }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border:0;background:none;color:#F2E3C2;text-align:left;font-size:18.5px;font-weight:500">Garantie<span aria-hidden="true" style="position:relative;flex:none;width:16px;height:16px"><span style="position:absolute;left:0;top:7px;width:16px;height:2px;background:currentColor"></span><span style="position:absolute;left:7px;top:0;width:2px;height:16px;background:currentColor;transition:transform .25s;transform:{{ faq.d.rot }}"></span></span></button>
+            <sc-if value="{{ faq.d.isOpen }}" hint-placeholder-val="{{ false }}"><div id="faq-d" style="padding:0 0 18px;max-width:34em;color:rgba(242,227,194,.9)">Je hebt altijd recht op een pakket dat in orde is: dat is de wettelijke garantie. Is er iets mis? Dan lost Cath het met je op.</div></sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="aan-huis" aria-labelledby="ahTitle" style="position:relative;padding:clamp(56px,10vw,120px) 0">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(28px,5vw,40px) clamp(32px,6vw,88px);align-items:start">
+    <div style="align-self:center">
+      <h2 id="ahTitle" style="font-size:clamp(40px,9vw,76px);line-height:.95;font-weight:480;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50;text-wrap:balance">Proeverij aan huis</h2>
+      <p style="margin-top:20px;max-width:32em;font-size:clamp(17px,1.6vw,20px);line-height:1.6;text-wrap:pretty">Jij nodigt vrienden, familie of collega's uit, Cathelijne neemt de wijn mee. Ze schenkt, vertelt over de makers en laat je proeven waar je op kunt letten. Ze stelt elke avond samen voor jouw gezelschap.</p>
+    </div>
+
+    <figure style="justify-self:center;width:100%;max-width:520px;padding:10px 10px 0;background:#FDF8EC;box-shadow:0 18px 40px rgba(34,17,15,.14),0 2px 6px rgba(34,17,15,.08);transform:rotate(-1.5deg)">
+      <div style="position:relative;aspect-ratio:3/2;color:#5E1323;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)">
+        <image-slot id="aanhuis-foto" shape="rect" placeholder="Foto: Cath aan tafel bij een proeverij" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+      </div>
+      <figcaption style="padding:10px 4px 12px;font-size:18px;font-style:italic;line-height:1.2;text-align:center">proeverij aan huis</figcaption>
+    </figure>
+
+    <div>
+      <dl style="border-top:1px solid rgba(34,17,15,.2)">
+        <div style="display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:12px;padding:13px 0;border-bottom:1px solid rgba(34,17,15,.2)"><dt style="padding-top:2px;font-size:16px;font-style:italic;color:#7A1A2E">Gezelschap</dt><dd style="font-size:18px;line-height:1.4">vanaf 4 personen, iedereen 18+</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:12px;padding:13px 0;border-bottom:1px solid rgba(34,17,15,.2)"><dt style="padding-top:2px;font-size:16px;font-style:italic;color:#7A1A2E">Duur</dt><dd style="font-size:18px;line-height:1.4">ongeveer 2,5 uur</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:12px;padding:13px 0;border-bottom:1px solid rgba(34,17,15,.2)"><dt style="padding-top:2px;font-size:16px;font-style:italic;color:#7A1A2E">Waar</dt><dd style="font-size:18px;line-height:1.4">bij jou thuis of op een plek naar keuze, reiskosten in overleg</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:12px;padding:13px 0;border-bottom:1px solid rgba(34,17,15,.2)"><dt style="padding-top:2px;font-size:16px;font-style:italic;color:#7A1A2E">Prijs</dt><dd style="font-size:18px;line-height:1.4">op maat, je krijgt vooraf een voorstel</dd></div>
+      </dl>
+
+      <h3 style="margin-top:40px;font-size:26px;line-height:1.1;font-weight:500;font-style:italic">Zo gaat het</h3>
+      <ol style="margin-top:16px;display:grid;gap:16px">
+        <li style="display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start"><span aria-hidden="true" style="width:34px;height:34px;display:grid;place-items:center;border:1.5px solid #7A1A2E;border-radius:50%;color:#7A1A2E;font-size:16px;font-weight:500">1</span><p style="padding-top:4px">Je vertelt via het formulier wat je zoekt: de gelegenheid, het aantal gasten en een datum.</p></li>
+        <li style="display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start"><span aria-hidden="true" style="width:34px;height:34px;display:grid;place-items:center;border:1.5px solid #7A1A2E;border-radius:50%;color:#7A1A2E;font-size:16px;font-weight:500">2</span><p style="padding-top:4px">Cath stuurt je een voorstel met de wijnen en de prijs.</p></li>
+        <li style="display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start"><span aria-hidden="true" style="width:34px;height:34px;display:grid;place-items:center;border:1.5px solid #7A1A2E;border-radius:50%;color:#7A1A2E;font-size:16px;font-weight:500">3</span><p style="padding-top:4px">Op de avond zelf neemt ze alles mee, van glazen tot proefkaarten.</p></li>
+        <li style="display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start"><span aria-hidden="true" style="width:34px;height:34px;display:grid;place-items:center;border:1.5px solid #7A1A2E;border-radius:50%;color:#7A1A2E;font-size:16px;font-weight:500">4</span><p style="padding-top:4px">Jullie proeven samen. De proefkaarten mag je houden.</p></li>
+      </ol>
+    </div>
+
+    <div id="aanvraag" style="scroll-margin-top:76px;padding:clamp(20px,4vw,36px);background:#FDF8EC;border-radius:22px;box-shadow:0 24px 60px rgba(122,26,46,.1)">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ doneRef }}" tabindex="-1" role="status" style="position:relative;display:grid;gap:12px;padding:8px 0;outline:none">
+          <svg aria-hidden="true" focusable="false" style="width:96px;height:96px;color:#7A1A2E;opacity:.55;transform:rotate(-12deg)"><use href="#stain-ring-open"></use></svg>
+          <h3 style="font-size:36px;line-height:1.05;font-weight:480;font-style:italic;color:#7A1A2E">Verstuurd</h3>
+          <p style="max-width:30em">{{ doneText }}</p>
+          <button type="button" onClick="{{ resetForm }}" style="justify-self:start;margin-top:8px;min-height:48px;padding:0 22px;border:1.5px solid currentColor;border-radius:999px;background:transparent;font-size:17px;font-weight:500">Nog een aanvraag</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form id="aanvraag-form" onSubmit="{{ submit }}" novalidate="" style="display:grid;gap:18px">
+          <div>
+            <h3 style="font-size:clamp(28px,6vw,36px);line-height:1.05;font-weight:480;letter-spacing:-0.02em">Vraag een proeverij aan</h3>
+            <p style="margin-top:6px;font-size:16px;line-height:1.45;color:#5E4B40">Cath neemt zo snel mogelijk persoonlijk contact met je op.</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px 12px">
+            <div style="display:grid;gap:6px;align-content:start">
+              <span id="lbl-gasten" style="font-size:16px;font-weight:500">Aantal gasten</span>
+              <div role="group" aria-labelledby="lbl-gasten" style="display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:3px;border:1.5px solid #8F7B63;border-radius:12px;background:#FFFCF5">
+                <button type="button" onClick="{{ guestsMin }}" aria-label="Eén gast minder" aria-disabled="{{ guestsMinDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:9px;background:transparent;color:{{ guestsMinColor }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+                <output aria-live="polite" style="font-size:20px;font-weight:500;font-variant-numeric:tabular-nums">{{ f.gasten }}</output>
+                <button type="button" onClick="{{ guestsPlus }}" aria-label="Eén gast meer" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:9px;background:transparent;color:#7A1A2E"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg></button>
+              </div>
+            </div>
+            <div style="display:grid;gap:6px;align-content:start">
+              <label for="f-datum" style="font-size:16px;font-weight:500">Gewenste datum</label>
+              <input id="f-datum" type="date" min="{{ today }}" value="{{ f.datum }}" onChange="{{ on.datum }}" style="width:100%;min-width:0;min-height:52px;padding:10px 12px;border:1.5px solid #8F7B63;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.3;color:#22110F">
+            </div>
+          </div>
+
+          <div style="display:grid;gap:6px">
+            <label for="f-plaats" style="font-size:16px;font-weight:500">Plaats</label>
+            <input id="f-plaats" type="text" autocomplete="address-level2" value="{{ f.plaats }}" onChange="{{ on.plaats }}" style="width:100%;min-width:0;min-height:52px;padding:12px 14px;border:1.5px solid #8F7B63;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.4;color:#22110F">
+          </div>
+
+          <div style="display:grid;gap:6px">
+            <label for="f-naam" style="font-size:16px;font-weight:500">Naam</label>
+            <input id="f-naam" type="text" autocomplete="name" required="" aria-invalid="{{ inv.naam }}" aria-describedby="e-naam" value="{{ f.naam }}" onChange="{{ on.naam }}" style="width:100%;min-width:0;min-height:52px;padding:12px 14px;border:1.5px solid;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.4;color:#22110F;border-color:{{ bc.naam }}">
+            <sc-if value="{{ has.naam }}" hint-placeholder-val="{{ false }}"><p id="e-naam" style="font-size:15px;font-weight:500;color:#9E1F18">{{ err.naam }}</p></sc-if>
+          </div>
+
+          <div style="display:grid;gap:6px">
+            <label for="f-email" style="font-size:16px;font-weight:500">E-mail</label>
+            <input id="f-email" type="email" inputmode="email" autocomplete="email" required="" aria-invalid="{{ inv.email }}" aria-describedby="e-email" value="{{ f.email }}" onChange="{{ on.email }}" style="width:100%;min-width:0;min-height:52px;padding:12px 14px;border:1.5px solid;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.4;color:#22110F;border-color:{{ bc.email }}">
+            <sc-if value="{{ has.email }}" hint-placeholder-val="{{ false }}"><p id="e-email" style="font-size:15px;font-weight:500;color:#9E1F18">{{ err.email }}</p></sc-if>
+          </div>
+
+          <div style="display:grid;gap:6px">
+            <label for="f-tel" style="font-size:16px;font-weight:500">Telefoon <span style="font-weight:400;font-style:italic;color:#5E4B40">(optioneel)</span></label>
+            <input id="f-tel" type="tel" autocomplete="tel" value="{{ f.tel }}" onChange="{{ on.tel }}" style="width:100%;min-width:0;min-height:52px;padding:12px 14px;border:1.5px solid #8F7B63;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.4;color:#22110F">
+          </div>
+
+          <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
+            <button type="button" onClick="{{ openMsg }}" aria-expanded="false" style="justify-self:start;min-height:44px;display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#7A1A2E;font-size:16.5px;font-weight:500;text-align:left"><span aria-hidden="true" style="flex:none;font-size:22px;line-height:1">+</span><span>Iets erbij vertellen <span style="font-weight:400;font-style:italic;color:#5E4B40">(gelegenheid, dieetwensen)</span></span></button>
+          </sc-if>
+          <sc-if value="{{ showMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:6px">
+              <label for="f-bericht" style="font-size:16px;font-weight:500">Bericht <span style="font-weight:400;font-style:italic;color:#5E4B40">(optioneel)</span></label>
+              <textarea id="f-bericht" rows="4" value="{{ f.bericht }}" onChange="{{ on.bericht }}" style="width:100%;min-width:0;min-height:120px;padding:12px 14px;border:1.5px solid #8F7B63;border-radius:12px;background:#FFFCF5;font-size:17px;line-height:1.45;color:#22110F;resize:vertical"></textarea>
+              <p style="font-size:15px;color:#5E4B40">Een gelegenheid, dieetwensen of andere wensen: alles wat Cath mag weten.</p>
+            </div>
+          </sc-if>
+
+          <div style="display:grid;gap:4px">
+            <label style="display:flex;align-items:center;gap:12px;min-height:44px;padding:6px 0;font-size:17px;font-weight:500;cursor:pointer"><input id="f-adult" type="checkbox" checked="{{ adult }}" onChange="{{ toggleAdult }}" aria-invalid="{{ inv.adult }}" aria-describedby="e-adult" style="flex:none;width:24px;height:24px;margin:0;accent-color:#7A1A2E">Ik en mijn gasten zijn 18 jaar of ouder</label>
+            <sc-if value="{{ has.adult }}" hint-placeholder-val="{{ false }}"><p id="e-adult" style="font-size:15px;font-weight:500;color:#9E1F18">{{ err.adult }}</p></sc-if>
+          </div>
+
+          <button type="submit" style="width:100%;min-height:56px;padding:0 24px;border:0;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:18px;font-weight:600">Aanvraag versturen</button>
+          <p style="font-size:15px;line-height:1.5;color:#5E4B40">Cath gebruikt je gegevens alleen om je aanvraag af te handelen. Lees meer in de <a href="https://erbendriessen.github.io/Cathdrwijnen/privacy.html">privacyverklaring</a>.</p>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="over" aria-labelledby="overTitle" style="position:relative;background:#F7DAD4;padding:clamp(56px,10vw,120px) 0;overflow:hidden;overflow:clip">
+  <div style="max-width:1100px;margin:0 auto;padding:0 clamp(16px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px clamp(40px,7vw,96px);align-items:center">
+    <figure style="position:relative;justify-self:center;width:min(100%,clamp(240px,70vw,400px));padding:12px 12px 0;background:#FDF8EC;box-shadow:0 18px 40px rgba(34,17,15,.14),0 2px 6px rgba(34,17,15,.08);transform:rotate(-3deg)">
+      <div style="position:relative;aspect-ratio:4/5;color:#5E1323;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)">
+        <image-slot id="portret-cath" shape="rect" placeholder="Portret van Cathelijne" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+      </div>
+      <figcaption style="padding:12px 4px 16px;font-size:20px;font-style:italic;line-height:1.2;text-align:center">Cathelijne</figcaption>
+    </figure>
+    <div>
+      <h2 id="overTitle" style="font-size:clamp(40px,9vw,72px);line-height:.98;font-weight:480;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50;text-wrap:balance">Wijn hoort gezellig te zijn</h2>
+      <p style="margin-top:24px;max-width:32em;font-size:clamp(17px,1.6vw,20px);line-height:1.65;text-wrap:pretty">Niet stoffig en niet intimiderend. Ik kies wijnen die ik zelf met vrienden zou opentrekken: van kleine makers, met een verhaal, en met genoeg diepgang om er echt iets van op te steken.</p>
+      <p style="margin-top:16px;max-width:32em;font-size:clamp(17px,1.6vw,20px);line-height:1.65;text-wrap:pretty">Of je nu een doos bestelt of mij uitnodigt, je krijgt wijnen die ik zelf heb geproefd en die ik graag aan je laat zien.</p>
+      <p style="margin-top:22px;font-size:30px;font-style:italic;color:#7A1A2E">Cathelijne</p>
+    </div>
+  </div>
+</section>
+
+<section id="vraag" aria-labelledby="vraagTitle" style="padding:clamp(56px,9vw,104px) 0">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(16px,5vw,48px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px">
+    <div style="flex:1 1 320px;max-width:34em">
+      <h2 id="vraagTitle" style="font-size:clamp(40px,9vw,72px);line-height:.98;font-weight:480;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50">Een vraag?</h2>
+      <p style="margin-top:16px;font-size:clamp(17px,1.6vw,20px);line-height:1.6;text-wrap:pretty">Over een pakket, een cadeau of meer dan tien dozen tegelijk: stuur Cath gerust een bericht.</p>
+    </div>
+    <div style="flex:1 1 300px;max-width:440px;display:flex;flex-wrap:wrap;gap:10px">
+      <a href="mailto:info@cathdrwijnen.nl" style="flex:1 1 150px;min-height:54px;display:flex;align-items:center;justify-content:center;padding:0 22px;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:17.5px;font-weight:600;text-decoration:none">Mail Cath</a>
+      <a href="https://www.instagram.com/cathdrwijnen/" rel="noopener" style="flex:1 1 150px;min-height:54px;display:flex;align-items:center;justify-content:center;padding:0 22px;border:1.5px solid #22110F;border-radius:999px;color:#22110F;font-size:17.5px;font-weight:600;text-decoration:none">Instagram</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer data-dark="" style="background:#22110F;color:#F2E3C2;padding:clamp(48px,7vw,88px) 0 28px">
+  <div style="max-width:1200px;margin:0 auto;padding:0 max(clamp(16px,5vw,48px),env(safe-area-inset-right)) 0 max(clamp(16px,5vw,48px),env(safe-area-inset-left))">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:36px 56px">
+      <div style="display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:16px;row-gap:12px;align-content:start">
+        <span style="width:72px;height:72px;display:grid;place-items:center;border-radius:50%;background:#F2E3C2"><img src="assets/v2/logo-160.webp" width="54" height="54" alt="" style="width:54px;height:54px"></span>
+        <p style="font-size:26px;font-weight:500;letter-spacing:-0.02em">cathdrwijnen</p>
+        <p style="grid-column:1 / -1;max-width:22em;color:rgba(242,227,194,.82)">Wijnproeverijen bij jou aan huis, en pakketten om zelf te proeven.</p>
+      </div>
+      <nav aria-label="Voettekst">
+        <ul style="display:grid;grid-template-columns:1fr 1fr;column-gap:16px;font-size:16px">
+          <li><a href="#pakketten" style="display:inline-flex;align-items:center;min-height:44px">Pakketten</a></li>
+          <li><a href="#aan-huis" style="display:inline-flex;align-items:center;min-height:44px">Proeverij aan huis</a></li>
+          <li><a href="#over" style="display:inline-flex;align-items:center;min-height:44px">Over Cath</a></li>
+          <li><a href="#vraag" style="display:inline-flex;align-items:center;min-height:44px">Contact</a></li>
+          <li><a href="https://www.instagram.com/cathdrwijnen/" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px">Instagram</a></li>
+          <li><a href="https://erbendriessen.github.io/Cathdrwijnen/voorwaarden.html" style="display:inline-flex;align-items:center;min-height:44px">Voorwaarden</a></li>
+          <li><a href="https://erbendriessen.github.io/Cathdrwijnen/privacy.html" style="display:inline-flex;align-items:center;min-height:44px">Privacy</a></li>
+          <li><a href="https://erbendriessen.github.io/Cathdrwijnen/ontbinden.html" style="display:inline-flex;align-items:center;min-height:44px">Bestelling ontbinden</a></li>
+        </ul>
+      </nav>
+      <div>
+        <img src="assets/v2/nix18-wit.png" width="120" height="33" alt="NIX18" style="width:120px;height:auto">
+        <p style="margin-top:12px;max-width:18em;color:rgba(242,227,194,.82)">Geen 18, geen alcohol. Bij twijfel vragen we om je ID.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;margin-top:44px;padding-top:20px;border-top:1px solid rgba(242,227,194,.18);font-size:15px;line-height:1.5;color:rgba(242,227,194,.82)">
+      <p style="flex:1 1 100%">cathdrwijnen · [naam volgt] · [adres volgt] · tel. [nummer volgt] · <a href="mailto:info@cathdrwijnen.nl">info@cathdrwijnen.nl</a> · KvK [nummer volgt] · btw-id [nummer volgt]</p>
+      <p>© 2026 cathdrwijnen</p>
+    </div>
+    <sc-if value="{{ barMounted }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height:84px"></div></sc-if>
+  </div>
+</footer>
+
+<p role="status" style="position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">{{ announce }}</p>
+
+<sc-if value="{{ barMounted }}" hint-placeholder-val="{{ false }}">
+  <div data-dark="" style="position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;padding:0 max(12px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));pointer-events:none">
+    <div style="pointer-events:auto;width:100%;max-width:520px;display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:#7A1A2E;color:#F2E3C2;box-shadow:0 12px 32px rgba(34,17,15,.35);transition:transform .32s cubic-bezier(.2,.8,.2,1);transform:{{ barY }}">
+      <button type="button" onClick="{{ openCart }}" aria-haspopup="dialog" style="flex:1 1 auto;min-width:0;min-height:48px;display:flex;align-items:center;gap:10px;padding:0 8px 0 14px;border:0;background:none;color:inherit;font-size:17px;text-align:left">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M7 10a5 5 0 0 1 10 0"></path><path d="M3 10h18"></path><path d="M4.6 10l1.5 8.3a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 2-1.7l1.5-8.3"></path><path d="M9.5 13.5v3M14.5 13.5v3"></path></svg>
+        <span style="min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-variant-numeric:tabular-nums">Mandje ({{ count }}) · <strong style="font-weight:600">{{ subText }}</strong></span>
+      </button>
+      <button type="button" onClick="{{ checkout }}" style="flex:none;min-height:48px;padding:0 20px;border:0;border-radius:999px;background:#F2E3C2;color:#5E1323;font-size:17px;font-weight:600">Afrekenen</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ cartMounted }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:100">
+    <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(34,17,15,.55);transition:opacity .3s ease;opacity:{{ sheetFade }}"></div>
+    <div ref="{{ sheetRef }}" role="dialog" aria-modal="true" aria-labelledby="cartTitle" style="position:absolute;width:min(100%,460px);display:flex;flex-direction:column;background:#F2E3C2;color:#22110F;box-shadow:0 -20px 60px rgba(34,17,15,.3);overflow:hidden;transition:transform .34s cubic-bezier(.22,.9,.3,1);right:{{ sheetGap }};bottom:{{ sheetGap }};max-height:{{ sheetMaxH }};border-radius:{{ sheetRadius }};transform:{{ sheetY }}">
+      <div style="position:relative;flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 14px 14px 22px;border-bottom:1px solid rgba(34,17,15,.14)">
+        <div>
+          <h2 id="cartTitle" ref="{{ cartTitleRef }}" tabindex="-1" style="font-size:38px;line-height:1;font-weight:450;font-style:italic;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50;outline:none">Je mandje</h2>
+          <p style="min-height:1.5em;margin-top:6px;font-size:16px;font-style:italic;color:#7A1A2E">{{ cartSummary }}</p>
+        </div>
+        <button type="button" onClick="{{ closeCart }}" aria-label="Mandje sluiten" style="flex:none;width:48px;height:48px;display:grid;place-items:center;padding:0;border:1.5px solid rgba(34,17,15,.4);border-radius:50%;background:#FDF8EC;color:#22110F"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      </div>
+
+      <div style="flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px 14px 20px">
+        <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
+          <ul role="list" style="display:grid;gap:12px">
+            <sc-for list="{{ lines }}" as="l" hint-placeholder-count="1">
+              <li style="display:grid;grid-template-columns:58px minmax(0,1fr) auto;column-gap:14px;padding:14px 14px 10px;background:#FDF8EC;border-radius:6px;box-shadow:0 10px 26px rgba(34,17,15,.1),0 1px 3px rgba(34,17,15,.08)">
+                <span aria-hidden="true" style="grid-row:1 / span 3;align-self:start;margin-top:2px;padding:4px 4px 12px;background:#fff;box-shadow:0 4px 10px rgba(34,17,15,.16);transform:rotate(-3deg)"><span style="display:block;aspect-ratio:1;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)"></span></span>
+                <h3 style="font-size:20px;line-height:1.15;font-weight:500;letter-spacing:-0.015em">{{ l.naam }}</h3>
+                <p style="font-size:19px;line-height:1.15;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums">{{ l.totalText }}</p>
+                <p style="grid-column:2 / -1;margin-top:3px;font-size:15px;line-height:1.4;font-style:italic;color:#7A1A2E">{{ l.meta }}</p>
+                <div style="grid-column:2 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:10px">
+                  <div role="group" aria-label="{{ l.groupLabel }}" style="display:inline-flex;align-items:center;border:1.5px solid #8F7B63;border-radius:999px;background:#FFFCF5">
+                    <button type="button" onClick="{{ l.minus }}" aria-label="{{ l.minusLabel }}" aria-disabled="{{ l.minusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:{{ l.minusColor }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+                    <span style="min-width:2.2ch;text-align:center;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums">{{ l.n }}</span>
+                    <button type="button" onClick="{{ l.plus }}" aria-label="{{ l.plusLabel }}" aria-disabled="{{ l.plusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:{{ l.plusColor }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg></button>
+                  </div>
+                  <button type="button" onClick="{{ l.remove }}" style="min-height:44px;padding:0 4px;border:0;background:none;color:#22110F;font-size:16px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px">Weghalen</button>
+                </div>
+                <sc-if value="{{ l.atMax }}" hint-placeholder-val="{{ false }}"><p style="grid-column:2 / -1;margin-top:4px;font-size:15px;line-height:1.4;color:#5E4B40">Meer dan 10 nodig? Vraag het Cath even.</p></sc-if>
+              </li>
+            </sc-for>
+          </ul>
+        </sc-if>
+        <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;justify-items:center;gap:10px;padding:20px 8px 8px;text-align:center">
+            <svg aria-hidden="true" focusable="false" style="width:120px;height:120px;color:#7A1A2E;opacity:.55;transform:rotate(-12deg)"><use href="#stain-ring-open"></use></svg>
+            <p style="font-size:28px;line-height:1.1;font-weight:450;font-style:italic">Je mandje is nog leeg</p>
+            <p style="max-width:22em;text-wrap:pretty">Kies een pakket om te beginnen. Je kunt het aantal daarna nog aanpassen.</p>
+            <a href="#pakketten" onClick="{{ closeCart }}" style="margin-top:10px;min-height:52px;display:inline-flex;align-items:center;padding:0 24px;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:17px;font-weight:600;text-decoration:none">Bekijk de pakketten</a>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:none;padding:16px 20px calc(16px + env(safe-area-inset-bottom));background:#FDF8EC;border-top:1px solid rgba(34,17,15,.12);box-shadow:0 -14px 30px rgba(34,17,15,.06)">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px">
+            <p style="font-size:18px;font-weight:500">Subtotaal <span style="font-size:15px;font-weight:400;font-style:italic;color:#5E4B40">incl. btw</span></p>
+            <p style="font-size:28px;line-height:1.1;font-weight:500;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">{{ subText }}</p>
+          </div>
+          <div style="margin-top:10px">
+            <div aria-hidden="true" style="height:6px;border-radius:999px;background:rgba(34,17,15,.1);overflow:hidden"><div style="height:100%;border-radius:999px;background:#7A1A2E;transition:width .35s ease;width:{{ shipPct }}"></div></div>
+            <p style="margin-top:8px;font-size:15px;line-height:1.45;color:#5E4B40;text-wrap:pretty">{{ shipText }}</p>
+          </div>
+          <div style="display:grid;gap:8px;margin-top:14px">
+            <button type="button" onClick="{{ checkout }}" style="width:100%;min-height:54px;border:0;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:18px;font-weight:600">Afrekenen</button>
+            <button type="button" onClick="{{ closeCart }}" style="width:100%;min-height:48px;border:1.5px solid #22110F;border-radius:999px;background:transparent;color:#22110F;font-size:17px;font-weight:500">Verder kijken</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ ageMounted }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:16px">
+    <div onClick="{{ ageBackdrop }}" style="position:absolute;inset:0;background:rgba(34,17,15,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:opacity .25s ease;opacity:{{ ageFade }}"></div>
+    <div ref="{{ ageRef }}" role="dialog" aria-modal="true" aria-labelledby="ageTitle" style="position:relative;width:min(420px,100%);padding:32px clamp(20px,6vw,36px) 26px;border-radius:22px;background:#F2E3C2;color:#22110F;text-align:center;box-shadow:0 30px 80px rgba(34,17,15,.35);transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .25s;opacity:{{ ageFade }};transform:{{ ageY }}">
+      <img src="assets/v2/logo-160.webp" width="72" height="72" alt="" style="width:72px;height:72px;margin:0 auto 14px">
+      <sc-if value="{{ ageAsking }}" hint-placeholder-val="{{ true }}">
+        <h2 id="ageTitle" style="font-size:30px;line-height:1.1;font-weight:500;letter-spacing:-0.015em;text-wrap:balance">Ben je 18 jaar of ouder?</h2>
+        <p style="margin-top:10px;font-size:17px;text-wrap:pretty">{{ ageText }}</p>
+        <div style="display:grid;gap:10px;margin-top:22px">
+          <button type="button" ref="{{ ageYesRef }}" onClick="{{ ageYes }}" style="min-height:54px;border:0;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:18px;font-weight:600">Ja, ik ben 18+</button>
+          <button type="button" onClick="{{ ageNo }}" style="min-height:50px;border:1.5px solid #22110F;border-radius:999px;background:transparent;color:#22110F;font-size:17px;font-weight:500">Nee</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ ageDenied }}" hint-placeholder-val="{{ false }}">
+        <h2 id="ageTitle" tabindex="-1" style="font-size:30px;line-height:1.1;font-weight:500;letter-spacing:-0.015em;outline:none">Kom terug als je 18 bent</h2>
+        <p style="margin-top:10px;font-size:17px;text-wrap:pretty">Tot die tijd kun je hier niets bestellen. Waarom, lees je op <a href="https://www.nix18.nl" rel="noopener">nix18.nl</a>.</p>
+        <div style="display:grid;gap:10px;margin-top:22px">
+          <button type="button" onClick="{{ ageBack }}" style="min-height:50px;border:1.5px solid #22110F;border-radius:999px;background:transparent;color:#22110F;font-size:17px;font-weight:500">Toch 18+? Terug naar de vraag</button>
+        </div>
+      </sc-if>
+      <p style="margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px"><img src="assets/v2/nix18-oranje.png" width="96" height="26" alt="NIX18" style="width:96px;height:auto">Geen 18, geen alcohol.</p>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;left:50%;top:72px;z-index:130;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);padding:12px 18px;border-radius:14px;background:#22110F;color:#F2E3C2;font-size:16px;line-height:1.4;box-shadow:0 12px 32px rgba(34,17,15,.3)">{{ toast }}</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;leeftijdsvraag&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bij eerste keer in mandje&quot;,&quot;Bij binnenkomst&quot;],&quot;default&quot;:&quot;Bij eerste keer in mandje&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Gedrag&quot;},&quot;mandjebalk&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Gedrag&quot;},&quot;aanbevolen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cadeau&quot;,&quot;kennismaking&quot;,&quot;salon&quot;,&quot;diner&quot;],&quot;default&quot;:&quot;salon&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pakketten&quot;}}">
+class Component extends DCLogic {
+  PK = [
+    { id: 'cadeau', naam: 'Het cadeau', flessen: 3, prijs: 4900, tekst: 'Drie wijnen in een cadeaudoos, met een kaartje van jou erbij.' },
+    { id: 'kennismaking', naam: 'De kennismaking', flessen: 5, prijs: 7900, tekst: "Een eerste rondje langs vijf wijnen. Fijn voor een avond met z'n tweeën." },
+    { id: 'salon', naam: 'De salon', flessen: 6, prijs: 9500, tekst: 'Voor een avond met vrienden, met genoeg om over door te praten.' },
+    { id: 'diner', naam: 'Het diner', flessen: 8, prijs: 12900, tekst: 'Een lange tafel, van aperitief tot dessertwijn.' }
+  ];
+  MAX = 10; SHIP = 695; FREE = 10000;
+  KEY_CART = 'cathdr-ontwerp-mandje'; KEY_AGE = 'cathdr-ontwerp-18plus';
+  F0 = { gasten: 6, datum: '', plaats: '', naam: '', email: '', tel: '', bericht: '' };
+
+  sheetRef = React.createRef(); ageRef = React.createRef(); cartTitleRef = React.createRef();
+  ageYesRef = React.createRef(); doneRef = React.createRef();
+
+  state = {
+    vw: typeof window !== 'undefined' ? window.innerWidth : 390,
+    sel: null, cart: {}, age: false, active: null,
+    cartMounted: false, cartIn: false, barIn: false, bump: false, flash: null,
+    ageMounted: false, ageIn: false, ageDenied: false, pendingAdd: null, ageForced: false,
+    openFaq: null, f: { ...this.F0 }, adult: false, showMsg: false, err: {}, sent: false,
+    formFocus: false, toast: null, announce: ''
+  };
+
+  store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  raf(fn) { requestAnimationFrame(() => requestAnimationFrame(fn)); }
+  count(c) { return Object.values(c || {}).reduce((a, b) => a + b, 0); }
+  eur(c) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(c / 100); }
+  eurS(c) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 }).format(c / 100); }
+  pk(id) { return this.PK.find(p => p.id === id); }
+  ageMode() { return this.props.leeftijdsvraag === 'Bij binnenkomst' ? 'entry' : 'add'; }
+
+  componentDidMount() {
+    if (/[?&]leeftijd-opnieuw\b/.test(location.search)) this.store(this.KEY_AGE, null);
+    let raw = {};
+    try { raw = JSON.parse(this.read(this.KEY_CART) || '{}') || {}; } catch (e) {}
+    const cart = {};
+    this.PK.forEach(p => { const n = parseInt(raw[p.id], 10); if (n > 0) cart[p.id] = Math.min(n, this.MAX); });
+    this.setState({ cart, age: this.read(this.KEY_AGE) === 'ja' }, () => {
+      if (this.count(cart)) this.raf(() => this.setState({ barIn: true }));
+      this.entryGate();
+    });
+
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+    this._onKey = e => this.onKey(e);
+    document.addEventListener('keydown', this._onKey);
+    this._onFocusIn = e => {
+      const t = e.target;
+      const inForm = !!(t && t.closest && t.closest('#aanvraag-form')) && /INPUT|TEXTAREA/.test(t.tagName) && t.type !== 'checkbox';
+      if (inForm !== this.state.formFocus) this.setState({ formFocus: inForm });
+    };
+    this._onFocusOut = e => { if (!e.relatedTarget && this.state.formFocus) this.setState({ formFocus: false }); };
+    document.addEventListener('focusin', this._onFocusIn);
+    document.addEventListener('focusout', this._onFocusOut);
+
+    setTimeout(() => {
+      const ids = ['pakketten', 'aan-huis', 'over', 'vraag'];
+      const vis = {};
+      this._io = new IntersectionObserver(entries => {
+        entries.forEach(en => { vis[en.target.id] = en.isIntersecting; });
+        const a = ids.find(id => vis[id]) || null;
+        if (a !== this.state.active) this.setState({ active: a });
+      }, { rootMargin: '-35% 0px -60% 0px' });
+      ids.forEach(id => { const el = document.getElementById(id); if (el) this._io.observe(el); });
+    }, 60);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    document.removeEventListener('keydown', this._onKey);
+    document.removeEventListener('focusin', this._onFocusIn);
+    document.removeEventListener('focusout', this._onFocusOut);
+    if (this._io) this._io.disconnect();
+    document.documentElement.style.overflow = '';
+  }
+
+  componentDidUpdate() {
+    const lock = this.state.cartMounted || this.state.ageMounted;
+    if (lock !== !!this._locked) { document.documentElement.style.overflow = lock ? 'hidden' : ''; this._locked = lock; }
+    const lv = this.props.leeftijdsvraag;
+    if (this._prevLv !== undefined && this._prevLv !== lv) this.entryGate();
+    this._prevLv = lv;
+    const had = this._prevCount || 0, has = this.count(this.state.cart);
+    this._prevCount = has;
+    if (has && !this.state.barIn && !this._barT) this._barT = setTimeout(() => { this._barT = null; this.setState({ barIn: true }); }, 40);
+    if (had && !has && this.state.barIn) this.setState({ barIn: false });
+  }
+
+  entryGate() {
+    if (this.ageMode() === 'entry' && !this.state.age && !this.state.ageMounted) this.openAge(null, true);
+  }
+
+  onKey(e) {
+    const s = this.state;
+    if (e.key === 'Escape') {
+      if (s.ageMounted) { if (!s.ageForced) this.closeAge(); e.preventDefault(); }
+      else if (s.cartMounted) this.closeCart();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const el = s.ageMounted ? this.ageRef.current : s.cartMounted ? this.sheetRef.current : null;
+      if (el) this.trap(e, el);
+    }
+  }
+
+  trap(e, el) {
+    const f = [...el.querySelectorAll('a[href],button,input,textarea,[tabindex]:not([tabindex="-1"])')].filter(x => x.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1], cur = document.activeElement;
+    if (!el.contains(cur)) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && cur === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && cur === last) { e.preventDefault(); first.focus(); }
+  }
+
+  setCart(cart) { this.store(this.KEY_CART, JSON.stringify(cart)); this.setState({ cart }); }
+
+  add(id) {
+    if (!this.state.age) { this.openAge(id, false); return; }
+    this.doAdd(id);
+  }
+
+  doAdd(id) {
+    const p = this.pk(id), n = this.state.cart[id] || 0;
+    if (n >= this.MAX) { this.setState({ announce: 'Je hebt al ' + n + ' keer ' + p.naam + ' in je mandje. Meer kan niet in één bestelling.' }); return; }
+    this.setCart({ ...this.state.cart, [id]: n + 1 });
+    this.setState({ flash: id, bump: true, announce: p.naam + ' zit in je mandje.' });
+    clearTimeout(this._ft); this._ft = setTimeout(() => this.setState({ flash: null }), 1800);
+    clearTimeout(this._bt); this._bt = setTimeout(() => this.setState({ bump: false }), 220);
+  }
+
+  step(id, d) {
+    const n = (this.state.cart[id] || 0) + d;
+    if (n < 1 || n > this.MAX) return;
+    this.setCart({ ...this.state.cart, [id]: n });
+    this.setState({ announce: 'Aantal ' + this.pk(id).naam + ': ' + n });
+  }
+
+  remove(id) {
+    const c = { ...this.state.cart }; delete c[id];
+    this.setCart(c);
+    this.setState({ announce: this.pk(id).naam + ' is uit je mandje gehaald.' });
+    if (!this.count(c) && this.cartTitleRef.current) this.cartTitleRef.current.focus();
+  }
+
+  openCart = () => {
+    this._ret = document.activeElement;
+    this.setState({ cartMounted: true, cartIn: false }, () => this.raf(() => {
+      this.setState({ cartIn: true });
+      if (this.cartTitleRef.current) this.cartTitleRef.current.focus({ preventScroll: true });
+    }));
+  };
+
+  closeCart = () => {
+    if (!this.state.cartMounted) return;
+    this.setState({ cartIn: false });
+    clearTimeout(this._ct);
+    this._ct = setTimeout(() => {
+      this.setState({ cartMounted: false });
+      if (this._ret && this._ret.focus && document.contains(this._ret)) this._ret.focus({ preventScroll: true });
+    }, 320);
+  };
+
+  openAge(pending, forced) {
+    this._ageRet = document.activeElement;
+    this.setState({ ageMounted: true, ageIn: false, ageDenied: false, pendingAdd: pending, ageForced: !!forced }, () => this.raf(() => {
+      this.setState({ ageIn: true });
+      if (this.ageYesRef.current) this.ageYesRef.current.focus({ preventScroll: true });
+    }));
+  }
+
+  closeAge() {
+    this.setState({ ageIn: false });
+    setTimeout(() => {
+      this.setState({ ageMounted: false, pendingAdd: null, ageDenied: false });
+      if (this._ageRet && this._ageRet.focus && document.contains(this._ageRet)) this._ageRet.focus({ preventScroll: true });
+    }, 260);
+  }
+
+  toast(text) {
+    this.setState({ toast: text, announce: text });
+    clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toast: null }), 3400);
+  }
+
+  setF(k) {
+    return e => {
+      const v = e.target.value;
+      this.setState(s => ({ f: { ...s.f, [k]: v }, err: s.err[k] ? { ...s.err, [k]: null } : s.err }));
+    };
+  }
+
+  submit = e => {
+    e.preventDefault();
+    const f = this.state.f, err = {};
+    if (!f.naam.trim()) err.naam = 'Vul je naam in.';
+    if (!f.email.trim()) err.email = 'Vul je e-mailadres in.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) err.email = 'Dit e-mailadres klopt niet helemaal. Kijk je het even na?';
+    if (!this.state.adult) err.adult = 'Vink dit aan: Cath schenkt alleen voor gasten van 18 jaar en ouder.';
+    this.setState({ err });
+    const first = ['naam', 'email', 'adult'].find(k => err[k]);
+    if (first) { const el = document.getElementById('f-' + first); if (el) el.focus(); return; }
+    this.setState({ sent: true, formFocus: false }, () => {
+      const box = document.getElementById('aanvraag');
+      if (box) window.scrollTo({ top: box.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' });
+      if (this.doneRef.current) this.doneRef.current.focus({ preventScroll: true });
+    });
+  };
+
+  onPkKey = e => {
+    const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+    if (!(e.key in keys)) return;
+    e.preventDefault();
+    const ids = this.PK.map(p => p.id);
+    const cur = ids.indexOf(this.state.sel || this.props.aanbevolen || 'salon');
+    const next = ids[(cur + keys[e.key] + ids.length) % ids.length];
+    this.setState({ sel: next }, () => { const b = document.getElementById('pk-' + next); if (b) b.focus(); });
+  };
+
+  renderVals() {
+    const s = this.state, P = this.props;
+    const top = this.pk(P.aanbevolen) ? P.aanbevolen : 'salon';
+    const sel = this.pk(s.sel) || this.pk(top);
+    const isWide = s.vw >= 900, isPhone = s.vw < 640;
+    const count = this.count(s.cart);
+    const sub = this.PK.reduce((a, p) => a + (s.cart[p.id] || 0) * p.prijs, 0);
+    const bottles = this.PK.reduce((a, p) => a + (s.cart[p.id] || 0) * p.flessen, 0);
+    const nSel = s.cart[sel.id] || 0;
+    const flashOn = s.flash === sel.id, atMax = nSel >= this.MAX;
+    const barMounted = (P.mandjebalk ?? true) && count > 0 && !isWide;
+    const barShow = s.barIn && !s.cartMounted && !s.formFocus && !s.ageMounted;
+
+    const navBase = [
+      { id: 'pakketten', label: 'Pakketten' },
+      { id: 'aan-huis', label: isWide ? 'Proeverij aan huis' : 'Aan huis' },
+      { id: 'over', label: 'Over Cath' }
+    ];
+    if (isWide) navBase.push({ id: 'vraag', label: 'Contact' });
+    const nav = navBase.map(n => {
+      const on = s.active === n.id;
+      return { ...n, href: '#' + n.id, current: on ? 'true' : 'false', bg: on ? '#7A1A2E' : 'transparent', fg: on ? '#F2E3C2' : '#22110F' };
+    });
+
+    const pk = this.PK.map(p => {
+      const on = p.id === sel.id;
+      return {
+        ...p, btnId: 'pk-' + p.id, checked: on ? 'true' : 'false', tab: on ? 0 : -1,
+        select: () => this.setState({ sel: p.id }),
+        rowBg: on ? '#F7DAD4' : 'transparent', dotBorder: on ? '#7A1A2E' : '#8F7B63', dotFill: on ? '#7A1A2E' : 'transparent',
+        isTop: p.id === top, flessenTekst: p.flessen + ' flessen', prijsTekst: this.eurS(p.prijs),
+        slotId: 'pakket-' + p.id, slotLabel: 'Foto: ' + p.naam.toLowerCase(),
+        photoOpacity: on ? 1 : 0, photoPE: on ? 'auto' : 'none'
+      };
+    });
+
+    const lines = this.PK.filter(p => s.cart[p.id] > 0).map(p => {
+      const n = s.cart[p.id];
+      return {
+        naam: p.naam, n, totalText: this.eur(p.prijs * n),
+        meta: p.flessen + ' flessen · ' + this.eurS(p.prijs) + ' per doos',
+        groupLabel: 'Aantal ' + p.naam,
+        minus: () => this.step(p.id, -1), plus: () => this.step(p.id, 1), remove: () => this.remove(p.id),
+        minusLabel: 'Eén minder van ' + p.naam, plusLabel: 'Eén meer van ' + p.naam,
+        minusDis: n <= 1 ? 'true' : 'false', plusDis: n >= this.MAX ? 'true' : 'false',
+        minusColor: n <= 1 ? 'rgba(34,17,15,.28)' : '#7A1A2E', plusColor: n >= this.MAX ? 'rgba(34,17,15,.28)' : '#7A1A2E',
+        atMax: n >= this.MAX
+      };
+    });
+
+    const remain = this.FREE - sub;
+    const shipText = remain <= 0
+      ? 'Bezorgen is gratis bij deze bestelling. Ophalen kan ook, dat kies je bij het afrekenen.'
+      : 'Nog ' + this.eur(remain) + ' tot gratis bezorgen. Ophalen is altijd gratis.';
+
+    const faqItem = k => {
+      const open = s.openFaq === k;
+      return { open: open ? 'true' : 'false', isOpen: open, rot: open ? 'scaleY(0)' : 'none', toggle: () => this.setState({ openFaq: open ? null : k }) };
+    };
+
+    const err = s.err;
+    const firstName = (s.f.naam.trim().split(/\s+/)[0]) || '';
+
+    return {
+      isWide, nav, count, hasItems: count > 0, isEmpty: count === 0,
+      cartAria: count ? 'Mandje, ' + count + (count === 1 ? ' pakket' : ' pakketten') : 'Mandje, leeg',
+      badgeScale: s.bump ? 'scale(1.35)' : 'scale(1)',
+      openCart: this.openCart, closeCart: this.closeCart,
+      checkout: () => { this.closeCart(); this.toast('Hier ga je naar de afrekenpagina. Die zit nog niet in dit ontwerp.'); },
+
+      pk, onPkKey: this.onPkKey, selName: sel.naam, selText: sel.tekst,
+      selCaption: sel.naam.toLowerCase() + ' · ' + sel.flessen + ' flessen',
+      addSel: () => this.add(sel.id),
+      addLabel: flashOn ? '✓ In je mandje' : atMax ? 'Maximum bereikt' : 'In mandje · ' + this.eurS(sel.prijs),
+      addBg: flashOn ? '#22110F' : '#F2E3C2', addFg: flashOn ? '#F2E3C2' : '#5E1323',
+      selInCart: nSel > 0, selInCartText: 'Je hebt er ' + nSel + ' in je mandje.',
+
+      faq: { a: faqItem('a'), b: faqItem('b'), c: faqItem('c'), d: faqItem('d') },
+
+      f: s.f, today: new Date().toISOString().slice(0, 10),
+      on: { datum: this.setF('datum'), plaats: this.setF('plaats'), naam: this.setF('naam'), email: this.setF('email'), tel: this.setF('tel'), bericht: this.setF('bericht') },
+      guestsMin: () => this.setState(st => ({ f: { ...st.f, gasten: Math.max(4, st.f.gasten - 1) } })),
+      guestsPlus: () => this.setState(st => ({ f: { ...st.f, gasten: Math.min(40, st.f.gasten + 1) } })),
+      guestsMinDis: s.f.gasten <= 4 ? 'true' : 'false', guestsMinColor: s.f.gasten <= 4 ? 'rgba(34,17,15,.28)' : '#7A1A2E',
+      err, has: { naam: !!err.naam, email: !!err.email, adult: !!err.adult },
+      inv: { naam: err.naam ? 'true' : 'false', email: err.email ? 'true' : 'false', adult: err.adult ? 'true' : 'false' },
+      bc: { naam: err.naam ? '#B3261E' : '#8F7B63', email: err.email ? '#B3261E' : '#8F7B63' },
+      adult: s.adult, toggleAdult: e => { const v = e.target.checked; this.setState(st => ({ adult: v, err: { ...st.err, adult: null } })); },
+      showMsg: s.showMsg, msgClosed: !s.showMsg,
+      openMsg: () => this.setState({ showMsg: true }, () => { const t = document.getElementById('f-bericht'); if (t) t.focus(); }),
+      submit: this.submit, sent: s.sent, notSent: !s.sent, doneRef: this.doneRef,
+      doneText: 'Dank je wel' + (firstName ? ', ' + firstName : '') + '. Cath heeft je aanvraag voor ' + s.f.gasten + ' gasten ontvangen en neemt zo snel mogelijk persoonlijk contact met je op.',
+      resetForm: () => this.setState({ sent: false, f: { ...this.F0 }, adult: false, showMsg: false, err: {} }),
+
+      announce: s.announce,
+      barMounted, barY: barShow ? 'translateY(0)' : 'translateY(calc(100% + 40px))',
+      subText: this.eur(sub),
+
+      cartMounted: s.cartMounted, sheetRef: this.sheetRef, cartTitleRef: this.cartTitleRef,
+      sheetFade: s.cartIn ? 1 : 0, sheetY: s.cartIn ? 'translateY(0)' : 'translateY(calc(100% + 40px))',
+      sheetGap: isPhone ? '0px' : '20px', sheetRadius: isPhone ? '22px 22px 0 0' : '22px',
+      sheetMaxH: isPhone ? 'calc(100dvh - 24px)' : 'calc(100dvh - 40px)',
+      cartSummary: count ? count + (count === 1 ? ' pakket' : ' pakketten') + ' · ' + bottles + ' flessen' : '',
+      lines, shipText, shipPct: Math.min(100, Math.round(sub / this.FREE * 100)) + '%',
+
+      ageMounted: s.ageMounted, ageRef: this.ageRef, ageYesRef: this.ageYesRef,
+      ageFade: s.ageIn ? 1 : 0, ageY: s.ageIn ? 'none' : 'translateY(14px) scale(.97)',
+      ageAsking: !s.ageDenied, ageDenied: s.ageDenied,
+      ageText: s.pendingAdd ? 'Wijn verkopen we alleen aan mensen van 18 jaar en ouder. Daarna leggen we ' + this.pk(s.pendingAdd).naam.toLowerCase() + ' in je mandje.' : 'Op deze site kun je wijn bestellen. Alcohol verkopen we alleen aan mensen van 18 jaar en ouder.',
+      ageYes: () => {
+        this.store(this.KEY_AGE, 'ja');
+        const id = this.state.pendingAdd;
+        this.setState({ age: true }, () => { this.closeAge(); if (id) this.doAdd(id); });
+      },
+      ageNo: () => this.setState({ ageDenied: true }, () => { const h = document.getElementById('ageTitle'); if (h) h.focus(); }),
+      ageBack: () => this.setState({ ageDenied: false }, () => { if (this.ageYesRef.current) this.ageYesRef.current.focus(); }),
+      ageBackdrop: () => { if (!this.state.ageForced) this.closeAge(); },
+
+      hasToast: !!s.toast, toast: s.toast || ''
+    };
+  }
+}
+</script>
+</body>
+</html>
