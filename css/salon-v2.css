@@ -144,17 +144,9 @@ a, button, label { -webkit-tap-highlight-color: rgba(122, 26, 46, 0.15); }
             .site-footer__nav a:hover { text-decoration-thickness: 2px; }
 }
 
-/* ---------- NIX18-markering (tijdelijk, tot het officiële logo erin staat) ---------- */
+/* ---------- NIX18 (officieel logo uit de NIX18-toolkit van Trimbos; niet aanpassen) ---------- */
 
-.nix18 {
-    display: inline-block;
-    padding: 2px 8px;
-    border: 2px solid currentColor;
-    border-radius: 6px;
-    font: 800 13px/1.2 system-ui, -apple-system, 'Segoe UI', sans-serif;
-    letter-spacing: 0.02em;
-}
-.nix18--large { font-size: 20px; padding: 4px 12px; }
+.nix18-logo { display: block; flex: none; height: auto; }
 
 /* ============================================================
    18+ CONTROLE
@@ -174,6 +166,12 @@ a, button, label { -webkit-tap-highlight-color: rgba(122, 26, 46, 0.15); }
     background: rgba(34, 17, 15, 0.78);
     backdrop-filter: blur(6px);
 }
+
+/* Na "ja": de kaart zakt zacht weg en het donkere scherm trekt op */
+.age-gate.is-sluiten { animation: gate-uit 0.32s ease-in forwards; }
+.age-gate.is-sluiten::backdrop { animation: gate-scherm-uit 0.32s ease-in forwards; }
+@keyframes gate-uit { to { opacity: 0; transform: translateY(14px) scale(0.97); } }
+@keyframes gate-scherm-uit { to { opacity: 0; } }
 .age-gate__logo { margin: 0 auto 18px; width: 88px; height: 88px; }
 .age-gate__title {
     font-size: 32px;
@@ -205,9 +203,9 @@ a, button, label { -webkit-tap-highlight-color: rgba(122, 26, 46, 0.15); }
 }
 .age-gate__nix {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-top: 24px;
     font-size: 15px;
 }
@@ -400,6 +398,48 @@ a, button, label { -webkit-tap-highlight-color: rgba(122, 26, 46, 0.15); }
 .hero__actions,
 .hero__ways,
 .polaroids { position: relative; z-index: 1; }
+
+/* Eerste bezoek: zolang de 18+ vraag openstaat (class door js/leeftijd.js) wachten
+   de vlek en de tekst. Na "ja" vloeit Caths aquarelvlek uit en komt de tekst er
+   rustig bij: één moment, alleen als reactie op die klik. */
+.hero__stain {
+    transition:
+        opacity 1.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 1.7s cubic-bezier(0.16, 0.84, 0.3, 1),
+        filter 1.4s ease-out;
+}
+.hero__title,
+.hero__lede,
+.hero__actions,
+.hero__ways {
+    transition: opacity 0.8s ease-out, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hero__title { transition-delay: 0.25s; }
+.hero__lede { transition-delay: 0.45s; }
+.hero__actions,
+.hero__ways { transition-delay: 0.6s; }
+
+.leeftijd-open .hero__stain {
+    opacity: 0;
+    transform: translateX(-46%) rotate(-10deg) scale(0.5);
+    filter: blur(12px);
+    transition: none;
+}
+.leeftijd-open .hero__title,
+.leeftijd-open .hero__lede,
+.leeftijd-open .hero__actions,
+.leeftijd-open .hero__ways {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero__stain,
+    .hero__title,
+    .hero__lede,
+    .hero__actions,
+    .hero__ways { transition: none !important; }
+}
 
 .hero__title { padding-inline: 12px; }
 .hero__word {

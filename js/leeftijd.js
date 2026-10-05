@@ -41,7 +41,7 @@
                     '<button type="button" class="btn btn--wine" data-age-answer="yes">Ja, ik ben 18+</button>' +
                     '<button type="button" class="btn btn--ghost" data-age-answer="no">Nee</button>' +
                 '</div>' +
-                '<p class="age-gate__nix"><span class="nix18">NIX18</span> Geen 18, geen alcohol.</p>' +
+                '<p class="age-gate__nix"><img class="nix18-logo" src="assets/v2/nix18-oranje.png" width="96" height="26" alt="NIX18"><span>Geen 18, geen alcohol.</span></p>' +
             '</div>' +
             '<div class="age-gate__denied" data-age-step="denied" hidden>' +
                 '<img class="age-gate__logo" src="assets/v2/logo-160.webp" width="88" height="88" alt="">' +
@@ -50,7 +50,7 @@
                 '<div class="age-gate__actions">' +
                     '<button type="button" class="btn btn--ghost" data-age-back>Toch 18+? Terug naar de vraag</button>' +
                 '</div>' +
-                '<p class="age-gate__nix"><span class="nix18">NIX18</span> Geen 18, geen alcohol.</p>' +
+                '<p class="age-gate__nix"><img class="nix18-logo" src="assets/v2/nix18-oranje.png" width="96" height="26" alt="NIX18"><span>Geen 18, geen alcohol.</span></p>' +
             '</div>' +
         '</dialog>';
 
@@ -78,6 +78,25 @@
         var ask = dialog.querySelector('[data-age-step="ask"]');
         var denied = dialog.querySelector('[data-age-step="denied"]');
         var answeredYes = false;
+        var root = document.documentElement;
+        var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Na "ja": de kaart zakt weg en het scherm trekt op. Daarna haalt het
+        // weghalen van 'leeftijd-open' de vlek en de tekst van de hero terug, met
+        // de overgangen uit css/salon-v2.css (de vlek vloeit uit).
+        function welkom() {
+            if (rustig) {
+                dialog.close();
+                root.classList.remove('leeftijd-open');
+                return;
+            }
+            dialog.classList.add('is-sluiten');
+            window.setTimeout(function () {
+                dialog.close();
+                dialog.classList.remove('is-sluiten');
+                root.classList.remove('leeftijd-open');
+            }, 320);
+        }
 
         // Escape mag de vraag niet wegklikken. closedby="none" regelt dat in
         // nieuwe browsers; Chrome laat een eerste Escape soms toch door, dus
@@ -100,9 +119,10 @@
             var btn = e.target.closest('[data-age-answer]');
             if (!btn) return;
             if (btn.getAttribute('data-age-answer') === 'yes') {
+                if (answeredYes) return;
                 answeredYes = true;
                 store.set(AGE_KEY, 'ja');
-                dialog.close();
+                welkom();
             } else {
                 ask.hidden = true;
                 denied.hidden = false;
@@ -110,6 +130,7 @@
             }
         });
 
+        root.classList.add('leeftijd-open');
         dialog.showModal();
     }
 

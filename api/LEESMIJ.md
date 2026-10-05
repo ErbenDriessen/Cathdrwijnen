@@ -129,7 +129,7 @@ of `ontbinden.html` nog iets als `[gebied volgt]` staat (de lijst staat in
       ingevuld en ondertekend, bijvoorbeeld met het voorbeelddocument van KHN of CBL:
       Cath bezorgt zelf en/of de klant haalt op bij [adres]. Bewaar hem buiten de
       openbare repository; de NVWA kan erom vragen.
-- [ ] Het officiële NIX18-logo staat in de voettekst.
+- [x] Het officiële NIX18-logo staat in de voettekst en bij de 18+ vraag (assets/v2/nix18-*.png, uit de NIX18-toolkit van Trimbos).
 - [ ] `https://<jouw-site>/data/index.html` en `https://<jouw-site>/api/config.php`
       geven een foutpagina (403). De ingebouwde PHP-server leest `.htaccess` niet,
       dus dit kun je alleen op de hosting controleren.

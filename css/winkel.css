@@ -727,7 +727,7 @@ html.winkel-pagina {
 .winkel-footer__nix {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     color: rgba(242, 227, 194, 0.85);
 }
 .winkel-footer__nav ul {
