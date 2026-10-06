@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cathdrwijnen · Kies een ontwerp</title>
-    <meta name="description" content="Twee ontwerpen voor de site van cathdrwijnen naast elkaar: Salon v2 en het nieuwe mobiele ontwerp.">
+    <meta name="description" content="Drie versies van de site van cathdrwijnen naast elkaar: v1, v2 en v3.">
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
     <meta name="color-scheme" content="light">
@@ -65,18 +65,18 @@
             text-wrap: pretty;
         }
 
+        /* Breed scherm: drie kaarten naast elkaar, foto boven de tekst */
         .keuzes {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(20px, 3vw, 36px);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(20px, 3vw, 32px);
             margin-top: clamp(36px, 5vw, 56px);
         }
         .keuze {
-            display: grid;
-            grid-template-columns: 150px minmax(0, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 22px;
-            align-items: start;
-            padding: 20px;
+            padding: 22px;
             background: var(--wit);
             border-radius: 22px;
             box-shadow: 0 24px 60px rgba(122, 26, 46, 0.1);
@@ -87,9 +87,12 @@
             padding: 6px 6px 14px;
             background: #fff;
             box-shadow: 0 8px 20px rgba(34, 17, 15, 0.16);
+            width: 170px;
             transform: rotate(-2deg);
         }
         .keuze:nth-child(2) .keuze__foto { transform: rotate(2deg); }
+        .keuze:nth-child(3) .keuze__foto { transform: rotate(-1deg); }
+        .keuze__tekst { display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
         .keuze__foto img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 5; object-fit: cover; }
         .keuze__label {
             font-size: 15px;
@@ -98,18 +101,19 @@
         }
         .keuze h2 {
             margin-top: 2px;
-            font-size: 32px;
+            font-size: 44px;
             line-height: 1.05;
             font-weight: 500;
             letter-spacing: -0.02em;
         }
         .keuze p { margin-top: 10px; font-size: 16.5px; line-height: 1.55; text-wrap: pretty; }
+        .keuze p:last-of-type { margin-bottom: 18px; }
         .keuze__let { color: #5E4B40; }
         .keuze__open {
             display: inline-flex;
             align-items: center;
             min-height: 48px;
-            margin-top: 16px;
+            margin-top: auto;
             padding: 12px 22px;
             border-radius: 999px;
             background: var(--wijn);
@@ -129,12 +133,16 @@
         }
         .extra a { display: inline-flex; align-items: center; min-height: 44px; }
 
-        @media (max-width: 860px) {
+        /* Smaller: kaarten onder elkaar, foto links van de tekst */
+        @media (max-width: 960px) {
             .keuzes { grid-template-columns: minmax(0, 1fr); }
+            .keuze { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: start; padding: 20px; }
+            .keuze__foto { width: auto; }
+            .keuze h2 { font-size: 36px; }
         }
         @media (max-width: 480px) {
             .keuze { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; padding: 16px; }
-            .keuze h2 { font-size: 26px; }
+            .keuze h2 { font-size: 30px; }
             .keuze__open { padding: 10px 16px; font-size: 16px; white-space: normal; }
         }
     </style>
@@ -147,33 +155,42 @@
         </div>
 
         <h1>Kies een ontwerp</h1>
-        <p class="intro">Twee richtingen voor dezelfde site. Bekijk ze het liefst op je telefoon, daar komen de meeste bezoekers vandaan.</p>
+        <p class="intro">Drie versies van dezelfde site, van het eerste ontwerp tot nu. Bekijk ze het liefst op je telefoon, daar komen de meeste bezoekers vandaan.</p>
 
         <div class="keuzes">
+            <a class="keuze" href="salon.html">
+                <div class="keuze__foto"><img src="assets/hub/salon-v1.webp" width="480" height="800" alt="Schermafbeelding van v1 op een telefoon"></div>
+                <div class="keuze__tekst">
+                    <p class="keuze__label">Het eerste ontwerp</p>
+                    <h2>v1</h2>
+                    <p>De originele Salon uit de eerste ronde prototypes. Nog zonder webshop.</p>
+                    <span class="keuze__open">Bekijk v1</span>
+                </div>
+            </a>
             <a class="keuze" href="salon-v2.html">
-                <div class="keuze__foto"><img src="assets/hub/salon-v2.webp" width="480" height="800" alt="Schermafbeelding van Salon v2 op een telefoon"></div>
-                <div>
-                    <p class="keuze__label">Ons ontwerp</p>
-                    <h2>Salon v2</h2>
+                <div class="keuze__foto"><img src="assets/hub/salon-v2.webp" width="480" height="800" alt="Schermafbeelding van v2 op een telefoon"></div>
+                <div class="keuze__tekst">
+                    <p class="keuze__label">Ons nieuwe ontwerp</p>
+                    <h2>v2</h2>
                     <p>Eén lange pagina met een menubalk bovenin, pakketkaarten met "In mandje", een mandje dat inschuift en een afrekenpagina. Betalen staat online nog uit.</p>
-                    <span class="keuze__open">Bekijk dit ontwerp</span>
+                    <span class="keuze__open">Bekijk v2</span>
                 </div>
             </a>
             <a class="keuze" href="Cathdrwijnen.dc.html">
-                <div class="keuze__foto"><img src="assets/hub/mobiel-ontwerp.webp" width="480" height="800" alt="Schermafbeelding van het nieuwe mobiele ontwerp op een telefoon"></div>
-                <div>
-                    <p class="keuze__label">Nieuw, gemaakt in Claude Design</p>
-                    <h2>Mobiel ontwerp</h2>
+                <div class="keuze__foto"><img src="assets/hub/mobiel-ontwerp.webp" width="480" height="800" alt="Schermafbeelding van v3 op een telefoon"></div>
+                <div class="keuze__tekst">
+                    <p class="keuze__label">Gemaakt in Claude Design</p>
+                    <h2>v3</h2>
                     <p>De pakketten als één keuzelijst met één knop, het mandje als paneel van onderen en de 18+ vraag pas bij de eerste keer "In mandje".</p>
                     <p class="keuze__let">Dit is een prototype: afrekenen is hier nog niet gekoppeld.</p>
-                    <span class="keuze__open">Bekijk dit ontwerp</span>
+                    <span class="keuze__open">Bekijk v3</span>
                 </div>
             </a>
         </div>
 
         <nav class="extra" aria-label="Meer">
-            <a href="Telefoon-voorbeeld.dc.html">Naast elkaar bekijken op telefoonformaat</a>
-            <a href="index.html">De eerste drie ontwerpen (Salon, Carafe, Journal)</a>
+            <a href="Telefoon-voorbeeld.dc.html">v2 en v3 naast elkaar op telefoonformaat</a>
+            <a href="index.html">Alle eerste ontwerpen (Salon, Carafe, Journal)</a>
         </nav>
     </main>
 </body>
