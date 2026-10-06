@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cathdrwijnen · Alle versies naast elkaar</title>
+    <meta name="description" content="v1, v2, v3 en v4 van de site van cathdrwijnen naast elkaar op telefoonformaat.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F2E3C2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap">
+    <style>
+        /* Alle ontwerpen als telefoons naast elkaar. Elk scherm is een iframe op echt
+           telefoonformaat (390 × 844), verkleind met --schaal zodat het in het venster past.
+           De pagina erin ziet dus gewoon een telefoonbreed scherm. */
+        :root {
+            --papier: #F2E3C2;
+            --wit: #FDF8EC;
+            --wijn: #7A1A2E;
+            --wijn-diep: #5E1323;
+            --inkt: #22110F;
+            --w: 390;
+            --h: 844;
+            --schaal: 1;
+            color-scheme: light;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        [hidden] { display: none !important; }
+        body {
+            margin: 0;
+            background: var(--papier);
+            color: var(--inkt);
+            font: 16px/1.5 'Fraunces', Georgia, serif;
+            font-optical-sizing: auto;
+        }
+        h1, p { margin: 0; }
+        a { color: inherit; text-underline-offset: 4px; }
+        button { font: inherit; color: inherit; cursor: pointer; }
+        :focus-visible { outline: 3px solid var(--wijn); outline-offset: 3px; }
+
+        .kop {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 24px;
+            padding: 18px clamp(16px, 4vw, 40px);
+        }
+        .kop__links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+        h1 { font-size: 26px; line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; }
+        .kop__terug { font-size: 15px; }
+
+        .knoppen { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .knop {
+            min-height: 40px;
+            padding: 0 16px;
+            border: 1.5px solid rgba(34, 17, 15, 0.2);
+            border-radius: 999px;
+            background: var(--wit);
+            font-size: 15px;
+        }
+        .knop:hover { border-color: var(--inkt); }
+        .knop[aria-pressed="true"] { background: var(--inkt); border-color: var(--inkt); color: var(--wit); }
+        .knoppen__scheiding { width: 1px; height: 24px; margin: 0 4px; background: rgba(34, 17, 15, 0.18); }
+
+        /* Rij telefoons: schuift opzij als ze niet allemaal passen */
+        .rij {
+            display: flex;
+            align-items: flex-end; /* telefoons op één lijn, ook als een label twee regels heeft */
+            justify-content: safe center;
+            gap: clamp(20px, 3vw, 40px);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 14px clamp(16px, 4vw, 40px) 56px;
+        }
+        .telefoon {
+            flex: none;
+            width: calc(var(--w) * var(--schaal) * 1px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-snap-align: center;
+        }
+        .telefoon__label { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; }
+        .telefoon__naam { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
+        .telefoon__naam span { font-size: 14px; font-style: italic; font-weight: 400; color: var(--wijn); }
+        .telefoon__acties { display: flex; align-items: baseline; gap: 12px; font-size: 14px; line-height: 1.5; }
+        .telefoon__acties button,
+        .telefoon__acties a {
+            padding: 4px 0;
+            border: 0;
+            background: none;
+            font-size: 14px;
+            line-height: 1.5;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .telefoon__scherm {
+            width: calc(var(--w) * var(--schaal) * 1px);
+            height: calc(var(--h) * var(--schaal) * 1px);
+            border-radius: calc(30px * var(--schaal));
+            overflow: hidden;
+            background: var(--wit);
+            box-shadow: 0 0 0 10px #1c1412, 0 18px 32px rgba(34, 17, 15, 0.22);
+        }
+        .telefoon__scherm iframe {
+            display: block;
+            width: calc(var(--w) * 1px);
+            height: calc(var(--h) * 1px);
+            border: 0;
+            transform: scale(var(--schaal));
+            transform-origin: 0 0;
+        }
+        .uitleg {
+            max-width: 46em;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 40px) 40px;
+            font-size: 15px;
+            color: #5E4B40;
+            text-align: center;
+            text-wrap: pretty;
+        }
+    </style>
+</head>
+<body>
+    <header class="kop">
+        <div class="kop__links">
+            <h1>Alle versies naast elkaar</h1>
+            <a class="kop__terug" href="hub.html">Terug naar de keuzepagina</a>
+        </div>
+        <div class="knoppen" role="group" aria-label="Weergave">
+            <button class="knop" type="button" data-maat="groot" aria-pressed="true">390 × 844</button>
+            <button class="knop" type="button" data-maat="klein" aria-pressed="false">Klein toestel 360 × 740</button>
+            <span class="knoppen__scheiding" aria-hidden="true"></span>
+            <button class="knop" type="button" data-alles-opnieuw>Alles opnieuw</button>
+            <button class="knop" type="button" data-mandjes-leeg>Mandjes leeg</button>
+        </div>
+    </header>
+
+    <main class="rij">
+        <!-- data-src: de pagina zonder parameters. ?leeftijd-opnieuw komt er bij elke
+             keer laden bij, zodat de 18+ vraag weer verschijnt (v1 heeft er geen). -->
+        <section class="telefoon" aria-label="v1">
+            <div class="telefoon__label">
+                <p class="telefoon__naam">v1 <span>Het eerste ontwerp</span></p>
+                <p class="telefoon__acties"><button type="button" data-herlaad>Opnieuw</button><a data-los href="salon.html" target="_blank" rel="noopener">Open los</a></p>
+            </div>
+            <div class="telefoon__scherm"><iframe data-src="salon.html" title="v1 op telefoonformaat"></iframe></div>
+        </section>
+        <section class="telefoon" aria-label="v2">
+            <div class="telefoon__label">
+                <p class="telefoon__naam">v2 <span>Ons nieuwe ontwerp</span></p>
+                <p class="telefoon__acties"><button type="button" data-herlaad>Opnieuw</button><a data-los href="salon-v2.html?leeftijd-opnieuw" target="_blank" rel="noopener">Open los</a></p>
+            </div>
+            <div class="telefoon__scherm"><iframe data-src="salon-v2.html" title="v2 op telefoonformaat"></iframe></div>
+        </section>
+        <section class="telefoon" aria-label="v3">
+            <div class="telefoon__label">
+                <p class="telefoon__naam">v3 <span>Claude Design</span></p>
+                <p class="telefoon__acties"><button type="button" data-herlaad>Opnieuw</button><a data-los href="Cathdrwijnen.dc.html?leeftijd-opnieuw" target="_blank" rel="noopener">Open los</a></p>
+            </div>
+            <div class="telefoon__scherm"><iframe data-src="Cathdrwijnen.dc.html" title="v3 op telefoonformaat"></iframe></div>
+        </section>
+        <section class="telefoon" aria-label="v4">
+            <div class="telefoon__label">
+                <p class="telefoon__naam">v4 <span>Ultra modern</span></p>
+                <p class="telefoon__acties"><button type="button" data-herlaad>Opnieuw</button><a data-los href="Cathdrwijnen-v4.dc.html?leeftijd-opnieuw" target="_blank" rel="noopener">Open los</a></p>
+            </div>
+            <div class="telefoon__scherm"><iframe data-src="Cathdrwijnen-v4.dc.html" title="v4 op telefoonformaat"></iframe></div>
+        </section>
+    </main>
+
+    <p class="uitleg">Elk scherm begint met de 18+ vraag opnieuw: v2 vraagt het meteen, v3 en v4 bij de eerste keer "In mandje". v2 en v4 delen één mandje en één 18+ antwoord, net als straks op de echte site: zeg je in v2 ja, dan vraagt v4 het niet meer. "Opnieuw" laadt één scherm opnieuw, "Alles opnieuw" alle schermen, en "Mandjes leeg" maakt daarbij ook alle mandjes leeg.</p>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var MATEN = { groot: [390, 844], klein: [360, 740] };
+        // Mandjes en 18+ antwoorden: v2, v4 en de afrekenpagina delen er één, v3 heeft een eigen
+        var MANDJES = ['cathdrwijnen-mandje', 'cathdr-ontwerp-mandje'];
+        var ANTWOORDEN = ['cathdrwijnen-18plus', 'cathdr-ontwerp-18plus'];
+
+        var root = document.documentElement;
+        var kop = document.querySelector('.kop');
+        var maat = MATEN.groot;
+        var frames = Array.prototype.slice.call(document.querySelectorAll('iframe[data-src]'));
+
+        // Telefoons zo groot mogelijk: de hele hoogte moet in het venster passen, en
+        // liefst alle vier naast elkaar. Worden ze daarvoor te klein (smal venster,
+        // telefoon), dan schuif je de rij opzij.
+        var rij = document.querySelector('.rij');
+        function schaal() {
+            var cs = window.getComputedStyle(rij);
+            var vrij = rij.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+                - (frames.length - 1) * (parseFloat(cs.columnGap) || 0) - frames.length * 20;
+            var hoog = window.innerHeight - kop.offsetHeight - 130;
+            var s = Math.min(1, hoog / maat[1]);
+            var alle = vrij / (frames.length * maat[0]);
+            if (alle >= 0.6) s = Math.min(s, alle);
+            else s = Math.min(s, (rij.clientWidth - 52) / maat[0]);
+            root.style.setProperty('--schaal', Math.max(0.45, s).toFixed(3));
+        }
+
+        function laad(frame) {
+            var src = frame.getAttribute('data-src');
+            // salon.html heeft geen 18+ vraag; een uniek getal zorgt dat het echt opnieuw laadt
+            frame.src = src + (src === 'salon.html' ? '?' : '?leeftijd-opnieuw&') + 't=' + Date.now();
+        }
+
+        function wis(sleutels) {
+            sleutels.forEach(function (k) {
+                try { window.localStorage.removeItem(k); } catch (e) {}
+                try { window.sessionStorage.removeItem(k); } catch (e) {}
+            });
+        }
+
+        document.querySelectorAll('[data-maat]').forEach(function (knop) {
+            knop.addEventListener('click', function () {
+                maat = MATEN[knop.getAttribute('data-maat')];
+                root.style.setProperty('--w', maat[0]);
+                root.style.setProperty('--h', maat[1]);
+                document.querySelectorAll('[data-maat]').forEach(function (k) {
+                    k.setAttribute('aria-pressed', k === knop ? 'true' : 'false');
+                });
+                schaal();
+                // Opnieuw laden: de pagina's kiezen hun indeling bij het laden
+                frames.forEach(laad);
+            });
+        });
+
+        document.querySelector('[data-alles-opnieuw]').addEventListener('click', function () {
+            wis(ANTWOORDEN);
+            frames.forEach(laad);
+        });
+
+        document.querySelector('[data-mandjes-leeg]').addEventListener('click', function () {
+            wis(MANDJES);
+            frames.forEach(laad);
+        });
+
+        document.querySelectorAll('[data-herlaad]').forEach(function (knop) {
+            knop.addEventListener('click', function () {
+                laad(knop.closest('.telefoon').querySelector('iframe'));
+            });
+        });
+
+        window.addEventListener('resize', schaal);
+        schaal();
+        frames.forEach(laad);
+    })();
+    </script>
+</body>
+</html>
