@@ -68,6 +68,15 @@ html.winkel-pagina {
     text-wrap: pretty;
 }
 .winkel-intro p + p { margin-top: 8px; }
+.kassa__voorbeeld {
+    max-width: 34em;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--blush);
+    border-left: 4px solid var(--wijn);
+    border-radius: 10px;
+    font-size: 16px;
+}
 
 /* Losse meldingen: laden, leeg mandje, storing */
 .winkel-melding {

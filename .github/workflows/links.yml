@@ -29,6 +29,8 @@ jobs:
             --exclude 'instagram\.com'
             --exclude 'formspree\.io'
             --exclude 'erbendriessen\.github\.io'
+            --exclude '^https://fonts\.(googleapis|gstatic)\.com/?$'
+            --exclude-path 'Cathdrwijnen\.dc\.html'
             './**/*.html'
             './**/*.md'
           fail: true

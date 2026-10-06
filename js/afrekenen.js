@@ -15,6 +15,8 @@
     'use strict';
 
     var API = 'api/bestelling.php';
+    // Op de online voorbeeldsite (GitHub Pages) draait geen PHP, dus daar kan niet betaald worden
+    var VOORBEELD = /\.github\.io$/i.test(window.location.hostname);
     var CONCEPT_KEY = 'cathdrwijnen-afrekenen';
     var WACHTTIJD = 30000; // zo lang wachten we op de server (ms)
     var ADRESVELDEN = ['postcode', 'huisnummer', 'straat', 'plaats'];
@@ -591,6 +593,11 @@
             return;
         }
 
+        if (VOORBEELD) {
+            toonAlgemeen('Dit is een voorbeeld. Je kunt alles invullen, maar betalen werkt hier nog niet.', 'voorbeeld');
+            return;
+        }
+
         zetBezig(true);
         bewaarConcept();
 
@@ -673,6 +680,10 @@
             form: form
         };
         intro = document.querySelector('[data-kassa-intro]');
+        if (VOORBEELD) {
+            var voorbeeld = document.querySelector('[data-kassa-voorbeeld]');
+            if (voorbeeld) voorbeeld.hidden = false;
+        }
 
         herstelConcept();
         pasLeveringToe();
