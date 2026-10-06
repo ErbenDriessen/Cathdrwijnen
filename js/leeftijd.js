@@ -1,8 +1,8 @@
 // cathdrwijnen · 18+ vraag
 // Eén vraag voor de hele site: salon-v2.html en afrekenen.html laden allebei dit
-// script. Het antwoord staat in localStorage ('cathdrwijnen-18plus' = 'ja'), dus
-// wie op de salonpagina al "ja" heeft gezegd, krijgt de vraag bij het afrekenen
-// niet nog een keer.
+// script. Het antwoord geldt alleen voor dit bezoek (sessionStorage,
+// 'cathdrwijnen-18plus' = 'ja'): wie de site opnieuw opent krijgt de vraag weer,
+// maar binnen één bezoek (salonpagina, afrekenen) maar één keer.
 // De opmaak van de vraag staat hieronder (MARKUP); dit script zet hem zelf in de
 // pagina. Staat er al een <dialog id="ageGate"> in de pagina, dan wordt die
 // gebruikt. De vormgeving komt uit css/salon-v2.css.
@@ -16,12 +16,10 @@
     // ---------- Opslag (kan geblokkeerd zijn in privévensters) ----------
     var store = {
         get: function (key) {
-            try { return window.localStorage.getItem(key); } catch (e) {}
             try { return window.sessionStorage.getItem(key); } catch (e) {}
             return null;
         },
         set: function (key, value) {
-            try { window.localStorage.setItem(key, value); return; } catch (e) {}
             try { window.sessionStorage.setItem(key, value); } catch (e) {}
         },
         remove: function (key) {
@@ -71,6 +69,8 @@
         // Oude browsers zonder <dialog>: geen vraag
         if (typeof document.createElement('dialog').showModal !== 'function') return;
 
+        // Oud antwoord uit een eerdere versie (bleef altijd bewaard) opruimen
+        try { window.localStorage.removeItem(AGE_KEY); } catch (e) {}
         if (/[?&]leeftijd-opnieuw\b/.test(window.location.search)) store.remove(AGE_KEY);
         if (store.get(AGE_KEY) === 'ja') return;
 
