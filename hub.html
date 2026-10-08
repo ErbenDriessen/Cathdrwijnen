@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cathdrwijnen · Kies een ontwerp</title>
-    <meta name="description" content="Vier versies van de site van cathdrwijnen naast elkaar: v1, v2, v3 en Ultra modern.">
+    <meta name="description" content="Vier versies van de site van cathdrwijnen naast elkaar: de Mix, v1, v2, v3 en Ultra modern.">
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/png" sizes="160x160" href="assets/v2/logo-160.png">
     <meta name="color-scheme" content="light">
@@ -94,6 +94,10 @@
         .keuze:nth-child(2) .keuze__foto { transform: rotate(2deg); }
         .keuze:nth-child(3) .keuze__foto { transform: rotate(-1deg); }
         .keuze:nth-child(4) .keuze__foto { transform: rotate(1.5deg); }
+        .keuze:nth-child(5) .keuze__foto { transform: rotate(-1.5deg); }
+        /* De nieuwste versie staat bovenaan, over de volle breedte */
+        .keuze--breed { grid-column: 1 / -1; }
+        .keuze--breed .keuze__tekst > p { max-width: 38em; }
         .keuze__tekst { display: flex; flex: 1; flex-direction: column; align-items: flex-start; align-self: stretch; }
         .keuze__foto img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 5; object-fit: cover; }
         .keuze__label {
@@ -157,9 +161,19 @@
         </div>
 
         <h1>Kies een ontwerp</h1>
-        <p class="intro">Vier versies van dezelfde site, van het eerste ontwerp tot nu. Bekijk ze het liefst op je telefoon, daar komen de meeste bezoekers vandaan.</p>
+        <p class="intro">Vijf versies van dezelfde site, van het eerste ontwerp tot nu. Bekijk ze het liefst op je telefoon, daar komen de meeste bezoekers vandaan.</p>
 
         <div class="keuzes">
+            <a class="keuze keuze--breed" href="Cathdrwijnen-mix.dc.html?leeftijd-opnieuw">
+                <div class="keuze__foto"><img src="assets/hub/mix.webp" width="480" height="800" alt="Schermafbeelding van de Mix op een telefoon"></div>
+                <div class="keuze__tekst">
+                    <p class="keuze__label">Ultra modern met v3</p>
+                    <h2>Mix</h2>
+                    <p>Ultra modern als basis, strak onder elkaar en fijn leesbaar, met het speelse van v3 erin: de wijnvlekken, de warme papierkleur en de foto's als polaroid met het stickertje "hoi! ik ben cath".</p>
+                    <p class="keuze__let">Afrekenen gaat naar dezelfde pagina als v2. Betalen staat online nog uit.</p>
+                    <span class="keuze__open">Bekijk de Mix</span>
+                </div>
+            </a>
             <a class="keuze" href="salon.html">
                 <div class="keuze__foto"><img src="assets/hub/salon-v1.webp" width="480" height="800" alt="Schermafbeelding van v1 op een telefoon"></div>
                 <div class="keuze__tekst">

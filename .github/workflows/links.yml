@@ -30,7 +30,7 @@ jobs:
             --exclude 'formspree\.io'
             --exclude 'erbendriessen\.github\.io'
             --exclude '^https://fonts\.(googleapis|gstatic)\.com/?$'
-            --exclude-path 'Cathdrwijnen(-v4)?\.dc\.html'
+            --exclude-path 'Cathdrwijnen(-v4|-mix)?\.dc\.html'
             './**/*.html'
             './**/*.md'
           fail: true
