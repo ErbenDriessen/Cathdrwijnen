@@ -43,8 +43,9 @@ html #dc-root,html #dc-root>.sc-host{height:auto;min-height:100%}
 /* Vlek bij "Aan huis": op telefoon naast de kop, breed rechtsonder naast het formulier */
 #vlek-aanhuis{top:-50px;right:-90px}
 @media (min-width:900px){#vlek-aanhuis{top:auto;bottom:-80px;right:max(-70px,calc(50% - 700px))}}
-/* Pakketten op de computer: 2 bij 2, met het mandje ernaast */
+/* Pakketten: 2 naast elkaar, op brede schermen 4 (nooit 3 + 1) */
 #pakketten ul[role=list]{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:1100px){#pakketten ul[role=list]{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </helmet>
 
@@ -421,12 +422,10 @@ html #dc-root,html #dc-root>.sc-host{height:auto;min-height:100%}
       <p style="max-width:26em;font-size:16px;color:#4A3A33;text-wrap:pretty">Elke doos is persoonlijk samengesteld. Hoe meer flessen, hoe langer de avond.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,340px);gap:clamp(20px,2.5vw,36px);align-items:start;margin-top:clamp(22px,4vw,40px)">
-    <div>
-    <ul role="list" style="display:grid;gap:clamp(12px,2vw,20px)">
+    <ul role="list" style="display:grid;gap:clamp(12px,2vw,20px);margin-top:clamp(22px,4vw,40px)">
       <sc-for list="{{ pk }}" as="p" hint-placeholder-count="4">
         <li style="position:relative;display:flex;flex-direction:column;background:#fff;border-radius:16px;overflow:hidden;border:2px solid;transition:box-shadow .2s;border-color:{{ p.border }};box-shadow:{{ p.shadow }}">
-          <div style="position:relative;aspect-ratio:4/3;background:linear-gradient(165deg,#EAD9C4,#D9BFA5);color:#5E1323">
+          <div style="position:relative;aspect-ratio:1;background:linear-gradient(165deg,#EAD9C4,#D9BFA5);color:#5E1323">
             <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.slotLabel }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
             <sc-if value="{{ p.isTop }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8px;top:8px;padding:4px 9px;border-radius:999px;background:#7A1A2E;color:#fff;font-size:12px;font-weight:600;letter-spacing:.02em;pointer-events:none">Aanrader</span></sc-if>
           </div>
@@ -445,56 +444,13 @@ html #dc-root,html #dc-root>.sc-host{height:auto;min-height:100%}
       </sc-for>
     </ul>
 
-    <div style="margin-top:clamp(28px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;border-radius:16px;overflow:hidden;background:rgba(34,17,15,.1)">
+    <div style="margin-top:clamp(28px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1px;border-radius:16px;overflow:hidden;background:rgba(34,17,15,.1)">
       <div style="display:flex;gap:12px;padding:16px 18px;background:#F2E3C2"><span aria-hidden="true" style="flex:none;color:#B88536;font-size:18px;line-height:1.3">✦</span><p style="font-size:15px;line-height:1.45"><strong style="font-weight:600">Proefkaart per wijn</strong><br><span style="color:#6B5A50">schrijf op wat je ruikt en proeft</span></p></div>
       <div style="display:flex;gap:12px;padding:16px 18px;background:#F2E3C2"><span aria-hidden="true" style="flex:none;color:#B88536;font-size:18px;line-height:1.3">✦</span><p style="font-size:15px;line-height:1.45"><strong style="font-weight:600">Aromawiel</strong><br><span style="color:#6B5A50">voor als je de woorden zoekt</span></p></div>
       <div style="display:flex;gap:12px;padding:16px 18px;background:#F2E3C2"><span aria-hidden="true" style="flex:none;color:#B88536;font-size:18px;line-height:1.3">✦</span><p style="font-size:15px;line-height:1.45"><strong style="font-weight:600">Herkomstkaarten</strong><br><span style="color:#6B5A50">over de streek en de maker</span></p></div>
       <div style="display:flex;gap:12px;padding:16px 18px;background:#F2E3C2"><span aria-hidden="true" style="flex:none;color:#B88536;font-size:18px;line-height:1.3">✦</span><p style="font-size:15px;line-height:1.45"><strong style="font-weight:600">Receptje per wijn</strong><br><span style="color:#6B5A50">voor een hapje dat erbij past</span></p></div>
     </div>
     <p style="margin-top:16px;max-width:46em;font-size:14.5px;line-height:1.5;color:#6B5A50;text-wrap:pretty">Alle prijzen zijn inclusief btw. Cath bezorgt zelf voor {{ shipCostText }} (gratis vanaf {{ freeText }}), of je haalt je pakket gratis bij haar op. Bij de deur of bij het ophalen vraagt ze om je ID.</p>
-    </div>
-    <aside id="mandjekolom" aria-labelledby="kolomTitle" style="position:sticky;top:84px;display:grid;gap:14px;padding:22px;border-radius:20px;background:#fff;border:1px solid rgba(34,17,15,.08);box-shadow:0 18px 44px rgba(34,17,15,.1)">
-      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
-        <h3 id="kolomTitle" tabindex="-1" style="font-family:'Fraunces',Georgia,serif;font-size:26px;line-height:1.05;font-weight:480;letter-spacing:-0.02em;outline:none">Je mandje</h3>
-        <p style="font-size:13.5px;color:#6B5A50;font-variant-numeric:tabular-nums">{{ cartSummary }}</p>
-      </div>
-      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid;justify-items:center;gap:6px;padding:6px 0 4px;text-align:center">
-          <svg aria-hidden="true" focusable="false" style="width:84px;height:84px;color:#7A1A2E;opacity:.5;transform:rotate(-12deg)"><use href="#stain-ring-open"></use></svg>
-          <p style="font-family:'Fraunces',Georgia,serif;font-size:21px;font-style:italic;line-height:1.2">Nog leeg</p>
-          <p style="max-width:18em;font-size:14.5px;line-height:1.45;color:#4A3A33">Kies een doos, dan zie je hier meteen wat erin zit en wat het kost.</p>
-        </div>
-      </sc-if>
-      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
-        <ul style="border-top:1px solid rgba(34,17,15,.1)">
-          <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
-            <li style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(34,17,15,.1)">
-              <div style="min-width:0"><p style="font-size:15.5px;font-weight:600;line-height:1.25">{{ l.naam }}</p><p style="font-size:13px;color:#6B5A50">{{ l.meta }}</p></div>
-              <p style="font-size:15.5px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">{{ l.totalText }}</p>
-              <div style="grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:8px">
-                <div role="group" aria-label="{{ l.groupLabel }}" style="display:inline-flex;align-items:center;border:1.5px solid rgba(34,17,15,.18);border-radius:10px;background:#fff">
-                  <button type="button" onClick="{{ l.minus }}" aria-label="{{ l.minusLabel }}" aria-disabled="{{ l.minusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;background:transparent;color:{{ l.minusColor }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
-                  <span style="min-width:2.4ch;text-align:center;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">{{ l.n }}</span>
-                  <button type="button" onClick="{{ l.plus }}" aria-label="{{ l.plusLabel }}" aria-disabled="{{ l.plusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;background:transparent;color:{{ l.plusColor }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg></button>
-                </div>
-                <button type="button" onClick="{{ l.remove }}" style="min-height:44px;padding:0 2px;border:0;background:none;color:#6B5A50;font-size:14px;text-decoration:underline;text-underline-offset:3px">Verwijderen</button>
-              </div>
-            </li>
-          </sc-for>
-        </ul>
-        <div>
-          <p style="font-size:14px;line-height:1.4;font-weight:500">{{ shipText }}</p>
-          <div aria-hidden="true" style="margin-top:8px;height:6px;border-radius:6px;background:rgba(34,17,15,.1);overflow:hidden"><div style="height:100%;border-radius:6px;background:#7A1A2E;transition:width .35s ease;width:{{ shipPct }}"></div></div>
-        </div>
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-top:4px">
-          <p style="font-size:15px">Subtotaal <span style="color:#6B5A50">incl. btw</span></p>
-          <p style="font-size:22px;font-weight:600;font-variant-numeric:tabular-nums">{{ subText }}</p>
-        </div>
-        <button type="button" onClick="{{ checkout }}" style="width:100%;min-height:54px;border:0;border-radius:14px;background:#7A1A2E;color:#fff;font-size:17px;font-weight:600">Afrekenen</button>
-        <p style="font-size:13px;line-height:1.45;text-align:center;color:#6B5A50">Bezorgen of ophalen kies je bij het afrekenen. Veilig betalen met iDEAL | Wero of creditcard.</p>
-      </sc-if>
-    </aside>
-    </div>
   </div>
 </section>
 
@@ -735,68 +691,62 @@ html #dc-root,html #dc-root>.sc-host{height:auto;min-height:100%}
 
 <sc-if value="{{ cartMounted }}" hint-placeholder-val="{{ false }}">
   <div style="position:fixed;inset:0;z-index:100">
-    <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(34,17,15,.5);transition:opacity .3s ease;opacity:{{ sheetFade }}"></div>
-    <div ref="{{ sheetRef }}" role="dialog" aria-modal="true" aria-labelledby="cartTitle" style="position:absolute;width:min(100%,440px);display:flex;flex-direction:column;background:#FBF5EA;color:#22110F;box-shadow:0 -20px 60px rgba(34,17,15,.3);overflow:hidden;transition:transform .34s cubic-bezier(.22,.9,.3,1);right:{{ sheetGap }};bottom:{{ sheetGap }};top:{{ sheetTop }};max-height:{{ sheetMaxH }};border-radius:{{ sheetRadius }};transform:{{ sheetY }}">
-      <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="align-self:center;width:40px;height:5px;margin-top:8px;border-radius:5px;background:rgba(34,17,15,.2)"></span></sc-if>
-      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 14px 14px 20px;border-bottom:1px solid rgba(34,17,15,.1)">
+    <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(34,17,15,.55);transition:opacity .3s ease;opacity:{{ sheetFade }}"></div>
+    <div ref="{{ sheetRef }}" role="dialog" aria-modal="true" aria-labelledby="cartTitle" style="font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto;font-size:17px;line-height:1.55;position:absolute;width:min(100%,460px);display:flex;flex-direction:column;background:#F2E3C2;color:#22110F;box-shadow:0 -20px 60px rgba(34,17,15,.3);overflow:hidden;transition:transform .34s cubic-bezier(.22,.9,.3,1);right:{{ sheetGap }};bottom:{{ sheetGap }};max-height:{{ sheetMaxH }};border-radius:{{ sheetRadius }};transform:{{ sheetY }}">
+      <div style="position:relative;flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 14px 14px 22px;border-bottom:1px solid rgba(34,17,15,.14)">
         <div>
-          <h2 id="cartTitle" ref="{{ cartTitleRef }}" tabindex="-1" style="font-family:'Fraunces',Georgia,serif;font-size:28px;line-height:1.05;font-weight:480;letter-spacing:-0.02em;outline:none">Je mandje</h2>
-          <p style="min-height:1.4em;margin-top:2px;font-size:14px;color:#6B5A50">{{ cartSummary }}</p>
+          <h2 id="cartTitle" ref="{{ cartTitleRef }}" tabindex="-1" style="font-size:38px;line-height:1;font-weight:450;font-style:italic;letter-spacing:-0.025em;font-variation-settings:'SOFT' 50;outline:none">Je mandje</h2>
+          <p style="min-height:1.5em;margin-top:6px;font-size:16px;font-style:italic;color:#7A1A2E">{{ cartSummary }}</p>
         </div>
-        <button type="button" onClick="{{ closeCart }}" aria-label="Mandje sluiten" style="flex:none;width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:#F2E3C2;color:#22110F"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        <button type="button" onClick="{{ closeCart }}" aria-label="Mandje sluiten" style="flex:none;width:48px;height:48px;display:grid;place-items:center;padding:0;border:1.5px solid rgba(34,17,15,.4);border-radius:50%;background:#FDF8EC;color:#22110F"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
 
-      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
-        <div style="flex:none;padding:12px 20px;background:#F2E3C2">
-          <p style="font-size:14px;line-height:1.4;font-weight:500">{{ shipText }}</p>
-          <div aria-hidden="true" style="margin-top:8px;height:6px;border-radius:6px;background:rgba(34,17,15,.12);overflow:hidden"><div style="height:100%;border-radius:6px;background:#7A1A2E;transition:width .35s ease;width:{{ shipPct }}"></div></div>
-        </div>
-      </sc-if>
-
-      <div style="flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 20px">
+      <div style="flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px 14px 20px">
         <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
-          <ul role="list">
+          <ul role="list" style="display:grid;gap:12px">
             <sc-for list="{{ lines }}" as="l" hint-placeholder-count="1">
-              <li style="display:grid;grid-template-columns:64px minmax(0,1fr) auto;column-gap:14px;row-gap:8px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(34,17,15,.1)">
-                <span aria-hidden="true" style="grid-row:1 / span 2;width:64px;height:64px;border-radius:10px;background:linear-gradient(165deg,#EAD9C4,#D9BFA5)"></span>
-                <div style="min-width:0"><h3 style="font-size:16px;line-height:1.25;font-weight:600">{{ l.naam }}</h3><p style="font-size:13.5px;color:#6B5A50">{{ l.meta }}</p></div>
-                <p style="font-size:16px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">{{ l.totalText }}</p>
-                <div style="grid-column:2 / -1;display:flex;align-items:center;justify-content:space-between;gap:10px">
-                  <div role="group" aria-label="{{ l.groupLabel }}" style="display:inline-flex;align-items:center;border:1.5px solid rgba(34,17,15,.18);border-radius:10px;background:#fff">
-                    <button type="button" onClick="{{ l.minus }}" aria-label="{{ l.minusLabel }}" aria-disabled="{{ l.minusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;background:transparent;color:{{ l.minusColor }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
-                    <span style="min-width:2.4ch;text-align:center;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">{{ l.n }}</span>
-                    <button type="button" onClick="{{ l.plus }}" aria-label="{{ l.plusLabel }}" aria-disabled="{{ l.plusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;background:transparent;color:{{ l.plusColor }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg></button>
+              <li style="display:grid;grid-template-columns:58px minmax(0,1fr) auto;column-gap:14px;padding:14px 14px 10px;background:#FDF8EC;border-radius:6px;box-shadow:0 10px 26px rgba(34,17,15,.1),0 1px 3px rgba(34,17,15,.08)">
+                <span aria-hidden="true" style="grid-row:1 / span 3;align-self:start;margin-top:2px;padding:4px 4px 12px;background:#fff;box-shadow:0 4px 10px rgba(34,17,15,.16);transform:rotate(-3deg)"><span style="display:block;aspect-ratio:1;background:radial-gradient(90% 70% at 70% 30%,rgba(200,73,91,.32),transparent 70%),linear-gradient(165deg,#F3D3CC,#E2AFA9)"></span></span>
+                <h3 style="font-size:20px;line-height:1.15;font-weight:500;letter-spacing:-0.015em">{{ l.naam }}</h3>
+                <p style="font-size:19px;line-height:1.15;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums">{{ l.totalText }}</p>
+                <p style="grid-column:2 / -1;margin-top:3px;font-size:15px;line-height:1.4;font-style:italic;color:#7A1A2E">{{ l.meta }}</p>
+                <div style="grid-column:2 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:10px">
+                  <div role="group" aria-label="{{ l.groupLabel }}" style="display:inline-flex;align-items:center;border:1.5px solid #8F7B63;border-radius:999px;background:#FFFCF5">
+                    <button type="button" onClick="{{ l.minus }}" aria-label="{{ l.minusLabel }}" aria-disabled="{{ l.minusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:{{ l.minusColor }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+                    <span style="min-width:2.2ch;text-align:center;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums">{{ l.n }}</span>
+                    <button type="button" onClick="{{ l.plus }}" aria-label="{{ l.plusLabel }}" aria-disabled="{{ l.plusDis }}" style="width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:{{ l.plusColor }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg></button>
                   </div>
-                  <button type="button" onClick="{{ l.remove }}" style="min-height:44px;padding:0 2px;border:0;background:none;color:#6B5A50;font-size:14px;text-decoration:underline;text-underline-offset:3px">Verwijderen</button>
+                  <button type="button" onClick="{{ l.remove }}" style="min-height:44px;padding:0 4px;border:0;background:none;color:#22110F;font-size:16px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px">Weghalen</button>
                 </div>
+                <sc-if value="{{ l.atMax }}" hint-placeholder-val="{{ false }}"><p style="grid-column:2 / -1;margin-top:4px;font-size:15px;line-height:1.4;color:#5E4B40">Meer dan 10 nodig? Vraag het Cath even.</p></sc-if>
               </li>
             </sc-for>
           </ul>
-          <sc-if value="{{ hasUpsell }}" hint-placeholder-val="{{ false }}">
-            <div style="margin:14px 0 6px;padding:14px;border-radius:14px;border:1.5px dashed rgba(122,26,46,.35);display:flex;align-items:center;gap:12px">
-              <div style="flex:1;min-width:0"><p style="font-size:14.5px;font-weight:600">{{ upsell.title }}</p><p style="font-size:13.5px;color:#6B5A50">{{ upsell.sub }}</p></div>
-              <button type="button" onClick="{{ upsell.add }}" style="flex:none;min-height:44px;padding:0 14px;border:0;border-radius:10px;background:#7A1A2E;color:#fff;font-size:14.5px;font-weight:600">+ {{ upsell.price }}</button>
-            </div>
-          </sc-if>
         </sc-if>
         <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
-          <div style="display:grid;justify-items:center;gap:10px;padding:20px 8px 20px;text-align:center">
-            <svg aria-hidden="true" focusable="false" style="width:110px;height:110px;color:#7A1A2E;opacity:.5;transform:rotate(-12deg)"><use href="#stain-ring-open"></use></svg>
-            <p style="font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:460">Je mandje is nog leeg</p>
-            <p style="max-width:22em;color:#4A3A33">Kies een doos om te beginnen. Het aantal pas je daarna nog aan.</p>
-            <a href="#pakketten" onClick="{{ closeCart }}" style="margin-top:8px;min-height:52px;display:inline-flex;align-items:center;padding:0 24px;border-radius:14px;background:#7A1A2E;color:#fff;font-size:16.5px;font-weight:600;text-decoration:none">Bekijk de pakketten</a>
+          <div style="display:grid;justify-items:center;gap:10px;padding:20px 8px 8px;text-align:center">
+            <svg aria-hidden="true" focusable="false" style="width:120px;height:120px;color:#7A1A2E;opacity:.55;transform:rotate(-12deg)"><use href="#stain-ring-open"></use></svg>
+            <p style="font-size:28px;line-height:1.1;font-weight:450;font-style:italic">Je mandje is nog leeg</p>
+            <p style="max-width:22em;text-wrap:pretty">Kies een pakket om te beginnen. Je kunt het aantal daarna nog aanpassen.</p>
+            <a href="#pakketten" onClick="{{ closeCart }}" style="margin-top:10px;min-height:52px;display:inline-flex;align-items:center;padding:0 24px;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:17px;font-weight:600;text-decoration:none">Bekijk de pakketten</a>
           </div>
         </sc-if>
       </div>
 
       <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
-        <div style="flex:none;padding:14px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid rgba(34,17,15,.1);background:#fff">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
-            <p style="font-size:15px">Subtotaal <span style="color:#6B5A50">incl. btw</span></p>
-            <p style="font-size:22px;font-weight:600;font-variant-numeric:tabular-nums">{{ subText }}</p>
+        <div style="flex:none;padding:16px 20px calc(16px + env(safe-area-inset-bottom));background:#FDF8EC;border-top:1px solid rgba(34,17,15,.12);box-shadow:0 -14px 30px rgba(34,17,15,.06)">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px">
+            <p style="font-size:18px;font-weight:500">Subtotaal <span style="font-size:15px;font-weight:400;font-style:italic;color:#5E4B40">incl. btw</span></p>
+            <p style="font-size:28px;line-height:1.1;font-weight:500;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">{{ subText }}</p>
           </div>
-          <button type="button" onClick="{{ checkout }}" style="margin-top:12px;width:100%;min-height:56px;border:0;border-radius:14px;background:#7A1A2E;color:#fff;font-size:17.5px;font-weight:600">Afrekenen</button>
-          <p style="margin-top:10px;font-size:13px;text-align:center;color:#6B5A50">Bezorgen of ophalen kies je bij het afrekenen. Veilig betalen met iDEAL | Wero of creditcard.</p>
+          <div style="margin-top:10px">
+            <div aria-hidden="true" style="height:6px;border-radius:999px;background:rgba(34,17,15,.1);overflow:hidden"><div style="height:100%;border-radius:999px;background:#7A1A2E;transition:width .35s ease;width:{{ shipPct }}"></div></div>
+            <p style="margin-top:8px;font-size:15px;line-height:1.45;color:#5E4B40;text-wrap:pretty">{{ shipText }}</p>
+          </div>
+          <div style="display:grid;gap:8px;margin-top:14px">
+            <button type="button" onClick="{{ checkout }}" style="width:100%;min-height:54px;border:0;border-radius:999px;background:#7A1A2E;color:#F2E3C2;font-size:18px;font-weight:600">Afrekenen</button>
+            <button type="button" onClick="{{ closeCart }}" style="width:100%;min-height:48px;border:1.5px solid #22110F;border-radius:999px;background:transparent;color:#22110F;font-size:17px;font-weight:500">Verder kijken</button>
+          </div>
         </div>
       </sc-if>
     </div>
@@ -1053,17 +1003,7 @@ class Component extends DCLogic {
     if (!this.count(c) && this.cartTitleRef.current) this.cartTitleRef.current.focus();
   }
 
-  openCart = e => {
-    // Computer: het mandje staat vast naast de pakketten. De knop bovenin springt daarheen.
-    if (this.state.vw >= 900) {
-      const pk = document.getElementById('pakketten'), col = document.getElementById('mandjekolom');
-      const r = col && col.getBoundingClientRect();
-      if (pk && (e || !r || r.top < 0 || r.bottom > window.innerHeight)) {
-        pk.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-      }
-      if (e) { const t = document.getElementById('kolomTitle'); if (t) t.focus({ preventScroll: true }); }
-      return;
-    }
+  openCart = () => {
     if (this.state.cartMounted) return;
     this._ret = document.activeElement;
     this.setState({ cartMounted: true, cartIn: false }, () => this.raf(() => {
@@ -1271,7 +1211,8 @@ class Component extends DCLogic {
         minus: () => this.step(p.id, -1), plus: () => this.step(p.id, 1), remove: () => this.remove(p.id),
         minusLabel: 'Eén minder van ' + p.naam, plusLabel: 'Eén meer van ' + p.naam,
         minusDis: n <= 1 ? 'true' : 'false', plusDis: n >= this.MAX ? 'true' : 'false',
-        minusColor: n <= 1 ? 'rgba(34,17,15,.25)' : '#22110F', plusColor: n >= this.MAX ? 'rgba(34,17,15,.25)' : '#22110F'
+        minusColor: n <= 1 ? 'rgba(34,17,15,.25)' : '#22110F', plusColor: n >= this.MAX ? 'rgba(34,17,15,.25)' : '#22110F',
+        atMax: n >= this.MAX
       };
     });
 
@@ -1353,10 +1294,9 @@ class Component extends DCLogic {
 
       cartMounted: s.cartMounted, sheetRef: this.sheetRef, cartTitleRef: this.cartTitleRef, isPhone: sheetPhone,
       sheetFade: s.cartIn ? 1 : 0,
-      sheetY: s.cartIn ? 'none' : (sheetPhone ? 'translateY(calc(100% + 40px))' : 'translateX(calc(100% + 40px))'),
-      sheetGap: sheetPhone ? '0px' : '0px', sheetTop: sheetPhone ? 'auto' : '0px',
-      sheetRadius: sheetPhone ? '22px 22px 0 0' : '0',
-      sheetMaxH: sheetPhone ? 'calc(100dvh - 24px)' : '100dvh',
+      sheetY: s.cartIn ? 'translateY(0)' : 'translateY(calc(100% + 40px))',
+      sheetGap: sheetPhone ? '0px' : '20px', sheetRadius: sheetPhone ? '22px 22px 0 0' : '22px',
+      sheetMaxH: sheetPhone ? 'calc(100dvh - 24px)' : 'calc(100dvh - 40px)',
       cartSummary: count ? count + (count === 1 ? ' pakket' : ' pakketten') + ' · ' + bottles + ' flessen' : '',
       lines, shipText, shipPct: Math.min(100, Math.round(sub / this.FREE * 100)) + '%',
       hasUpsell: !!upsell, upsell: upsell || { title: '', sub: '', price: '', add: () => {} },
