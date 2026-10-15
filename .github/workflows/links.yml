@@ -27,6 +27,7 @@ jobs:
             --no-progress
             --max-retries 2
             --exclude 'instagram\.com'
+            --exclude 'postnl\.nl'
             --exclude 'formspree\.io'
             --exclude 'erbendriessen\.github\.io'
             --exclude '^https://fonts\.(googleapis|gstatic)\.com/?$'
