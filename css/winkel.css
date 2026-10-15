@@ -660,6 +660,37 @@ html.winkel-pagina {
     color: #4A372F;
 }
 .volgt strong { font-style: normal; font-weight: 600; }
+.volgt-inline { font-style: italic; color: #4A372F; }
+.tekstpagina__intro { margin-top: 14px; max-width: 38em; }
+.tekstpagina__blok h3 {
+    margin-top: 24px;
+    font-size: 21px;
+    font-weight: 500;
+    font-style: italic;
+}
+.tekstpagina__blok h3 + p { margin-top: 8px; }
+.tekstpagina__blok ul {
+    margin-top: 10px;
+    padding-left: 1.3em;
+    list-style: disc;
+}
+.tekstpagina__blok ul li + li { margin-top: 4px; }
+.tekstpagina__blok ul + p { margin-top: 12px; }
+.gegevens {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--wit);
+    border-radius: 12px;
+}
+.gegevens > div {
+    display: grid;
+    grid-template-columns: minmax(7.5em, 34%) 1fr;
+    gap: 12px;
+    padding-block: 5px;
+}
+.gegevens dt { font-style: italic; color: #5E4B40; }
+.gegevens + p { margin-top: 14px; }
+.tekstpagina__datum { font-style: italic; color: #5E4B40; }
 
 /* Herinnering aan de wettelijke garantie (de officiële Europese kennisgeving
    komt hier later als afbeelding bij, zie api/LEESMIJ.md) */
