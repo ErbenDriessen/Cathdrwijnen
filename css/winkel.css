@@ -661,6 +661,8 @@ html.winkel-pagina {
 }
 .volgt strong { font-style: normal; font-weight: 600; }
 .volgt-inline { font-style: italic; color: #4A372F; }
+/* Een ontbrekend gegeven midden in een zin: klein kader, niet over de volgende regel heen */
+span.volgt { padding: 0 6px; border-radius: 6px; }
 .tekstpagina__intro { margin-top: 14px; max-width: 38em; }
 .tekstpagina__blok h3 {
     margin-top: 24px;
